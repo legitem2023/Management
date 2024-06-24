@@ -1,0 +1,161 @@
+@media only screen and (max-width : 600px) {
+    .Main {
+        overflow-x: hidden !important;
+    }
+
+    .ManagementMainMenu {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Dashboard_grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .InventoryHead {
+        display: none;
+    }
+
+    .DashboardDetail {
+        height: auto;
+        font-size: 30px;
+    }
+
+    .DashboardDetail h1,
+    .DashboardDetail h3 {
+        font-size: 30px;
+    }
+
+    .StatisticsStat {
+        display: grid;
+        grid-template-columns: 89%;
+        grid-template-rows: 25% 25% 25% 25%;
+        grid-gap: 5px;
+        position: relative;
+    }
+
+    .StatisticsStat_today_visits,
+    .StatisticsStat_total_visits,
+    .StatisticsStat_today_views,
+    .StatNumber,
+    .StatisticsStat_total_views {
+        font-size: 25px;
+    }
+
+    .InventoryBody {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .InventoryBody .InventoryBodyCell {
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 5px;
+        align-items: left;
+        justify-content: left;
+    }
+
+    .PaginationContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Menu_label_management {
+        display: flex;
+        flex-direction: row;
+        /* justify-content: center; */
+        align-items: center;
+        /* font-size: 30px; */
+    }
+
+    .Search_container {
+        background-color: #5b3b5c;
+        padding: 0px;
+        overflow: auto;
+        height: auto;
+        padding: 10px;
+    }
+
+    .Search_container input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .SearchColumn {
+        grid-row: 1;
+    }
+
+    .Search_container_grid {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 33.33% 33.33% 33.33%;
+        /* flex-direction: column; */
+        align-items: left;
+        padding: 0px;
+        width: 100%;
+        background: transparent;
+        grid-gap: 0px;
+    }
+
+    .SortColumn select {
+        width: 100%;
+    }
+
+    .ManagementBody {
+        grid-gap: 0vw;
+    }
+
+    .managementNavigationmenu li a {
+        justify-content: center;
+        font-size: 30px;
+    }
+
+    .ProfileDetails {
+        grid-template-columns: 35% 65%;
+    }
+
+    .hideInmobile {
+        display: none;
+    }
+
+    body {
+        overflow-x: hidden;
+        font-size: 13px;
+    }
+
+    .Thumbnails {
+        grid-gap: 0.5vw !important;
+        grid-template-columns: 49% 49% !important;
+        width: 98%;
+        left: 0px;
+        right: 0px;
+        margin: auto;
+    }
+
+    .viewmore {
+        grid-column: 1 / span 2 !important;
+    }
+
+    .footer {
+        grid-template-columns: 50vw 50vw;
+        text-align: left;
+        padding: 10px;
+    }
+
+    .Mobile_footer {
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        grid-column: 1 / span 2;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        font-size: 30px;
+        left: 0px;
+        right: 0px;
+        background-color: #00a380;
+    }
+}

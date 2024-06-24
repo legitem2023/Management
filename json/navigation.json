@@ -1,0 +1,27 @@
+[
+    {
+        "Name":"Crowd",
+        "icon":"simple-icons:crowdsource",
+        "Link":"./Crowd"
+    },
+    {
+        "Name":"Products",
+        "icon":"bi:tags-fill",
+        "Link":"./Products"
+    },
+    {
+        "Name":"Real State",
+        "icon":"material-symbols:real-estate-agent-sharp",
+        "Link":"./RealState"
+    },
+    {
+        "Name":"Account",
+        "icon":"mdi:badge-account-horizontal",
+        "Link":"./Account"
+    },
+    {
+        "Name":"Cart",
+        "icon":"mdi:cart",
+        "Link":"./Cart"
+    }
+]
