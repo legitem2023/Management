@@ -55,6 +55,9 @@ export const triggerLogin = async (e: any) => {
             setSharedCookie("token", response.data.getLogin.jsonToken, 1, 'id-yours.com');
             setSharedCookie("token", response.data.getLogin.jsonToken, 1, 'shopify.com');
             setSharedCookie("token", response.data.getLogin.jsonToken, 1, '192.168.1.71');
+            setSharedCookie("token", response.data.getLogin.jsonToken, 1, 'https://management-pi.vercel.app');
+
+
             document.location.href = '/Management/Dashboard/';
         } else {
             errorHandling.innerHTML = "Input Password";
