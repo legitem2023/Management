@@ -7,35 +7,36 @@ import ManagementDrawer from 'components/Management/ManagementDrawer.tsx/Managem
 import ManagementNavigation from 'components/Management/ManagementNavigation/ManagementNavigation'
 import { Icon } from '@iconify/react'
 import ManagementSearch from 'components/Management/ManagementSearch/ManagementSearch'
-import { GET_CATEGORY, MANAGEMENT_INVENTORY } from 'graphql/queries'
-import { useQuery } from '@apollo/client'
+import { GET_BRANDS, GET_CATEGORY, GET_PRODUCT_TYPES, MANAGEMENT_INVENTORY, UPDATE_PARENT_INVENTORY } from 'graphql/queries'
+import { useMutation, useQuery } from '@apollo/client'
 import TimestampConverter from 'components/timestamp/TimestampConverter'
 import Link from 'next/link'
 import { setGlobalState, useGlobalState } from 'state'
 import { useRouter } from 'next/navigation'
 import StatisticsPagination from 'components/Management/ManagementStatistics/StatisticsPagination'
 import { getCookie } from 'components/Management/Management_cookies/Management_cookies'
+import { category } from 'utils/extraFetch'
 const Inventory = () => {
   useEffect(() => {
     const cookie = getCookie("token");
     if (!cookie) document.location.href = '../Management';
   }, []);
   const [useEmail] = useGlobalState("cookieEmailAddress");
-  const [useLevel] = useGlobalState("cookieUserLevel");
-  const Manager = new DataManager();
   const [activate, setActivation] = React.useState(false)
   const [useID, setID] = React.useState(0)
   const [useProductType, setProductType] = React.useState("");
   const [useInitSlice] = useGlobalState("setInitSlice");
 
   const [pagination_currentPageCount, pagination_setCurrentPageCount] = React.useState(10);
-  const UpdateParentInventory = Manager.ManagementParentUpdate()
+  const [UpdateParentInventory] = useMutation(UPDATE_PARENT_INVENTORY, {
+    onCompleted: data => console.log(data)
+})
   const path = process.env.NEXT_PUBLIC_PATH
-  const { Category } = Manager.category();
-  const { Product_Type } = Manager.ManagementProductTypes();
-  const { Brands } = Manager.ManagementBrand();
+  const { data:Category } = useQuery(GET_CATEGORY);
+  const { data:Product_Type } = useQuery(GET_PRODUCT_TYPES);
+  const { data:Brands } = useQuery(GET_BRANDS);
   const router = useRouter();
-  const { Inventory, loading: inventoryLoading } = Manager.Inventory(useEmail);
+  const { data:Inventory, loading: inventoryLoading } = useQuery(MANAGEMENT_INVENTORY);
   if (inventoryLoading) return
 
   const activateEdit = (e: any) => {
@@ -77,7 +78,7 @@ const Inventory = () => {
           </label>
         </div>
         <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "name" + useID === "name" + item.id ? <input type='text' onChange={(e: any) => handleEdit(e)} aria-current={item.id} defaultValue={item.name} placeholder="Input Name..." id={'name' + item.id}></input> : item.name === null || item.name === "" ? "Input Name..." : item.name : item.name === null || item.name === "" ? "Input Name..." : item.name}</div>
-        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "category" + useID === "category" + item.id ? category(item.category, item.id) : item.category === null || item.category === "" ? "Select Category" : item.category : item.category === null || item.category === "" ? "Select Category" : item.category}</div>
+        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "category" + useID === "category" + item.id ? category(item.category, item.id,Category,handleEdit) : item.category === null || item.category === "" ? "Select Category" : item.category : item.category === null || item.category === "" ? "Select Category" : item.category}</div>
         <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "Ptype" + useID === "Ptype" + item.id ? productType(item.productType, item.id, useProductType) : item.productType === null || item.productType === "" ? "Select Product Type" : item.productType : item.productType === null || item.productType === "" ? "Select Product Type" : item.productType}</div>
         <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "BrandName" + useID === "BrandName" + item.id ? productBrand(item.brandname, item.id) : item.brandname === null || item.brandname === "" ? "Select Product Brand" : item.brandname : item.brandname === null || item.brandname === "" ? "Select Product Brand" : item.brandname}</div>
         <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "id" + useID === "id" + item.id ? status(item.status, item.id) : item.status === null || item.status === "" ? "Select Status" : item.status : item.status === null || item.status === "" ? "Select Status" : item.status}</div>
@@ -118,16 +119,7 @@ const Inventory = () => {
     console.log(JSON);
   }
 
-  const category = (defaultval: any, index: any) => {
-    if (!Category) return
-    return (
-      <select defaultValue={defaultval} id={"category" + index} onChange={(e: any) => handleEdit(e)} aria-current={index}>
-        <option value='Select Category'>Select Category</option>
-        {Category.getCategory.map((item: any, idx: any) => (
-          <option value={item.Name} key={idx}>{item.Name}</option>
-        ))}</select>
-    )
-  }
+
   const status = (defaultval: any, index: any) => {
     return (
       <select defaultValue={defaultval} id={"status" + index} onChange={(e: any) => handleEdit(e)} aria-current={index}>

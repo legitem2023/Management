@@ -1,19 +1,42 @@
 "use client"
 import { Icon } from '@iconify/react';
-import { GET_LOGIN } from 'graphql/queries';
-import jwt from 'jsonwebtoken'
+import { READLOGIN } from 'graphql/Mutation';
 import { useRouter } from 'next/navigation';
-import client from 'client';
-import { setSharedCookie, triggerCancel, triggerLogin } from 'utils/triggers';
-interface JwtPayload {
-  user: {
-    jsonToken: string,
-    statusText: string
-  },
-  exp: any
-}
+import { setSharedCookie, triggerCancel } from 'utils/triggers';
+import { useMutation} from '@apollo/client';
+import { useRef } from 'react';
 
 export default function Index() {
+  const username = useRef();
+  const password = useRef();
+  const router = useRouter();
+  let [Login] = useMutation(READLOGIN, {
+    onCompleted: data => {
+      if(data.ReadLogin.statusText==='Welcome!'){
+            setSharedCookie("token", data.ReadLogin.jsonToken, 1, 'localhost');
+            setSharedCookie("token", data.ReadLogin.jsonToken, 1, 'id-yours.com');
+            setSharedCookie("token", data.ReadLogin.jsonToken, 1, 'shopify.com');
+            setSharedCookie("token", data.ReadLogin.jsonToken, 1, '192.168.1.71');
+            setSharedCookie("token", data.ReadLogin.jsonToken, 1, 'https://management-pi.vercel.app');
+            router.push('/Management/Dashboard/');
+        } else {
+            (document.getElementById("password") as HTMLInputElement).focus();        
+      }
+    }
+})
+
+   const triggerLogin = async (e: any) => {
+
+    const Inputusername:any = username.current;
+    const Inputpassword:any = password.current;
+    console.log(Inputusername.value,Inputpassword.value);
+    Login({
+        variables: {
+            "username": Inputusername.value,
+            "password": Inputpassword.value
+        }
+      })
+  };
   return (
     <form onSubmit={triggerLogin}> {/* Form starts here */}
       <div className='Main'>
@@ -25,6 +48,7 @@ export default function Index() {
             <div className='div'>
               <input
                 type='email'
+                ref={username}
                 placeholder='Input Email'
                 id='username'
                 className='usernameinput'
@@ -37,6 +61,7 @@ export default function Index() {
               <input
                 type='password'
                 placeholder='Password'
+                ref={password}
                 id='password'
                 className='passwordinput'
                 autoComplete='off'
