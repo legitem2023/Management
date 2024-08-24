@@ -27,7 +27,6 @@ const Inventory = () => {
   const [useProductType, setProductType] = React.useState("");
   const [useInitSlice] = useGlobalState("setInitSlice");
 
-  const [pagination_currentPageCount, pagination_setCurrentPageCount] = React.useState(10);
   const [UpdateParentInventory] = useMutation(UPDATE_PARENT_INVENTORY, {
     onCompleted: data => console.log(data)
 })
