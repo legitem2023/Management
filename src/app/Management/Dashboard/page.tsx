@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [useLevel] = useGlobalState("cookieUserLevel");
   useEffect(() => {
     const cookie = getCookie("token");
-    if (!cookie) document.location.href = '../Management';
+    // if (!cookie) document.location.href = '../Management';
   }, []);
 
   const { NumberOFViews, LoadingNumberOFViews } = Manager.NumberOfViews();

@@ -19,7 +19,7 @@ import { category } from 'utils/extraFetch'
 const Inventory = () => {
   useEffect(() => {
     const cookie = getCookie("token");
-    if (!cookie) document.location.href = '../Management';
+    // if (!cookie) document.location.href = '../Management';
   }, []);
   const [useEmail] = useGlobalState("cookieEmailAddress");
   const [activate, setActivation] = React.useState(false)
