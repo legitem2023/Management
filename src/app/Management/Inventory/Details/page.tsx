@@ -6,8 +6,8 @@ import ManagementDrawer from 'components/Management/ManagementDrawer.tsx/Managem
 import ManagementNavigation from 'components/Management/ManagementNavigation/ManagementNavigation'
 import { Icon } from '@iconify/react'
 import ManagementSearch from 'components/Management/ManagementSearch/ManagementSearch'
-import { GET_CHILD_INVENTORY_DETAIL } from 'graphql/queries'
-import { useQuery } from '@apollo/client'
+import { GET_CHILD_INVENTORY_DETAIL, SAVE_CROP_IMAGE, UPDATE_CHILD_INVENTORY } from 'graphql/queries'
+import { useMutation, useQuery } from '@apollo/client'
 import TimestampConverter from 'components/timestamp/TimestampConverter'
 import Link from 'next/link'
 import { setGlobalState, useGlobalState } from 'state'
@@ -64,8 +64,14 @@ const Inventory = () => {
   const Manager = new DataManager();
   const [activate, setActivation] = React.useState(false)
   const [useID, setID] = React.useState(0)
-  const UpdateChildInventory = Manager.ManagementUpdate();
-  var saveCropBlob = Manager.saveCropBlob();
+  
+  const [UpdateChildInventory] = useMutation(UPDATE_CHILD_INVENTORY, {
+    onCompleted: data => console.log(data)
+  })
+
+  var [saveCropBlob] = useMutation(SAVE_CROP_IMAGE, {
+    onCompleted: data => console.log(data)
+  })
 
   useDebounceEffect(
     async () => {
@@ -100,14 +106,9 @@ const Inventory = () => {
   const { data, loading, error } = useQuery(GET_CHILD_INVENTORY_DETAIL, {
     variables: { styleCode: managementUrlData },
   });
-
-
   if (loading) return <p>Loading...</p>;
-
   if (error) return <p>Error loading data</p>;
-
   if (!data) return null;
-
   const activateEdit = (e: any) => {
     let checkbox: any = e.target.getAttribute("aria-current");
     setID(checkbox)

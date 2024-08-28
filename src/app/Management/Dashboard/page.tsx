@@ -5,17 +5,17 @@ import ManagementHeader from 'components/Management/ManagementHeader/ManagementH
 import ManagementDrawer from 'components/Management/ManagementDrawer.tsx/ManagementDrawer'
 import ManagementNavigation from 'components/Management/ManagementNavigation/ManagementNavigation'
 import { Icon } from '@iconify/react'
-import { getCookie } from 'components/Management/Management_cookies/Management_cookies'
+// import { getCookie } from 'components/Management/Management_cookies/Management_cookies'
 import NumberOfViewVal from 'components/Management/ManagementStatistics/NumberOfViewVal'
 import { useGlobalState } from 'state'
+import { cookies } from 'components/Management/Management_cookies/Management_cookies'
 
 const Dashboard = () => {
   const Manager = new DataManager();
   const [useEmail] = useGlobalState("cookieEmailAddress");
   const [useLevel] = useGlobalState("cookieUserLevel");
   useEffect(() => {
-    const cookie = getCookie("token");
-    // if (!cookie) document.location.href = '../Management';
+    cookies();
   }, []);
 
   const { NumberOFViews, LoadingNumberOFViews } = Manager.NumberOfViews();

@@ -1,5 +1,6 @@
 "use client"
 import { Icon } from '@iconify/react'
+import LogisticOrder from 'components/Management/Management_orders/LogisticOrder'
 import ManagementDrawer from 'components/Management/ManagementDrawer.tsx/ManagementDrawer'
 import ManagementHeader from 'components/Management/ManagementHeader/ManagementHeader'
 import ManagementNavigation from 'components/Management/ManagementNavigation/ManagementNavigation'
@@ -15,9 +16,9 @@ const Logistic = () => {
       <ManagementDrawer/>
       <ManagementNavigation/>
       <div className='ManagementMainMenu'>
-      <div className='Menu_label_management'><Icon icon='grommet-icons:transaction' /> Transaction</div>
-          <ManagementSearch/>
+      <div className='Menu_label_management'><Icon icon='grommet-icons:transaction' /> Logistic</div>
           <TransactionLinks/>
+          <LogisticOrder/>
       </div>
     </div>
 </div>

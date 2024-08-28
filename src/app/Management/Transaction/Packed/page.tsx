@@ -6,7 +6,7 @@ import ManagementNavigation from 'components/Management/ManagementNavigation/Man
 import ManagementSearch from 'components/Management/ManagementSearch/ManagementSearch'
 import TransactionLinks from 'components/Management/ManagementTransaction/TransactionLinks'
 import React from 'react'
-
+import PackedOrder from 'components/Management/Management_orders/PackedOrder'
 const Packed = () => {
   return (
     <div className='Main'>
@@ -15,9 +15,9 @@ const Packed = () => {
       <ManagementDrawer/>
       <ManagementNavigation/>
       <div className='ManagementMainMenu'>
-      <div className='Menu_label_management'><Icon icon='grommet-icons:transaction' /> Transaction</div>
-          <ManagementSearch/>
+      <div className='Menu_label_management'><Icon icon='grommet-icons:transaction' /> Packaging</div>
           <TransactionLinks/>
+          <PackedOrder/>
       </div>
     </div>
 </div>

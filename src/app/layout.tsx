@@ -9,6 +9,8 @@ import { Provider } from 'components/ApolloProvider/Provider'
 
 import * as React from "react";
 import Script from 'next/script'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href='/manifest.json' sizes="any"></link>
       </head>
       <body className={inter.className}>
-
+      <ToastContainer/>
         {/* <NextUIProvider> */}
         <Provider>{children}</Provider>
         {/* </NextUIProvider> */}

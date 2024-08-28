@@ -1,13 +1,11 @@
 "use client"
-import React from 'react'
-import DataManager from 'utils/DataManager'
-import ManagementBody from 'components/Management/ManagementBody/ManagementBody'
-import ManagementHeader from 'components/Management/ManagementHeader/ManagementHeader'
-import ManagementDrawer from 'components/Management/ManagementDrawer.tsx/ManagementDrawer'
-import ManagementNavigation from 'components/Management/ManagementNavigation/ManagementNavigation'
 import { Icon } from '@iconify/react'
-import ManagementSearch from 'components/Management/ManagementSearch/ManagementSearch'
+import NewOrder from 'components/Management/Management_orders/NewOrder'
+import ManagementDrawer from 'components/Management/ManagementDrawer.tsx/ManagementDrawer'
+import ManagementHeader from 'components/Management/ManagementHeader/ManagementHeader'
+import ManagementNavigation from 'components/Management/ManagementNavigation/ManagementNavigation'
 import TransactionLinks from 'components/Management/ManagementTransaction/TransactionLinks'
+import React from 'react'
 const Transaction = () => {
   return (
     <div className='Main'>
@@ -16,9 +14,9 @@ const Transaction = () => {
           <ManagementDrawer/>
           <ManagementNavigation/>
           <div className='ManagementMainMenu'>
-          <div className='Menu_label_management'><Icon icon='grommet-icons:transaction' /> Transaction</div>
-              <ManagementSearch/>
+          <div className='Menu_label_management'><Icon icon='grommet-icons:transaction' /> New</div>
               <TransactionLinks/>
+              <NewOrder/>
           </div>
         </div>
     </div>

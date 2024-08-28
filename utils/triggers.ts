@@ -2,26 +2,24 @@
 import client from "client";
 import { GET_LOGIN } from "graphql/queries";
 import { Base64 } from "js-base64";
-
+import jwt from 'jsonwebtoken';
+export const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+  });
 
 export const setSharedCookie = (name: string, value: string, daysToExpire: number, domain: string) => {
     const expiration = new Date();
     expiration.setDate(expiration.getDate() + daysToExpire);
 
+    // Encode the value in Base64
     const encodedValue = Base64.encode(value);
-    const numChunks = Math.ceil(encodedValue.length / 3800);
 
-    for (let i = 0; i < numChunks; i++) {
-        const chunk = encodedValue.substring(i * 3800, (i + 1) * 3800);
-        const chunkName = `${name}_${i}`;
-        const cookieValue = `${encodeURIComponent(chunkName)}=${encodeURIComponent(chunk)}; expires=${expiration.toUTCString()}; domain=${domain}; path=/`;
-        document.cookie = cookieValue;
-    }
-
-    // Store the number of chunks as a separate cookie
-    const cookieValue = `${encodeURIComponent(name)}_chunks=${numChunks}; expires=${expiration.toUTCString()}; domain=${domain}; path=/`;
+    // Set the cookie
+    const cookieValue = `${encodeURIComponent(name)}=${encodeURIComponent(encodedValue)}; expires=${expiration.toUTCString()}; domain=${domain}; path=/`;
     document.cookie = cookieValue;
 };
+
 
 export const triggerCancel = () => {
     (document.getElementById("username") as HTMLInputElement).value = "";
@@ -56,8 +54,6 @@ export const triggerLogin = async (e: any) => {
             setSharedCookie("token", response.data.getLogin.jsonToken, 1, 'shopify.com');
             setSharedCookie("token", response.data.getLogin.jsonToken, 1, '192.168.1.71');
             setSharedCookie("token", response.data.getLogin.jsonToken, 1, 'https://management-pi.vercel.app');
-
-
             document.location.href = '/Management/Dashboard/';
         } else {
             errorHandling.innerHTML = "Input Password";
@@ -66,3 +62,27 @@ export const triggerLogin = async (e: any) => {
 
     }
 };
+
+export const decodeJWT = (token: string) => {
+    try {
+      // Split the token into its parts (header, payload, signature)
+      const parts = token.split('.');
+      
+      // Check if the token is valid
+      if (parts.length !== 3) {
+        throw new Error('Invalid token');
+      }
+  
+      // Decode the payload (base64url to JSON)
+      const payload = parts[1];
+      const base64Url = payload.replace(/-/g, '+').replace(/_/g, '/'); // Convert base64url to base64
+      const base64 = decodeURIComponent(escape(window.atob(base64Url))); // Decode base64 to string
+      const json = JSON.parse(base64); // Parse JSON
+  
+      return json;
+    } catch (error) {
+      console.error('Error decoding JWT:', error);
+      return null;
+    }
+  };
+  
