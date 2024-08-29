@@ -10,14 +10,19 @@ export default function Index() {
   const username = useRef();
   const password = useRef();
   const router = useRouter();
+  const setSharedCookie = (name: string, value: string, daysToExpire: any) => {
+    const expiration = new Date();
+    expiration.setDate(expiration.getDate() + daysToExpire);
+    const cookieValue = encodeURIComponent(name) + '=' + encodeURIComponent(value) +
+        '; expires=' + expiration.toUTCString() +
+        '; secure;' +
+        '; path=/';
+    document.cookie = cookieValue;
+}
   let [Login] = useMutation(READLOGIN, {
     onCompleted: data => {
       if(data.ReadLogin.statusText==='Welcome!'){
-            setSharedCookie("token", data.ReadLogin.jsonToken, 1, 'localhost');
-            setSharedCookie("token", data.ReadLogin.jsonToken, 1, 'id-yours.com');
-            setSharedCookie("token", data.ReadLogin.jsonToken, 1, 'shopify.com');
-            setSharedCookie("token", data.ReadLogin.jsonToken, 1, '192.168.1.71');
-            setSharedCookie("token", data.ReadLogin.jsonToken, 1, 'https://management-pi.vercel.app');
+            setSharedCookie("token", data.ReadLogin.jsonToken, 1);
             router.push('/Management/Dashboard/');
         } else {
             (document.getElementById("password") as HTMLInputElement).focus();        

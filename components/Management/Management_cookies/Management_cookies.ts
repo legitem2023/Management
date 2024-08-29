@@ -12,21 +12,27 @@ interface JwtPayload {
     exp: any
 }
 export const cookies = () => {
-    const getCookie = (cookieName: any) => {
+    const path = process.env.NEXT_PUBLIC_PATH
+
+
+    const getCookie = (cookieName: string): string | null => {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
-            if (cookie.startsWith(cookieName + '=')) {
+            if (cookie.startsWith(`${cookieName}=`)) {
                 return cookie.substring(cookieName.length + 1);
             }
         }
         return null;
     }
-    const path = process.env.NEXT_PUBLIC_PATH
+
     const cookie = getCookie("token");
-    if(!cookie) return location.href=path+'/Management'
-    const decode = Base64.decode(cookie);
-    let token: any = jwt.decode(decode) as JwtPayload;
+
+    if (!cookie) {
+        return;
+    }
+
+    const token = jwt.decode(cookie) as JwtPayload | null;
     setGlobalState("cookieEmailAddress", token.user.emailAddress);
     setGlobalState("cookieUserLevel", token.user.userLevel);
     return {
