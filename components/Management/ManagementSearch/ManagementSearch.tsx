@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import DataManager from 'utils/DataManager';
-import { getCookie } from '../Management_cookies/Management_cookies';
 import { MANAGEMENT_INVENTORY, GET_CHILD_INVENTORY_DETAIL } from 'graphql/queries';
 import { useGlobalState } from 'state';
 import { Icon } from '@iconify/react';

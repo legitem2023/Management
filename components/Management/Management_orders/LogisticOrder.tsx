@@ -54,7 +54,7 @@ useEffect(()=>{
   if(ordersLoading) return
   if(orderError) return
   const handleImage = (event:any) =>{
-    event.target.srcset = path + 'image/Legitem-svg.svg'
+    event.target.srcset = path + "image/Legitem-svg.svg"
     event
   }
   return (
@@ -71,7 +71,7 @@ useEffect(()=>{
                   <div>Shipping Address:{item.Address}</div>
                   <div>Order Status:<b>{item.OrderStatus}</b></div>
 
-                  <h3>Ordered Item's</h3>
+                  <h3>Ordered Items</h3>
                   <div className="NewOrderTableHead">
                     <div>Image</div>
                     <div>Product Code</div>
