@@ -34,7 +34,6 @@ export default function Index() {
 
     const Inputusername:any = username.current;
     const Inputpassword:any = password.current;
-    console.log(Inputusername.value,Inputpassword.value);
     Login({
         variables: {
             "username": Inputusername.value,

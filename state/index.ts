@@ -26,6 +26,7 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     thumbnailData: null,
     thumbnailCategory: null,
     descAsc: null,
-    activeModel: "http://localhost:3000/models/NoModel.glb"
+    activeModel: "http://localhost:3000/models/NoModel.glb",
+    CurrentDrawer:true
 });
 export { useGlobalState, setGlobalState };
