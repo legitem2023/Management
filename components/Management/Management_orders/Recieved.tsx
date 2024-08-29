@@ -13,9 +13,6 @@ export default function Recieved() {
   const [useEmail] = useGlobalState("cookieEmailAddress");
   const Manager = new DataManager();
 
-useEffect(()=>{
-  cookies(); 
-})
   const toggleAccordion = (index:any) => {
       if (activeIndex === index) {
           setActiveIndex(null); // Collapse if clicked again

@@ -11,9 +11,7 @@ import DataManager from "utils/DataManager";
 export default function DeliveryOrder() {    
   const [activeIndex, setActiveIndex] = useState(null);
   const [useEmail] = useGlobalState("cookieEmailAddress");
-useEffect(()=>{
-  cookies(); 
-})
+
   const toggleAccordion = (index:any) => {
       if (activeIndex === index) {
           setActiveIndex(null); // Collapse if clicked again

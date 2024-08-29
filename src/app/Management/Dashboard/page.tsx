@@ -5,25 +5,22 @@ import ManagementHeader from 'components/Management/ManagementHeader/ManagementH
 import ManagementDrawer from 'components/Management/ManagementDrawer.tsx/ManagementDrawer'
 import ManagementNavigation from 'components/Management/ManagementNavigation/ManagementNavigation'
 import { Icon } from '@iconify/react'
-// import { getCookie } from 'components/Management/Management_cookies/Management_cookies'
 import NumberOfViewVal from 'components/Management/ManagementStatistics/NumberOfViewVal'
 import { useGlobalState } from 'state'
-import { cookies } from 'components/Management/Management_cookies/Management_cookies'
+import TotalViews from 'components/Management/ManagementDashBoard/TotalViews'
+import Loading from 'components/LoadingAnimation/Loading'
 
 const Dashboard = () => {
   const Manager = new DataManager();
   const [useEmail] = useGlobalState("cookieEmailAddress");
   const [useLevel] = useGlobalState("cookieUserLevel");
-  useEffect(() => {
-    cookies();
-  }, []);
 
   const { NumberOFViews, LoadingNumberOFViews } = Manager.NumberOfViews();
   const { NumberOFVisits, LoadingNumberOFVisits } = Manager.WebsiteVisit();
 
   const timestamp = new Date().getTime();
-  if (!NumberOFViews) return;
-  if (!NumberOFVisits) return;
+  if (LoadingNumberOFViews) return <Loading/>
+  if (LoadingNumberOFVisits) return <Loading/>
 
   const todaysVisits = NumberOFVisits.getWebsitVisits.filter((item: any) => {
     const visited = new Date(item.dateVisited).getTime();
@@ -38,7 +35,6 @@ const Dashboard = () => {
   }).length;
 
   const today: any = new Date().toLocaleDateString();
-  const totalsViews = NumberOFViews.getNumberOfViews.length;
 
   return (
     <div className='Main'>
@@ -83,7 +79,7 @@ const Dashboard = () => {
                   <Icon className='StatIcon' icon='mdi:account-view-outline' />
                 </div>
                 <div className='StatNumber'>
-                  <NumberOfViewVal targetValue={totalsViews} />
+                   <TotalViews/>
                 </div>
               </div>
             </div>

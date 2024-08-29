@@ -2,14 +2,17 @@
 import { Icon } from '@iconify/react';
 import { READLOGIN } from 'graphql/Mutation';
 import { useRouter } from 'next/navigation';
-import { setSharedCookie, triggerCancel } from 'utils/triggers';
+import { triggerCancel } from 'utils/triggers';
 import { useMutation} from '@apollo/client';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import Loading from 'components/LoadingAnimation/Loading';
 
 export default function Index() {
   const username = useRef();
   const password = useRef();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
   const setSharedCookie = (name: string, value: string, daysToExpire: any) => {
     const expiration = new Date();
     expiration.setDate(expiration.getDate() + daysToExpire);
@@ -21,17 +24,21 @@ export default function Index() {
 }
   let [Login] = useMutation(READLOGIN, {
     onCompleted: data => {
+      setIsLoading(false);
       if(data.ReadLogin.statusText==='Welcome!'){
             setSharedCookie("token", data.ReadLogin.jsonToken, 1);
             router.push('/Management/Dashboard/');
         } else {
             (document.getElementById("password") as HTMLInputElement).focus();        
       }
-    }
+    },
+    onError: () => {
+      setIsLoading(false);
+    },
 })
 
    const triggerLogin = async (e: any) => {
-
+    setIsLoading(true);
     const Inputusername:any = username.current;
     const Inputpassword:any = password.current;
     Login({
@@ -44,6 +51,7 @@ export default function Index() {
   return (
     <form onSubmit={triggerLogin}> {/* Form starts here */}
       <div className='Main'>
+        {isLoading && <Loading />}
         <div className='LoginDivContainer'>
           <div className='LoginDiv'>
             <div className='LabelHead'>

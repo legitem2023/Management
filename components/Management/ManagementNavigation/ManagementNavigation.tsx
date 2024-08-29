@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { setGlobalState, useGlobalState } from 'state'
+import { cookies } from '../Management_cookies/Management_cookies'
 const ManagementNavigation = () => {
   const router = usePathname();
   const routes = useRouter();
@@ -13,6 +14,7 @@ const ManagementNavigation = () => {
   const currentLocation = router.match(/([^\/]*)\/*$/)[1];
   const [useColor, setColor] = React.useState("");
   useEffect(() => {
+    cookies();
     setColor(currentLocation === 'Details' ? "Inventory" :
       currentLocation === "webvisit" || currentLocation === "views" ? "Statistics" :
         currentLocation === 'New' ||

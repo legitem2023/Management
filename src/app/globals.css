@@ -1762,7 +1762,7 @@ body {
 }
 
 .LoginDiv {
-  width: 22vw;
+  width: auto;
   height: 300px;
   display: grid;
   box-shadow: 0.5px 0.5px 3px #000000;
@@ -1809,7 +1809,8 @@ body {
 }
 
 .LoginDiv button {
-  width: 180px;
+  width: auto;
+  min-width:150px;
   padding: 10px;
   left: 0px;
   right: 0px;
@@ -2491,14 +2492,17 @@ body {
 
 .Search_container_grid {
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: auto auto;
   background: linear-gradient(to right, #c8a4d1 0%, #e3cfe8 0%, #ae7dbb 21%, #ae7dbb 32%, #965ca4 42%, #7e408d 51%, #672976 65%, #511660 77%, #3c0949 88%, #290133 100%);
   padding: 10px;
   grid-gap: 5px;
-  justify-content: center;
+  justify-content:flex-start;
   align-items: center;
+  width: 100%;
 }
+.Search_container_grid div{
 
+}
 .addNewItem {
   /* width:50px;
   height:50px; */
