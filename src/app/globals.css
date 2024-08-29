@@ -12,7 +12,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: 99999999;
-  background-color: rgba(11, 95, 41, 0.5);
+  background-color: rgba(64, 13, 122, 0.315);
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -89,7 +89,7 @@ body {
   border-top: 5px solid #fff;
   border-bottom: 5px solid #fff;
   position: relative;
-  background: linear-gradient(#00ffbf 30px, transparent 0) no-repeat;
+  background: linear-gradient(#8c00ff 30px, transparent 0) no-repeat;
   background-size: 2px 40px;
   background-position: 50% 0px;
   animation: spinx 5s linear infinite;
@@ -105,7 +105,7 @@ body {
   position: absolute;
   top: 0;
   transform: translatex(-50%);
-  background: rgba(255, 255, 255, 0.4);
+  background: rgb(189 186 186 / 40%);
   border-radius: 0 0 20px 20px;
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -214,29 +214,29 @@ body {
 
   0%,
   100% {
-    background-image: linear-gradient(#00ffbf 40px, transparent 0);
+    background-image: linear-gradient(#8400ff 40px, transparent 0);
     background-position: 0% 0px;
   }
 
   50% {
-    background-image: linear-gradient(#00ffbf 40px, transparent 0);
+    background-image: linear-gradient(#8400ff 40px, transparent 0);
     background-position: 0% 40px;
   }
 
   50.1% {
-    background-image: linear-gradient(#00ffbf 40px, transparent 0);
+    background-image: linear-gradient(#8400ff 40px, transparent 0);
     background-position: 0% -40px;
   }
 }
 
 @keyframes lqb {
   0% {
-    background-image: linear-gradient(#00ffbf 40px, transparent 0);
+    background-image: linear-gradient(#8400ff 40px, transparent 0);
     background-position: 0 40px;
   }
 
   100% {
-    background-image: linear-gradient(#00ffbf 40px, transparent 0);
+    background-image: linear-gradient(#8400ff 40px, transparent 0);
     background-position: 0 -40px;
   }
 }
@@ -717,16 +717,17 @@ body {
 }
 
 .LabelHead {
-  /* background: linear-gradient(to right, rgb(233, 229, 206) 0%, rgb(191, 171, 57) 0%, rgb(198, 179, 97) 30%, rgb(216, 189, 67) 44%, rgb(239, 209, 76) 61%, rgb(196, 171, 58) 84%, rgb(140, 121, 39) 100%); */
-  background: linear-gradient(to right, rgba(206, 219, 233, 1) 0%, rgba(57, 191, 144, 1) 0%, rgba(97, 198, 154, 1) 30%, rgba(67, 216, 151, 1) 44%, rgba(76, 239, 158, 1) 61%, rgba(58, 196, 148, 1) 84%, rgba(39, 140, 74, 1) 100%);
+  background: linear-gradient(to right, #c8a4d1 0%, #e3cfe8 0%, #ae7dbb 21%, #ae7dbb 32%, #965ca4 42%, #7e408d 51%, #672976 65%, #511660 77%, #3c0949 88%, #290133 100%);  
   padding: 10px;
-  border-top: solid 3px #004127;
-  border-bottom: solid 3px #004127;
+  border-top: solid 3px #2f0041;
+  border-bottom: solid 3px #2f0041;
   font-size: 20px;
   font-weight: bold;
   /* margin-top:3px; */
   margin-bottom: 3px;
   height: 25px;
+  grid-gap:5px;
+  color:#220030;
 }
 
 .MainView_LchildGallery {
@@ -1749,7 +1750,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #c1fcf5;
+  background-color: #630077;
   position: absolute;
   overflow: hidden;
 }
@@ -1771,6 +1772,7 @@ body {
   flex-direction: column;
   grid-template-rows: 20% 20% 20% 20% 20%;
   /* justify-content: center; */
+  background-color: #d7b1f4;
   align-items: center;
   position: absolute;
 }
@@ -1826,9 +1828,9 @@ body {
 }
 
 .ErrorHandling {
-  background-color: #c1fcf5;
+  background-color: #f2d6ff;
   height: 2vh;
-  width: 19vw;
+  width: 100%;
   padding: 10px;
   /* border:solid 10px transparent; */
   text-align: center;

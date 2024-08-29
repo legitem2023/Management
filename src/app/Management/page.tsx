@@ -11,7 +11,7 @@ export default function Index() {
   const username = useRef();
   const password = useRef();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const setSharedCookie = (name: string, value: string, daysToExpire: any) => {
     const expiration = new Date();
