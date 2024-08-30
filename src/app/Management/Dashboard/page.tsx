@@ -39,7 +39,6 @@ const Dashboard = () => {
   return (
     <div className='Main'>
       <div className='ManagementBody'>
-        <Loading/>
         <ManagementHeader />
         <ManagementDrawer />
         <ManagementNavigation />
