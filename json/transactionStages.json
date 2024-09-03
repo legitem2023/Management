@@ -1,6 +1,6 @@
 [
     {
-        "Name":"New",
+        "Name":"New Order",
         "Image":"https://api.iconify.design/clarity/new-solid.svg",
         "URL":"Management/Transaction/New"
     },
@@ -15,12 +15,12 @@
         "URL":"Management/Transaction/Packed"
     },
     {
-        "Name":"Handed By Logistic Partner",
+        "Name":"Logistic",
         "Image":"https://cdn-icons-png.flaticon.com/512/61/61535.png",
         "URL":"Management/Transaction/Logistic"
     },
     {
-        "Name":"Out of Delivery",
+        "Name":"Delivery",
         "Image":"https://api.iconify.design/mdi/truck-delivery-outline.svg",
         "URL":"Management/Transaction/Delivery"
     },

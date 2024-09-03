@@ -7,6 +7,7 @@ import { Provider } from 'components/ApolloProvider/Provider'
 import * as React from "react";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { NotificationProvider } from 'components/Management/ManagementContext/NotificationContext'
 const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Legitem | Management',
@@ -23,11 +24,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" type="image/svg" sizes="32x32" href="/Legitem-svg-svg_server.svg" />
       </head>
       <body className={inter.className}>
+      <NotificationProvider>
       <ToastContainer/>
         {/* <NextUIProvider> */}
         <Provider>{children}</Provider>
         {/* </NextUIProvider> */}
-
+        </NotificationProvider>
       </body>
     </html>
   )

@@ -2537,5 +2537,16 @@ body {
   background-color: transparent;
   border: none;
 }
-
+.OrderStageNotification{
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: red;
+  color: white;
+  position: absolute;
+  width:25px;
+  height: 25px;
+  border-radius: 100%;
+  font-size: 16px!important;
+}
 /*************************** Management *****************************/
