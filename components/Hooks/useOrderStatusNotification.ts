@@ -18,7 +18,12 @@ const OrderStatusNotification = () => {
   const playSound = async (soundUrl: string) => {
     try {
       const audio = new Audio(soundUrl);
-      await audio.play();
+      await audio.play().then(() => {
+        audio.pause();
+        audio.currentTime = 0;
+      }).catch(error => {
+        console.error('Audio context initialization failed:', error);
+      });
     } catch (error) {
       console.error('Playback failed:', error);
     }
