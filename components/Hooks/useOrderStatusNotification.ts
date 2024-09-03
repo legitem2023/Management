@@ -15,7 +15,9 @@ const OrderStatusNotification = () => {
   const [updateDelivered, setUpdateDelivered] = useState<number>(0);
   const playSound = (soundUrl: string) => {
     const audio = new Audio(soundUrl);
-    audio.play();
+    audio.play().catch(error => {
+      console.error('Playback failed:', error);
+  });
   };
 
   useEffect(() => {
