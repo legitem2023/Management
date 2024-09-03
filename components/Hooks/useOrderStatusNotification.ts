@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import { useSubscription } from '@apollo/client';
 import { ORDER_STATUS_SUBSCRIPTION } from 'graphql/subscriptions';
 import { useState, useEffect } from 'react';
@@ -13,11 +14,14 @@ const OrderStatusNotification = () => {
   const [updateLogistic, setUpdateLogistic] = useState<number>(0);
   const [updateDelivery, setUpdateDelivery] = useState<number>(0);
   const [updateDelivered, setUpdateDelivered] = useState<number>(0);
-  const playSound = (soundUrl: string) => {
-    const audio = new Audio(soundUrl);
-    audio.play().catch(error => {
+
+  const playSound = async (soundUrl: string) => {
+    try {
+      const audio = new Audio(soundUrl);
+      await audio.play();
+    } catch (error) {
       console.error('Playback failed:', error);
-  });
+    }
   };
 
   useEffect(() => {
@@ -32,7 +36,7 @@ const OrderStatusNotification = () => {
   }, []);
 
   useEffect(() => {
-    if ('Notification' in window) {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
       Notification.requestPermission();
     }
   }, []);
