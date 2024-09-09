@@ -9,7 +9,7 @@ const WebsiteVisit = () => {
   const {NumberOFVisits,LoadingNumberOFVisits,ErrorNumberOFViews} = Manager.WebsiteVisit();
   const [currentFromDate] = useGlobalState("fromDate");
   const [currenttoDate] = useGlobalState("toDate");
-  const [currentItemPerpage] = useGlobalState("ItemPerpage");
+  const [currentItemPerpage]:any = useGlobalState("ItemPerpage");
   const [currentAgentPerpage] = useGlobalState("AgentPerpage");
   const [useInitSlice] = useGlobalState("setInitSlice");
   const [pagination_currentPageCount, pagination_setCurrentPageCount] = useState(30);
