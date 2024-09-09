@@ -57,8 +57,8 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('NewOrder', newValue.toString());
                 }
-                playSound('/newNot.mp3');
-                showNotification('New Order', 'A new order has arrived.');
+                // playSound('/newNot.mp3');
+                // showNotification('New Order', 'A new order has arrived.');
                 return newValue;
               });
               break;
@@ -68,8 +68,8 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Recieved', newValue.toString());
                 }
-                playSound('/newNot.mp3');
-                showNotification('Order Received', 'An order has been received.');
+                // playSound('/newNot.mp3');
+                // showNotification('Order Received', 'An order has been received.');
                 return newValue;
               });
               break;
@@ -79,8 +79,8 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Packed', newValue.toString());
                 }
-                playSound('/newNot.mp3');
-                showNotification('Order Packed', 'An order has been packed.');
+                // playSound('/newNot.mp3');
+                // showNotification('Order Packed', 'An order has been packed.');
                 return newValue;
               });
               break;
@@ -90,8 +90,8 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Logistic', newValue.toString());
                 }
-                playSound('/newNot.mp3');
-                showNotification('Order in Transit', 'An order is in logistic.');
+                // playSound('/newNot.mp3');
+                // showNotification('Order in Transit', 'An order is in logistic.');
                 return newValue;
               });
               break;
@@ -101,8 +101,8 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Delivery', newValue.toString());
                 }
-                playSound('/newNot.mp3');
-                showNotification('Out for Delivery', 'An order is out for delivery.');
+                // playSound('/newNot.mp3');
+                // showNotification('Out for Delivery', 'An order is out for delivery.');
                 return newValue;
               });
               break;
@@ -112,8 +112,8 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Delivered', newValue.toString());
                 }
-                playSound('/newNot.mp3');
-                showNotification('Order Delivered', 'An order has been delivered.');
+                // playSound('/newNot.mp3');
+                // showNotification('Order Delivered', 'An order has been delivered.');
                 return newValue;
               });
               break;
