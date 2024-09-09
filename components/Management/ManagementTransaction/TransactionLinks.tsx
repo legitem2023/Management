@@ -13,12 +13,6 @@ const TransactionLinks = () => {
     <div className='OrderStages'>{
       transactionData.map((item:any,idx:any)=>(
           <span key={idx} onClick={()=>{
-            item.Name==='New Order'?localStorage.removeItem('NewOrder'):"";
-            item.Name==='Recieve'?localStorage.removeItem('Recieved'):"";
-            item.Name==='Packed'?localStorage.removeItem('Packed'):"";
-            item.Name==='Logistic'?localStorage.removeItem('Logistic'):"";
-            item.Name==='Delivery'?localStorage.removeItem('Delivery'):"";
-            item.Name==='Delivered'?localStorage.removeItem('Delivered'):"";
             router.push(path+item.URL)
             }}>                    
               {item.Name === 'New Order'?<span className='OrderStageNotification' style={{'display':updateNewOrder===0?'none':'flex'}}>{updateNewOrder}</span>:null}

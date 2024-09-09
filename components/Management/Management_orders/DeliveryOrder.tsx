@@ -8,6 +8,7 @@ import { useGlobalState } from "state";
 import { cookies } from "../Management_cookies/Management_cookies";
 import { UPDATE_ORDER_STATUS_DELIVERED} from "graphql/Mutation";
 import DataManager from "utils/DataManager";
+import Loading from "components/LoadingAnimation/Loading";
 export default function DeliveryOrder() {    
   const [activeIndex, setActiveIndex] = useState(null);
   const [useEmail] = useGlobalState("cookieEmailAddress");
@@ -20,7 +21,7 @@ export default function DeliveryOrder() {
       }
   };
   let data:number = 0;
-  const { data: orders, loading: ordersLoading, error: orderError } = useQuery(READ_ORDERS_DELIVERY, {
+  const { data: orders, loading: ordersLoading, error: orderError,refetch } = useQuery(READ_ORDERS_DELIVERY, {
     variables: { emailAddress: useEmail },
   });  
   const Manager = new DataManager();
@@ -28,15 +29,11 @@ export default function DeliveryOrder() {
   const [update_order_to_delivered] = useMutation(UPDATE_ORDER_STATUS_DELIVERED, {
     onCompleted:data => {
         Manager.Success("Order Delivered Successfully");
-      },
-    refetchQueries: [
-      {
-        query: READ_ORDERS_DELIVERY,
-        variables: { emailAddress: useEmail },
-      },
-    ],
+        refetch();
+      }
   })
   
+
 
   const handleDelivered =(event:any) =>{
     const trackingNo = event.target.getAttribute("aria-current");
@@ -46,10 +43,11 @@ export default function DeliveryOrder() {
         "TrackingNo": trackingNo
       }
     }})
+    localStorage.removeItem('Delivery');
   }
   const path = process.env.NEXT_PUBLIC_PATH
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
-  if(ordersLoading) return
+  if(ordersLoading) return <Loading/>
   if(orderError) return
   const handleImage = (event:any) =>{
     event.target.srcset = path + "image/Legitem-svg.svg"
@@ -137,7 +135,9 @@ export default function DeliveryOrder() {
                 </div>
             )}
         </div>
-    )):"No Data"}
+    )):<div className="faq-item">
+    <div className="faq-question">No Data</div>
+</div>}
 </div>
   );
 }

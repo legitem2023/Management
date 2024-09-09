@@ -1,84 +1,81 @@
-import React, { useEffect, useState } from 'react'
-import DataManager from 'utils/DataManager';
-import { MANAGEMENT_INVENTORY, GET_CHILD_INVENTORY_DETAIL } from 'graphql/queries';
-import { useGlobalState } from 'state';
-import { Icon } from '@iconify/react';
-import { usePathname } from 'next/navigation'
+import React from 'react'
+import {GET_CATEGORY, GET_PRODUCT_TYPES, GET_BRANDS } from 'graphql/queries';
+import { setGlobalState, useGlobalState } from 'state';
+
+import { useQuery } from '@apollo/client';
+import Select from '../Management_ui/Select';
+import Loading from 'components/LoadingAnimation/Loading';
 const ManagementSearch = () => {
-  const Manager = new DataManager();
-  const [editingMode] = useGlobalState("editingMode");
-  const [rowNumber] = useGlobalState("rowNumber");
-  // const [useEmail] = useGlobalState("useEmail");
-  const [useEmail] = useGlobalState("cookieEmailAddress");
-  const [useLevel] = useGlobalState("cookieUserLevel");
-  const [useSyle, setStyle] = useState("");
-  const routes = usePathname();
-  const currentLocation = routes.match(/([^\/]*)\/*$/)[1];
-  useEffect(() => {
-    const windata = typeof window !== undefined ? window.location.search : "";
-    const urlParams = new URLSearchParams(windata);
-    const style: any = urlParams.get('style');
-    setStyle(style)
-  }, [])
 
-  const insertInventory = Manager.ManagementInsertInventory();
-  const insert_emailAdd = () => {
-    const JSON = {
-      emailAddress: useEmail
-    }
-    insertInventory({
-      variables: JSON,
-      refetchQueries: [{
-        query: MANAGEMENT_INVENTORY, variables: { emailAddress: useEmail }
-      }]
-    })
-  }
+  const [productCategory] = useGlobalState("productCategory");
+  const [productType] = useGlobalState("productType");
+  const [productBrand] = useGlobalState("productBrand");
+  const [ItemPerpage] = useGlobalState("ItemPerpage");
+  const { data:Category, loading:Category_loading } = useQuery(GET_CATEGORY);
+  const { data:Product_Type,loading:Product_loading } = useQuery(GET_PRODUCT_TYPES);
+  const { data:Brands,loading:Brand_loading } = useQuery(GET_BRANDS);
 
-  const insertChildInventory = Manager.ManagementInsertChildInventory();
-  const insert_emailAdd_and_styleCode = () => {
-
-    const JSON = {
-      emailAddress: useEmail,
-      styleCode: useSyle
-    }
-    insertChildInventory({
-      variables: JSON,
-      refetchQueries: [{
-        query: GET_CHILD_INVENTORY_DETAIL,
-        variables: {
-          styleCode: useSyle
+  if(Category_loading) return <Loading/>;
+  if(Product_loading) return <Loading/>;
+  if(Brand_loading) return <Loading/>;
+  
+ const CollapsibleCategory = () =>{
+    return Category.getCategory.map((item: any) => {
+        return {
+            "Value": item.Name,
+            "Text": item.Name
         }
-      }, {
-        query: MANAGEMENT_INVENTORY
-      }]
     })
-  }
+ }
 
-  const CSSstyle: any = {
-    top: editingMode === true ? "0px" : "-100px"
-  }
+ const CollapsibleProductType = () =>{
+    return Product_Type.getProductTypes.map((item: any) => {
+        return {
+            "Value": item.Name,
+            "Text": item.Name
+        }
+    })
+ }
+
+ const CollapsibleBrandName = () =>{
+    return Brands.getBrand.map((item: any) => {
+        return {
+            "Value": item.Name,
+            "Text": item.Name
+        }
+    })
+ }
+
+ const CollapsiblePages = () =>{
+  const data = [{"Name":"20"},{"Name":"50"},{"Name":"100"}];
+  return data.map((item:any)=>{
+      return {
+          "Value":item.Name,
+          "Text":item.Name
+      }
+  })
+}
+
 
   return (
     <div className='Search_container'>
       <div className='Search_container_grid'>
-        <div className='SearchColumn'>
-          <input type='text' placeholder='Search'></input>
+        <div className='SortColumn'>
+          <input type='text' placeholder='Search By Name' onChange={(e:any)=>setGlobalState("productSearch",e.target.value)}></input>
         </div>
         <div className='SortColumn'>
-          <select>
-            <option>Select By Brand</option>
-          </select>
+          <Select Selected={productType} InitialText="Select Product Type" Name="ProductType" Data={CollapsibleProductType()} function_event={(e:any)=>{setGlobalState("productType",e.target.value)}}/>
         </div>
         <div className='SortColumn'>
-          <select>
-            <option>Select By Category</option>
-          </select>
+          <Select Selected={productBrand} InitialText="Select Product Brand" Name="Brandname" Data={CollapsibleBrandName()} function_event={(e:any)=>{setGlobalState("productBrand",e.target.value)}}/>
         </div>
-        <button className='addNewItemButton'>
-          <Icon icon="ic:round-add-box" className="addNewItem" onClick={currentLocation === 'Inventory' ? insert_emailAdd : insert_emailAdd_and_styleCode} />
-        </button>
+        <div className='SortColumn'>
+          <Select Selected={productCategory} InitialText="Select Category" Name="Category" Data={CollapsibleCategory()} function_event={(e:any)=>{setGlobalState("productCategory",e.target.value)}}/>
+        </div>
+        <div className='SortColumn'>
+          <Select Selected={ItemPerpage} InitialText="10" Name="Pages" Data={CollapsiblePages()} function_event={(e:any)=>{setGlobalState("ItemPerpage",e.target.value)}}/>
+        </div>
       </div>
-      <div className='caution' style={CSSstyle}><Icon icon="icon-park-solid:caution" /> Editing is activated in row no.{rowNumber}</div>
     </div>
   )
 }

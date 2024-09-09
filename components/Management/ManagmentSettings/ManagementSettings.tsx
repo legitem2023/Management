@@ -1,14 +1,18 @@
+import { useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
+import Loading from 'components/LoadingAnimation/Loading';
+import { GET_BRANDS, GET_CATEGORY, GET_PRODUCT_TYPES } from 'graphql/queries';
 import React from 'react'
 import DataManager from 'utils/DataManager';
 const ManagementSettings = () => {
     const Manager = new DataManager();
-    const { Category } = Manager.category();
-    const { Product_Type } = Manager.ManagementProductTypes();
-    const { Brands } = Manager.ManagementBrand();
-    if (!Category) return;
-    if (!Product_Type) return;
-    if (!Brands) return;
+    const { data:Category, loading:Category_loading } = useQuery(GET_CATEGORY);
+    const { data:Product_Type, loading:Product_Type_loading } = useQuery(GET_PRODUCT_TYPES);
+    const { data:Brands, loading:Brands_loading } = useQuery(GET_BRANDS);
+
+    if (Category_loading) return <Loading/>;
+    if (Product_Type_loading) return <Loading/>;
+    if (Brands_loading) return <Loading/>;
 
     const collapseProdType = (e: any) => {
         const id = e.target.getAttribute("aria-label");
@@ -37,7 +41,6 @@ const ManagementSettings = () => {
     return (
         <div className='SettingsContainer'>
             <div className='SettingsContainer_1'>
-                <button>Category</button>
                 <button>Category</button>
 
                 <div className='SettingsCategory'>

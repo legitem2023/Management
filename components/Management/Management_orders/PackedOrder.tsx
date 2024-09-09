@@ -8,6 +8,7 @@ import { useGlobalState } from "state";
 import { cookies } from "../Management_cookies/Management_cookies";
 import { UPDATE_ORDER_STATUS_LOGISTIC} from "graphql/Mutation";
 import DataManager from "utils/DataManager";
+import Loading from "components/LoadingAnimation/Loading";
 export default function PackedOrder() {    
   const [activeIndex, setActiveIndex] = useState(null);
   const [useEmail] = useGlobalState("cookieEmailAddress");
@@ -20,7 +21,7 @@ export default function PackedOrder() {
       }
   };
   let data:number = 0;
-  const { data: orders, loading: ordersLoading, error: orderError } = useQuery(READ_ORDERS_PACKED, {
+  const { data: orders, loading: ordersLoading, error: orderError,refetch } = useQuery(READ_ORDERS_PACKED, {
     variables: { emailAddress: useEmail },
   });  
   const Manager = new DataManager();
@@ -28,13 +29,8 @@ export default function PackedOrder() {
   const [update_order_to_logistic] = useMutation(UPDATE_ORDER_STATUS_LOGISTIC, {
     onCompleted:data => {
       Manager.Success("Order Delivered to Logistic Partner");
-    },
-    refetchQueries: [
-      {
-        query: READ_ORDERS_PACKED,
-        variables: { emailAddress: useEmail },
-      },
-    ],
+      refetch();
+    }
   })
   
 
@@ -46,10 +42,11 @@ export default function PackedOrder() {
         "TrackingNo": trackingNo
       }
     }})
+    localStorage.removeItem('Packed');
   }
   const path = process.env.NEXT_PUBLIC_PATH
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
-  if(ordersLoading) return
+  if(ordersLoading) return <Loading/>
   if(orderError) return
   const handleImage = (event:any) =>{
     event.target.srcset = path + "image/Legitem-svg.svg"
@@ -137,7 +134,9 @@ export default function PackedOrder() {
                 </div>
             )}
         </div>
-    )):"No Data"}
+    )):<div className="faq-item">
+    <div className="faq-question">No Data</div>
+</div>}
 </div>
   );
 }

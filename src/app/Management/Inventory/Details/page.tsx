@@ -267,10 +267,15 @@ const Inventory = () => {
                 <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "DetproductPrice" + useID === "DetproductPrice" + item.id ? <input type='number' aria-current={item.id} onChange={(e) => handleEdit(e)} defaultValue={item.price} placeholder="Price..." id={'DetproductPrice' + item.id}></input> : item.price === null || item.price === "" ? "Price..." : item.price : item.price === null || item.price === "" ? "Price..." : item.price}</div>
                 <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "DetproductStock" + useID === "DetproductStock" + item.id ? <input type='number' aria-current={item.id} onChange={(e) => handleEdit(e)} defaultValue={item.stock} placeholder="Stock..." id={'DetproductStock' + item.id}></input> : item.stock === null || item.stock === "" ? "Stock..." : item.stock : item.stock === null || item.stock === "" ? "Stock..." : item.stock}</div>
                 <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "DetproductStatus" + useID === "DetproductStatus" + item.id ? status(item.status, item.id) : item.status === null || item.status === "" ? "Select Status..." : item.status : item.status === null || item.status === "" ? "Select Status..." : item.status}</div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}><TimestampConverter timestamp={item.dateCreated} /></div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}><TimestampConverter timestamp={item.dateUpdated} /></div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{limitText(item.creator)}</div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{limitText(item.editor)}</div>
+                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>
+                  <p><TimestampConverter timestamp={item.dateCreated} /></p>
+                  <br></br>
+                  <p><TimestampConverter timestamp={item.dateUpdated} /></p>
+                  
+                </div>
+                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}></div>
+                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{limitText(item.creator)}<br></br>{limitText(item.editor)}</div>
+                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}></div>
                 <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>
                   <Icon icon="material-symbols:delete-sharp" className='management_delete' />
                   <Icon icon="carbon:view-filled" />

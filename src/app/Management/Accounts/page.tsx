@@ -1,78 +1,41 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import DataManager from 'utils/DataManager'
-import ManagementBody from 'components/Management/ManagementBody/ManagementBody'
 import ManagementHeader from 'components/Management/ManagementHeader/ManagementHeader'
 import ManagementDrawer from 'components/Management/ManagementDrawer.tsx/ManagementDrawer'
 import ManagementNavigation from 'components/Management/ManagementNavigation/ManagementNavigation'
 import ManagementSearch from 'components/Management/ManagementSearch/ManagementSearch'
-import TimestampConverter from 'components/timestamp/TimestampConverter'
-
 import { Icon } from '@iconify/react'
-import Image from 'next/image'
-import { setGlobalState, useGlobalState } from 'state'
-import Link from 'next/link'
-import { cookies } from 'components/cookies/cookie'
-
-// import { useGlobalState } from 'components/context/ShoppingCartProvider'
-
+import Management_account from 'components/Management/Management_account/Management_account'
+import { useMutation, useQuery } from '@apollo/client'
+import { INSERT_NEW_ENCODER } from 'graphql/Mutation'
+import { useGlobalState } from 'state'
+import { GET_FILTERED_USERS } from 'graphql/queries'
+import Loading from 'components/LoadingAnimation/Loading'
+import InsertForm from './InsertForm'
+import EditForm from './EditForm'
 const Accounts = () => {
   const Manager = new DataManager();
-  const path = process.env.NEXT_PUBLIC_PATH
-  const [activate,setActivation] = React.useState(false)
-  const [useID,setID] = React.useState(0)
+  const [useEmail] = useGlobalState("cookieEmailAddress");
+  const [useLevel] = useGlobalState("cookieUserLevel");
+
+  const { data:Account, loading:AccountLoading } = useQuery(GET_FILTERED_USERS,{
+    variables: { emailAddress: useEmail, userLevel: useLevel }
+  });
   
-  const {Account,loading,error} = Manager.ManagementAccount();
-  if(loading) return;
-  if(error) return;
-  if(!Account) return;
-  const limitText = (text:any) =>{
-    return  text.slice(0, 10) + (text.length > 10 ? "..." : "");
-  }
-  const activateEdit = (e:any) =>{
-    let checkbox:any = e.target.getAttribute("aria-current");
-    setID(checkbox)
-    setActivation(e.target.checked)
-    if(e.target.checked){
-      setGlobalState("editingMode",true)
-    }else{
-      setGlobalState("editingMode",false)
-    }
-  }
 
-  const AccountLevel = (defaultval:any,index:any) =>{
-    return (<select defaultValue={defaultval} id={"Ptype"+index}>
-              <option value='Select Product Type'>Merchant</option>
-              <option value='Select Product Type'>Encoder</option>
-            </select>)
-    }
+const [useToggle,setToggle] = useState(0);
+const [useToggle_edit,setToggle_edit] = useState(0);
 
-  const AccountProduct = () =>{
-      return Account?.getUser.map((item:any,idx:any)=>(
-        <div key={idx} className='AccountTable_body'>
-          <div className='AccountTableCell'>
-          <label>
-              <input type="checkbox" id={"edit"+idx} className='hidden' aria-current={idx} onChange={activateEdit}></input>
-              <Icon icon="bxs:edit" className='management_edit'/>
-          </label> 
-          </div>
-          <div className='AccountTableCell'>{activate===true?"AccEmail"+useID==="AccEmail"+idx?<input type='text' defaultValue={item.email} placeholder="Input Email..." id={'AccEmail'+idx}></input>:item.email===null||item.email===""?"Input Email...":item.email:item.email===null||item.email===""?"Input Name...":limitText(item.email)}</div>
-          <div className='AccountTableCell'>{activate===true?"AccStore"+useID==="AccStore"+idx?<input type='text' defaultValue={item.nameOfStore} placeholder="Name of Store..." id={'AccStore'+idx}></input>:item.nameOfStore===null||item.nameOfStore===""?"Name of Store...":item.nameOfStore:item.nameOfStore===null||item.nameOfStore===""?"Name of Store...":limitText(item.nameOfStore)}</div>
-          <div className='AccountTableCell'>{activate===true?"AccLevel"+useID==="AccLevel"+idx?AccountLevel(item.accountLevel,idx):item.accountLevel===null||item.accountLevel===""?"Select Level...":item.accountLevel:item.accountLevel===null||item.accountLevel===""?"Select Level...":limitText(item.accountLevel)}</div>
-          <div className='AccountTableCell'><TimestampConverter timestamp={item.dateCreated}/></div>
-          <div className='AccountTableCell'><TimestampConverter timestamp={item.dateUpdated}/></div>
-          <div className='AccountTableCell'>{activate===true?"AccMacAdd"+useID==="AccMacAdd"+idx?<input type='text' defaultValue={item.macAddress} placeholder="Mac Address..." id={'AccMacAdd'+idx}></input>:item.macAddress===null||item.macAddress===""?"Mac Address...":item.macAddress:item.macAddress===null||item.macAddress===""?"Mac Address...":limitText(item.macAddress)}</div>
-          <div className='AccountTableCell AccountTableCell_det'>
-            <Link className='details_link' href={path+"Management/Inventory/Details/?style="+item.id}>Details()</Link>
-          </div>
-          <div className='AccountTableCell'>
-          <Icon icon="material-symbols:delete-sharp" className='management_delete'/>
-          <Icon icon="carbon:view-filled" />
-          </div>
-        </div>
-      ))
-  }
+const ShowForm = () =>{
+  setToggle(1);
+}
 
+const ShowEditForm = () =>{
+  setToggle_edit(1)
+}
+
+if(AccountLoading) return <Loading/>;
   return (
     <div className='Main'>
         <div className='ManagementBody'>
@@ -81,7 +44,10 @@ const Accounts = () => {
           <ManagementNavigation/>
           <div className='ManagementMainMenu'>
           <div className='Menu_label_management'><Icon icon='mdi:accounts' /> Accounts</div>
-              <ManagementSearch/>
+              {/* <ManagementSearch/> */}
+              <button className='addNewItemButton' onClick={ShowForm}>
+                <Icon icon="ic:round-add-box" className="addNewAccount"/>
+              </button>
               <div className='AccountTable'>
                 <div className='AccountTable_head'>
                   <div></div>
@@ -91,10 +57,21 @@ const Accounts = () => {
                   <div>Date Created</div>
                   <div>Date Updated</div>
                   <div>Mac Address</div>
-                  <div>Details</div>
                   <div>Action</div>
                 </div>
-                  {AccountProduct()}
+                  {<Management_account accountList={Account.getFilteredUser} EditForm={ShowEditForm}/>}
+              </div>
+              <div className='Universal_cover' style={{'transform':`scale(${useToggle})`}}>
+                <Icon icon="eva:close-square-fill"  
+                      onClick={() => setToggle(0)}
+                      style={{color: '#ff0000',fontSize:'40px',cursor:'pointer',position:'absolute',top:'10px',right:'10px'}} />
+              <InsertForm/>
+              </div>
+              <div className='Universal_cover' style={{'transform':`scale(${useToggle_edit})`}}>
+                <Icon icon="eva:close-square-fill"  
+                      onClick={() => setToggle_edit(0)}
+                      style={{color: '#ff0000',fontSize:'40px',cursor:'pointer',position:'absolute',top:'10px',right:'10px'}} />
+              <EditForm/>
               </div>
           </div>
         </div>

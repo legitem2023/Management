@@ -194,16 +194,18 @@ query GetNameofStore {
   }
 }`
 export const GET_CHILD_INVENTORY = gql`
-query GetChildInventory($skip: String, $take: String) {
-  getChildInventory(skip: $skip, take: $take) {
+query GetChildInventory {
+  getChildInventory {
     id
     thumbnail
     price
     productCode
     name
     category
+    style_Code
   }
 }`
+
 export const GET_CHILD_INVENTORY_DETAIL = gql`
 query GetChildInventory_details($styleCode: String) {
   getChildInventory_details(styleCode: $styleCode) {
@@ -256,7 +258,8 @@ query GetRelatedProduct {
     model
   }
 }`
-export const GET_VIEW_PRODUCT = gql`query GetToviewProduct($getToviewProductId: Int) {
+export const GET_VIEW_PRODUCT = gql`
+ query GetToviewProduct($getToviewProductId: Int) {
   getToviewProduct(id: $getToviewProductId) {
     agentEmail
     model
@@ -316,6 +319,7 @@ query GetParentInventory($emailAddress: String) {
       dateUpdated
       editor
       id
+      name
     }
   }
 }`
@@ -333,6 +337,16 @@ query GetUser {
     macAddress
     nameOfStore
     password
+    accountDetails {
+      id
+      userId
+      fullname
+      storeName
+      contactNo
+      Address
+      accountEmail
+      defaultAddress
+    }
   }
 }`
 export const GET_ACCOUNT_DETAILS = gql`
@@ -360,7 +374,34 @@ query GetAccountDetails($getAccountDetailsIdId: String) {
   }
 }`
 
-
+export const GET_FILTERED_USERS = gql`
+query GetFilteredUser($userLevel: String, $emailAddress: String) {
+  getFilteredUser(UserLevel: $userLevel, emailAddress: $emailAddress) {
+    id
+    email
+    accountCode
+    accountDetails {
+      id
+      userId
+      fullname
+      storeName
+      contactNo
+      Address
+      accountEmail
+      defaultAddress
+    }
+    password
+    accountLevel
+    loginAttemp
+    macAddress
+    agentIdentity
+    image
+    dateCreated
+    dateUpdated
+    nameOfStore
+  }
+}
+`
 
 export const GET_PRODUCT_TYPES = gql`
 query GetProductTypes {
@@ -416,16 +457,7 @@ query GetInv_subImage {
 }`
 //*************** QUERIES ***************/
 
-
 //*************** MUTATION ***************/
-export const INSERT_INVENTORY = gql`
-mutation Mutation($emailAddress: String) {
-  insertInventory(emailAddress: $emailAddress) {
-    jsonToken
-    statusText
-  }
-}
-`
 export const INSERT_CHILD_INVENTORY = gql`
 mutation Mutation($emailAddress: String, $styleCode: String) {
   insertChildInventory(emailAddress: $emailAddress, styleCode: $styleCode) {

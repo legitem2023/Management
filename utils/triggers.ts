@@ -1,7 +1,7 @@
 'use client';
 import client from "client";
 import { GET_LOGIN } from "graphql/queries";
-import { Base64 } from "js-base64";
+import { Base64, encode } from "js-base64";
 import jwt from 'jsonwebtoken';
 export const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -84,5 +84,10 @@ export const decodeJWT = (token: string) => {
       console.error('Error decoding JWT:', error);
       return null;
     }
+  };
+
+  export const createdPath = (data: any) => {
+    const path = process.env.NEXT_PUBLIC_PATH || '';
+    return `?data=${encodeURIComponent(encode(JSON.stringify(data)))}`;
   };
   

@@ -42,3 +42,27 @@ mutation UpdateOrderStatusDelivered($orderstatusParameter: OrderstatusParameter)
   }
 }
 `
+
+export const INSERT_NEW_ENCODER = gql`
+mutation InsertUser($emailAddress: String, $password: String, $agentIdentity: String) {
+  insertUser(emailAddress: $emailAddress, password: $password, agentIdentity: $agentIdentity) {
+    statusText
+  }
+}
+`
+
+export const UPDATE_ACCOUNT_DETAILS = gql`
+mutation UpdateAccountDetails($updateAccountDetailsInput: updateAccountDetailsInput) {
+  updateAccountDetails(updateAccountDetailsInput: $updateAccountDetailsInput) {
+    statusText
+  }
+}
+`
+
+export const INSERT_INVENTORY = gql`
+mutation InsertInventory($emailAddress: String, $category: String, $productType: String, $brandname: String, $productName: String) {
+  insertInventory(emailAddress: $emailAddress, category: $category, productType: $productType, brandname: $brandname, productName: $productName) {
+    statusText
+  }
+}
+`

@@ -1,4 +1,5 @@
 
+import { Icon } from "@iconify/react";
 import { setGlobalState,useGlobalState } from "state";
 
 
@@ -9,10 +10,14 @@ const StatisticsPagination = (InitSlice:any) => {
     const startPage = Math.max(1, InitSlice.InitSlice - 2);
 
       buttons.push(
-        <button className="paginationButton"  key={"A1"} onClick={()=>setGlobalState("setInitSlice",1)}>❰❰</button>
+        <button className="paginationButton"  key={"A1"} onClick={()=>setGlobalState("setInitSlice",1)}>
+          <Icon icon="gg:chevron-double-left" />
+        </button>
       )
       buttons.push(
-        <button className="paginationButton" key={"B1"} onClick={()=>setGlobalState("setInitSlice", useInitSlice===1?1:useInitSlice - 1)}>❰</button>
+        <button className="paginationButton" key={"B1"} onClick={()=>setGlobalState("setInitSlice", useInitSlice===1?1:useInitSlice - 1)}>
+          <Icon icon="gg:chevron-left"/>
+        </button>
       )
     
     for (let i = startPage; i <= Math.min(InitSlice.Pages, startPage + 4); i++) {
@@ -20,7 +25,7 @@ const StatisticsPagination = (InitSlice:any) => {
         <button className="paginationButton"
           key={i}
           onClick={() => setGlobalState("setInitSlice",i)}
-          style={{ border: InitSlice.InitSlice === i ? 'solid 2px #cedbe9' : 'none'}} // Change font size for active page
+          style={{ border: InitSlice.InitSlice === i ? 'solid 2px #ff0000' : 'none'}} // Change font size for active page
         >
           {i}
         </button>
@@ -28,10 +33,14 @@ const StatisticsPagination = (InitSlice:any) => {
     }
 
       buttons.push(
-        <button className="paginationButton" key={"A"} onClick={()=>setGlobalState("setInitSlice", useInitSlice===InitSlice.Pages?InitSlice.Pages:useInitSlice + 1)}>❱</button>
+        <button className="paginationButton" key={"A"} onClick={()=>setGlobalState("setInitSlice", useInitSlice===InitSlice.Pages?InitSlice.Pages:useInitSlice + 1)}>
+          <Icon icon="gg:chevron-right"/>
+        </button>
       )
       buttons.push(
-        <button className="paginationButton" key={"B"} onClick={()=>setGlobalState("setInitSlice",InitSlice.Pages)}>❱❱</button>
+        <button className="paginationButton" key={"B"} onClick={()=>setGlobalState("setInitSlice",InitSlice.Pages)}>
+                    <Icon icon="gg:chevron-double-right" style={{transform:'scaleX(1)'}} />
+        </button>
       )
 
     return buttons;

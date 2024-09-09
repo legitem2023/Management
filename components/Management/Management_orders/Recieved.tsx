@@ -8,6 +8,7 @@ import { useGlobalState } from "state";
 import { cookies } from "../Management_cookies/Management_cookies";
 import { UPDATE_ORDER_STATUS_PACKED } from "graphql/Mutation";
 import DataManager from "utils/DataManager";
+import Loading from "components/LoadingAnimation/Loading";
 export default function Recieved() {    
   const [activeIndex, setActiveIndex] = useState(null);
   const [useEmail] = useGlobalState("cookieEmailAddress");
@@ -26,15 +27,16 @@ export default function Recieved() {
   });  
   
   const [update_order_to_packed] = useMutation(UPDATE_ORDER_STATUS_PACKED, {
-    onCompleted:data => {Manager.Success("Your order for packaging")},
-    refetchQueries: [
-      {
-        query: READ_ORDERS_RECIEVED,
-        variables: { emailAddress: useEmail },
-      },
-    ],
+    onCompleted:data => 
+      { 
+        Manager.Success("Your order for packaging")
+        refetch();
+      }
   })
   
+
+
+
 
   const handlePacked =(event:any) =>{
     const trackingNo = event.target.getAttribute("aria-current");
@@ -44,10 +46,11 @@ export default function Recieved() {
         "TrackingNo": trackingNo
       }
     }})
+    localStorage.removeItem('Recieved');
   }
   const path = process.env.NEXT_PUBLIC_PATH
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
-  if(ordersLoading) return
+  if(ordersLoading) return <Loading/>
   if(orderError) return
   const handleImage = (event:any) =>{
     event.target.srcset = path + "image/Legitem-svg.svg"
@@ -135,7 +138,9 @@ export default function Recieved() {
                 </div>
             )}
         </div>
-    )):"No Data"}
+    )):<div className="faq-item">
+            <div className="faq-question">No Data</div>
+      </div>}
 </div>
   );
 }

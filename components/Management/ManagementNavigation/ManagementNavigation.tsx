@@ -15,6 +15,8 @@ const ManagementNavigation = () => {
   const routes = useRouter();
   const [CurrentDrawer] = useGlobalState("CurrentDrawer");
   const currentLocation = router.match(/([^\/]*)\/*$/)[1];
+
+
   const [useColor, setColor] = React.useState("");
   useEffect(() => {
     cookies();

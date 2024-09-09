@@ -1,4 +1,5 @@
 import { createGlobalState } from "react-hooks-global-state";
+import { productType } from "utils/extraFetch";
 const { setGlobalState, useGlobalState } = createGlobalState({
     thumbtake: 10,
     thumbskip: 0,
@@ -11,7 +12,7 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     setInitSlice: 1,
     fromDate: null,
     toDate: null,
-    ItemPerpage: "10",
+    ItemPerpage: 10,
     AgentPerpage: "Select Email Address",
     // setInitSlice:"0",
     setItemID: 0,
@@ -22,11 +23,60 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     cookieEmailAddress: "",
     cookieUserLevel: "",
     cookieActiveUser: "",
-    thumbnailSearch: "",
+    productSearch: "",
     thumbnailData: null,
-    thumbnailCategory: null,
+    productCategory: "Select Category",
+    productType: "Select Product Type",
+    productBrand: "Select Product Brand",
     descAsc: null,
     activeModel: "http://localhost:3000/models/NoModel.glb",
-    CurrentDrawer:true
+    CurrentDrawer:true,
+    categoryFilter:"Select Category",
+    productTypeFilter:"Select Product Types",
+    accountFormDataEdit:{
+        accountLevel: '',
+        Address: '',
+        accountEmail: '',
+        contactNo: '',
+        fullname: '',
+        loginAttemp: '',
+        macAddress: '',
+        agentIdentity: '',
+        nameOfStore: '',
+    },
+    invFormDataEdit:{
+        Id:'',
+        Name:'',
+        Category:'Select Category',
+        ProductType:'Select Product Type',
+        Brandname:'Select Product Brand',
+        Status:'Select Status'
+    },
+    invFormDataAdd:{
+        Name:'',
+        Category:'Select Category',
+        ProductType:'Select Product Type',
+        Brandname:'Select Product Brand',
+        Status:'Select Status'
+    }
 });
 export { useGlobalState, setGlobalState };
+
+// const [formDataEdit, setFormDataEdit] = useState([{
+//     accountCode:'',
+//     accountDetails:[{
+//       Address:'',
+//       accountEmail:'',
+//       contactNo:'',
+//       defaultAddress:'',
+//       fullname:'',
+//       storeName:'',
+//       userId:'',
+//     }],
+//     accountLevel:'',
+//     agentIdentity:'',
+//     email:'',
+//     loginAttemp:'',
+//     macAddress:'',
+//     nameOfStore:'',
+//   }]);

@@ -32,57 +32,57 @@ import {
 import client from 'client';
 class DataManager {
     //************************************************* MANAGEMENT START ***********************************************/
-    public Inventory(EmailAddress: any) {
-        const { data, loading, error } = useQuery(MANAGEMENT_INVENTORY, {
-            variables: {
-                emailAddress: EmailAddress
-            }
-        });
-        if (error) return
-        return { "Inventory": data, "loading": loading, "error": error }
-    }
-    public ManagementChildInventory(styleCode: any) {
-        const { data, loading, error } = useQuery(GET_CHILD_INVENTORY_DETAIL, { variables: { styleCode: styleCode } });
-        if (error) return
-        return { "childInventory": data, "loading": loading, "error": error }
-    }
-    public ManagementInsertInventory() {
-        let [insertInventory] = useMutation(INSERT_INVENTORY, {
-            onCompleted: data => console.log(data)
-        })
-        return insertInventory
-    }
-    public ManagementInsertChildInventory() {
-        let [insertChildInventory] = useMutation(INSERT_CHILD_INVENTORY, {
-            onCompleted: data => console.log(data)
-        })
-        return insertChildInventory
-    }
-    public ManagementAccount() {
-        const { data, loading, error } = useQuery(GET_ACCOUNTS);
-        if (error) return
-        return { "Account": data, "loading": loading, "error": error }
-    }
-    public ManagementUpdate() {
-        let [UpdateChildInventory] = useMutation(UPDATE_CHILD_INVENTORY, {
-            onCompleted: data => console.log(data)
-        })
-        return UpdateChildInventory
-    }
-    public ManagementParentUpdate() {
-        let [UpdateParentInventory] = useMutation(UPDATE_PARENT_INVENTORY, {
-            onCompleted: data => console.log(data)
-        })
-        return UpdateParentInventory
-    }
-    public ManagementProductTypes() {
-        const { data, loading, error } = useQuery(GET_PRODUCT_TYPES);
-        return { "Product_Type": data, "loading": loading, "error": error }
-    }
-    public ManagementBrand() {
-        const { data, loading, error } = useQuery(GET_BRANDS);
-        return { "Brands": data, "loading": loading, "error": error }
-    }
+    // public Inventory(EmailAddress: any) {
+    //     const { data, loading, error } = useQuery(MANAGEMENT_INVENTORY, {
+    //         variables: {
+    //             emailAddress: EmailAddress
+    //         }
+    //     });
+    //     if (error) return
+    //     return { "Inventory": data, "loading": loading, "error": error }
+    // }
+    // public ManagementChildInventory(styleCode: any) {
+    //     const { data, loading, error } = useQuery(GET_CHILD_INVENTORY_DETAIL, { variables: { styleCode: styleCode } });
+    //     if (error) return
+    //     return { "childInventory": data, "loading": loading, "error": error }
+    // }
+    // public ManagementInsertInventory() {
+    //     let [insertInventory] = useMutation(INSERT_INVENTORY, {
+    //         onCompleted: data => console.log(data)
+    //     })
+    //     return insertInventory
+    // }
+    // public ManagementInsertChildInventory() {
+    //     let [insertChildInventory] = useMutation(INSERT_CHILD_INVENTORY, {
+    //         onCompleted: data => console.log(data)
+    //     })
+    //     return insertChildInventory
+    // }
+    // public ManagementAccount() {
+    //     const { data, loading, error } = useQuery(GET_ACCOUNTS);
+    //     if (error) return
+    //     return { "Account": data, "loading": loading, "error": error }
+    // }
+    // public ManagementUpdate() {
+    //     let [UpdateChildInventory] = useMutation(UPDATE_CHILD_INVENTORY, {
+    //         onCompleted: data => console.log(data)
+    //     })
+    //     return UpdateChildInventory
+    // }
+    // public ManagementParentUpdate() {
+    //     let [UpdateParentInventory] = useMutation(UPDATE_PARENT_INVENTORY, {
+    //         onCompleted: data => console.log(data)
+    //     })
+    //     return UpdateParentInventory
+    // }
+    // public ManagementProductTypes() {
+    //     const { data, loading, error } = useQuery(GET_PRODUCT_TYPES);
+    //     return { "Product_Type": data, "loading": loading, "error": error }
+    // }
+    // public ManagementBrand() {
+    //     const { data, loading, error } = useQuery(GET_BRANDS);
+    //     return { "Brands": data, "loading": loading, "error": error }
+    // }
     public ManagementUploadCropImage() {
         const { data, loading, error } = useQuery(GET_BRANDS);
         return { "Brands": data, "loading": loading, "error": error }
