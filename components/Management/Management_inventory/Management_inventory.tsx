@@ -42,7 +42,7 @@ const Management_inventory = ({setToggle,data}) => {
         <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>
           <Icon icon="bxs:edit" className='management_edit' onClick={()=>{ShowEdit(item)}}/>
           <Icon icon="material-symbols:delete-sharp" className='management_delete' />
-          <Icon icon="carbon:view-filled" />
+          <Icon icon="carbon:view-filled" className='management_item'/>
         </div>
         <div className='management_divider'></div>
       </div>

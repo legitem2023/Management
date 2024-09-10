@@ -230,7 +230,7 @@ const Inventory = () => {
         <div className='ManagementMainMenu'>
           <ToastContainer />
           <div className='Menu_label_management'><Icon icon='material-symbols:inventory-sharp' /> Inventory</div>
-          <ManagementSearch />
+          {/* <ManagementSearch /> */}
           <div className='InventoryTable_child'>
             <Link href={path + "Management/Inventory"} className='Management_icon'><Icon icon="ic:sharp-double-arrow" rotate={2} /> Back</Link>
             <div className='InventoryHead_child'>
@@ -258,7 +258,6 @@ const Inventory = () => {
                   <label>
                     <Image src={item.thumbnail === '' || item.thumbnail === null ? path + 'image/Legitem-svg.svg' : imgPath + item.thumbnail} alt={item.id} height='60' width='80' aria-current={item.id} onClick={(e: any) => ShowUpload(e)} />
                   </label>
-
                 </div>
                 <div className='InventoryBodyCell '>{activate === true ? "DetproductCode" + useID === "DetproductCode" + item.id ? <input type='text' aria-current={item.id} onChange={(e) => handleEdit(e)} defaultValue={item.productCode} placeholder="Code..." id={'DetproductCode' + item.id}></input> : item.productCode === null || item.productCode === "" ? "Code..." : item.productCode : item.productCode === null || item.productCode === "" ? "Code..." : item.productCode}</div>
                 <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "DetproductName" + useID === "DetproductName" + item.id ? <input type='text' aria-current={item.id} onChange={(e) => handleEdit(e)} defaultValue={item.name} placeholder="Name..." id={'DetproductName' + item.id}></input> : item.name === null || item.name === "" ? "Name..." : item.name : item.name === null || item.name === "" ? "Name..." : item.name}</div>

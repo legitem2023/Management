@@ -2,7 +2,19 @@
     .Main {
         overflow-x: hidden !important;
     }
-
+    .UniversalFormFrame{
+        width:95%;
+    }
+    .InventoryHead_child{
+        display: none;
+    }
+    .InventoryBody_child{
+        display: flex;
+        flex-direction: column;
+    }
+    .InventoryBodyCell{
+        padding:10px;
+    } 
     .ManagementMainMenu {
         position: relative;
         display: flex;
@@ -63,10 +75,11 @@
 
     .StatisticsStat {
         display: grid;
-        grid-template-columns: 89%;
+        grid-template-columns: 100%;
         grid-template-rows: 25% 25% 25% 25%;
         grid-gap: 5px;
         position: relative;
+        height: 60vh;
     }
 
     .StatisticsStat_today_visits,
@@ -99,32 +112,25 @@
         flex-direction: row;
         align-items: center;
     }
-
     .Search_container {
         background-color: #5b3b5c;
         padding: 0px;
         overflow: auto;
         height: auto;
-        padding: 10px;
     }
-
     .Search_container input {
         width: 100%;
         box-sizing: border-box;
     }
-
     .SearchColumn {
         grid-row: 1;
     }
-
     .Search_container_grid {
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 33.33% 33.33% 33.33%;
         align-items: left;
-        padding: 0px;
         width: 100%;
-        background: transparent;
+        /* background: transparent; */
         grid-gap: 0px;
     }
 

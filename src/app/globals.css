@@ -2432,9 +2432,12 @@ body {
 .management_edit:hover {
   box-shadow: 0.5px 0.5px 3px #000;
 }
+.management_item:hover {
+  box-shadow: 0.5px 0.5px 3px #000;
+}
 
 .management_edit:active {
-  box-shadow: inset 0.5px 0.5px 3px #000;
+  box-shadow: 0.5px 0.5px 3px #000;
 }
 
 .management_delete:hover {
@@ -2442,6 +2445,9 @@ body {
 }
 
 .management_delete:active {
+  box-shadow: inset 0.5px 0.5px 3px #000;
+}
+.management_item:active {
   box-shadow: inset 0.5px 0.5px 3px #000;
 }
 
@@ -2625,32 +2631,16 @@ body {
 
 .Search_container_grid {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 20% 20% 20% 20% 20%;
   background: linear-gradient(to right, #c8a4d1 0%, #e3cfe8 0%, #ae7dbb 21%, #ae7dbb 32%, #965ca4 42%, #7e408d 51%, #672976 65%, #511660 77%, #3c0949 88%, #290133 100%);
-  padding: 10px;
-  grid-gap: 5px;
   justify-content:flex-start;
   align-items: center;
   width: 100%;
 }
-.Search_container_grid div{
 
+.SortColumn{
+  margin:5px;
 }
-.addNewItem {
-  /* width:50px;
-  height:50px; */
-  /* margin:5px; */
-}
-
-.SearchColumn {
-  grid-row: 1 / span 2;
-}
-
-.SearchColumn input {
-  /* height:100%; */
-  box-sizing: border-box;
-}
-
 .SortColumn select {
   height: 100%;
   box-sizing: border-box;

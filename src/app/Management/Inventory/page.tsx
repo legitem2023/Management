@@ -12,6 +12,7 @@ import StatisticsPagination from 'components/Management/ManagementStatistics/Sta
 import Management_inventory from 'components/Management/Management_inventory/Management_inventory'
 import EditForm from './EditForm'
 import InsertForm from './InsertForm'
+import Loading from 'components/LoadingAnimation/Loading'
 const Inventory = () => {
 
   const [useInitSlice] = useGlobalState("setInitSlice");
@@ -25,7 +26,8 @@ const Inventory = () => {
 
   const { data:Inventory, loading: inventoryLoading,refetch:InventoryRefetch } = useQuery(MANAGEMENT_INVENTORY);
 
-  if (inventoryLoading) return
+  if (inventoryLoading) return <Loading/>
+
   const searchInventory =  Inventory?.getParentInventory?.filter((item: any) =>item.name.includes(productSearch));
   const sortProductType = productType==="Select Product Type"?searchInventory:searchInventory.filter((item:any) => item.productType.includes(productType));
   const sortProductCategory = productCategory==="Select Category"?sortProductType:sortProductType.filter((item:any) => item.category.includes(productCategory));
@@ -73,7 +75,7 @@ const Inventory = () => {
 
           <div className='InventoryTable'>
             <div className='InventoryHead'>
-              <div>No.</div>
+              <div>#</div>
               <div>Name</div>
               <div>Category</div>
               <div>Product Type</div>

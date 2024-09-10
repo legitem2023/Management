@@ -56,7 +56,6 @@ const ManagementSearch = () => {
   })
 }
 
-
   return (
     <div className='Search_container'>
       <div className='Search_container_grid'>
@@ -64,14 +63,15 @@ const ManagementSearch = () => {
           <input type='text' placeholder='Search By Name' onChange={(e:any)=>setGlobalState("productSearch",e.target.value)}></input>
         </div>
         <div className='SortColumn'>
+          <Select Selected={productCategory} InitialText="Select Category" Name="Category" Data={CollapsibleCategory()} function_event={(e:any)=>{setGlobalState("productCategory",e.target.value)}}/>
+        </div>
+        <div className='SortColumn'>
           <Select Selected={productType} InitialText="Select Product Type" Name="ProductType" Data={CollapsibleProductType()} function_event={(e:any)=>{setGlobalState("productType",e.target.value)}}/>
         </div>
         <div className='SortColumn'>
           <Select Selected={productBrand} InitialText="Select Product Brand" Name="Brandname" Data={CollapsibleBrandName()} function_event={(e:any)=>{setGlobalState("productBrand",e.target.value)}}/>
         </div>
-        <div className='SortColumn'>
-          <Select Selected={productCategory} InitialText="Select Category" Name="Category" Data={CollapsibleCategory()} function_event={(e:any)=>{setGlobalState("productCategory",e.target.value)}}/>
-        </div>
+
         <div className='SortColumn'>
           <Select Selected={ItemPerpage} InitialText="10" Name="Pages" Data={CollapsiblePages()} function_event={(e:any)=>{setGlobalState("ItemPerpage",e.target.value)}}/>
         </div>
