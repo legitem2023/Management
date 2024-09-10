@@ -78,7 +78,7 @@ export default function DeliveredOrder() {
                   </div>
                    {item.OrderHistory.map((child:any,i:number)=>(
                   <div key={i} className="NewOrderTable">
-                  <div><Image 
+                  <div className="NewOrderTableImgContainer"><Image 
                             src={child.Image === '' || child.Image === null ? path + 'image/Legitem-svg.svg' : imgPath + child.Image} 
                             alt={child.id}
                             onError={handleImage} 
@@ -97,11 +97,6 @@ export default function DeliveredOrder() {
                   </div>
                   ))}
                   <div className="NewOrderTable">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
                   <div className="NewOrderTotal"> 
                     <span>Total Amount :</span>
                     <span>

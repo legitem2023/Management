@@ -1,6 +1,31 @@
 @media (orientation: portrait) {
     .Main {
         overflow-x: hidden !important;
+    }.OrderStages {
+        grid-gap:0px;
+    }
+    .NewOrderTable {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        justify-content: center;
+        align-items: center;
+        border-bottom: solid 1px #f1f1f1;
+        cursor: pointer;
+        grid-gap: 1px;
+        background-color: silver;
+    }
+    .NewOrderTable div{
+        justify-content: left;
+    }
+    .NewOrderTableHead{
+        display: none;
+    }
+    .NewOrderTableImgContainer{
+        grid-row: 1 / span 6;
+    }
+    .NewOrderTotal{
+        grid-column:1 / span 2;
     }
     .UniversalFormFrame{
         width:95%;
