@@ -9,14 +9,16 @@ import NumberOfViewVal from 'components/Management/ManagementStatistics/NumberOf
 import { useGlobalState } from 'state'
 import TotalViews from 'components/Management/ManagementDashBoard/TotalViews'
 import Loading from 'components/LoadingAnimation/Loading'
+import { useQuery } from '@apollo/client'
+import { GET_NUM_OF_VIEWS, GET_WEBSITE_VISITS } from 'graphql/queries'
 
 const Dashboard = () => {
   const Manager = new DataManager();
   const [useEmail] = useGlobalState("cookieEmailAddress");
   const [useLevel] = useGlobalState("cookieUserLevel");
 
-  const { NumberOFViews, LoadingNumberOFViews } = Manager.NumberOfViews();
-  const { NumberOFVisits, LoadingNumberOFVisits } = Manager.WebsiteVisit();
+  const { data:NumberOFViews, loading:LoadingNumberOFViews} = useQuery(GET_NUM_OF_VIEWS);
+  const { data:NumberOFVisits, loading:LoadingNumberOFVisits} = useQuery(GET_WEBSITE_VISITS);
 
   const timestamp = new Date().getTime();
   if (LoadingNumberOFViews) return <Loading/>
@@ -86,7 +88,6 @@ const Dashboard = () => {
             <div>
               <div className='DashboardDetail'>
                 <h1>Welcome</h1>
-                <h3>{useLevel}</h3>
                 <h3>【 {useEmail} 】</h3>
                 <h3>Login Today :{today}</h3>
               </div>
