@@ -7,29 +7,21 @@ import Image from 'next/image'
 import { setTime } from 'utils/cookie'
 import Loading from 'components/LoadingAnimation/Loading'
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import { useGlobalState } from 'state'
 const Messages = () => {
+    const [useEmail] = useGlobalState('cookieEmailAddress');
 
-    const [deviceId, setDeviceId] = useState(null);
+    const [deviceId, setDeviceId] = useState(useEmail);
+    const [isLoading, setIsLoading] = useState(false);
     const { loading, error, data, subscribeToMore } = useQuery(GET_MESSAGES);
-    const [insertMessage] = useMutation(SEND_MESSAGE);
+    const [insertMessage] = useMutation(SEND_MESSAGE, {
+        onCompleted: () => {
+            setIsLoading(false);
+        }
+    });
 
     useEffect(() => {
-        const getDeviceId = async () => {
-            // Check for existing device ID in local storage
-            let storedDeviceId = localStorage.getItem('deviceId');
-            if (!storedDeviceId) {
-                // Load the FingerprintJS agent
-                const fp = await FingerprintJS.load();
-                // Get the visitor identifier
-                const result = await fp.get();
-                storedDeviceId = result.visitorId;
-                // Store the new ID in local storage
-                localStorage.setItem('deviceId', storedDeviceId);
-            }
-            setDeviceId(storedDeviceId);
-        };
 
-        getDeviceId();
         const unsubscribe = subscribeToMore({
             document: MESSAGE_ADDED,
             updateQuery: (prev, { subscriptionData }) => {
@@ -48,7 +40,7 @@ const Messages = () => {
     if (loading) return <Loading />
     if (error) return <p>{error.message}</p>
     const handleSubmit = async (e: any) => {
-
+        setIsLoading(true);
         e.preventDefault();
         const message = (document.getElementById("textarea") as HTMLInputElement)?.value;
         if (message !== null && message !== "" && message !== undefined) {
@@ -65,12 +57,21 @@ const Messages = () => {
     }
 
     return (
-        <div>
+        <div className='messagesContainer'>
             <ul className='messagesUL'>
                 <li className='messagesLI_1'>
                     <div>
                         <textarea id='textarea' placeholder="Message"></textarea>
-                        <button type='submit' onClick={handleSubmit} className='submit'><Icon icon="material-symbols:send" /></button>
+                        <button type='submit' 
+                                onClick={handleSubmit} 
+                                className='submit' 
+                                disabled={isLoading}>
+                                {isLoading ? (
+                                    <Icon icon="eos-icons:loading" />
+                                ) : (
+                                    <Icon icon="material-symbols:send" /> // Original send icon
+                                )}
+                        </button>
                     </div>
                 </li>
             </ul>

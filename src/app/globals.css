@@ -260,13 +260,19 @@ body {
   padding-left: 0px;
   box-shadow: 0.5px 0.5px 3px #000000;
   padding: 10px;
-  margin-bottom: 20px;
   border-radius: 10px;
   transition: ease 0.5s;
+  margin-bottom:10px;
 }
-
+.messagesContainer{
+  width: 100%;
+  left:0px;
+  right:0px;
+  margin:auto;
+}
 .messagesLI:hover {
-  background: linear-gradient(-45deg, #a8eb12, #00bf72, #008793);
+  /* background: linear-gradient(to bottom, #cedbe9 0%, #8a3ec9 0%, #a34cef 58%, #743ac1 84%, #59278c 100%); */
+  background: linear-gradient(-45deg, #c8a4d1 0%, #e3cfe8 0%, #ae7dbb 21%, #ae7dbb 32%, #965ca4 42%, #7e408d 51%, #672976 65%, #511660 77%, #3c0949 88%, #290133 100%);
 }
 
 .messagesLI div {
@@ -293,13 +299,10 @@ body {
 
 .messagesLI_1 div {
   display: flex;
-  padding-left: 15px;
-  padding-right: 15px;
-  /* background-color: red; */
+  flex-direction: column;
   margin: 5px;
   width: 100%;
-  /* flex-direction: column; */
-  align-items: center;
+  align-items: right;
 }
 
 .submit {
@@ -310,6 +313,8 @@ body {
 #textarea {
   width: 100%;
   height: 100px;
+  outline: 0;
+  margin-bottom: 5px;
 }
 
 @keyframes lqt {
@@ -801,7 +806,7 @@ body {
   font-size: 30px;
   left: 0px;
   right: 0px;
-  background-color: #00a380;
+  background-color: #7d00a3;
 }
 
 .MainView {
@@ -822,7 +827,7 @@ body {
 .MainView_Lchild {
   display: flex;
   flex-direction: column;
-  background-color: #00a380;
+  background-color: #710088;
 }
 
 .LabelHead {
@@ -844,7 +849,7 @@ body {
   grid-template-columns: 50% 50%;
   /* width:100%; */
   padding: 5px;
-  background-color: #00a380;
+  background-color: #7d00a3;
 }
 
 .MainView_RelatedProductsThumbs>img {
@@ -1028,7 +1033,7 @@ body {
   right: 0px;
   margin: auto;
   position: absolute;
-  background-color: #00a380;
+  background-color: #7d00a3;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -2019,7 +2024,7 @@ body {
 
 .ManagementMainMenu {
   background-color: #ccc;
-  width: 84vw;
+  width: 88%;
 }
 
 .ManagementDrawer svg {

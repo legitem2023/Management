@@ -18,7 +18,6 @@ const page = () => {
                     <div className='Menu_label_management'><Icon icon='typcn:messages' /> Messages</div>
                     <Messages />
                     <div className='InventoryTable'>
-
                     </div>
                 </div>
             </div>
