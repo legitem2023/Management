@@ -11,7 +11,7 @@ export default function Index() {
   const username = useRef();
   const password = useRef();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const setSharedCookie = (name: string, value: string, daysToExpire: any) => {
     const expiration = new Date();
@@ -24,9 +24,9 @@ export default function Index() {
 }
   let [Login] = useMutation(READLOGIN, {
     onCompleted: data => {
-      setIsLoading(false);
       if(data.ReadLogin.statusText==='Welcome!'){
             setSharedCookie("token", data.ReadLogin.jsonToken, 1);
+            setIsLoading(false);
             router.push('/Management/Dashboard/');
         } else {
             (document.getElementById("password") as HTMLInputElement).focus();        
@@ -87,7 +87,10 @@ export default function Index() {
               </div>
             </div>
             <div className='divButton'>
-              <button type='button' onClick={triggerLogin}>Login</button> {/* Submit button */}
+              <button type='button' onClick={triggerLogin}>
+              {isLoading?
+              <Icon icon="eos-icons:loading" />:"Login"}
+              </button> {/* Submit button */}
               <button type='button' onClick={triggerCancel}>Cancel</button> {/* Button type added */}
             </div>
           </div>
