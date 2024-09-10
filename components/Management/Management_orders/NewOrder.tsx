@@ -9,10 +9,12 @@ import { cookies } from "../Management_cookies/Management_cookies";
 import { UPDATE_ORDER_STATUS_RECEIVED } from "graphql/Mutation";
 import DataManager from "utils/DataManager";
 import Loading from "components/LoadingAnimation/Loading";
+import { Icon } from "@iconify/react";
 export default function NewOrder() {    
   const [activeIndex, setActiveIndex] = useState(null);
   const [useEmail] = useGlobalState("cookieEmailAddress");
   const Manager = new DataManager();
+  const [isloading,setloading] = useState(false)
 
   const toggleAccordion = (index:any) => {
       if (activeIndex === index) {
@@ -30,12 +32,14 @@ export default function NewOrder() {
     onCompleted: (data) => {
       Manager.Success("Order Received Notification will pop up to customer");
       refetch();
+      setloading(false);
     }
   });
 
 
 
   const handleRecieve =(event:any) =>{
+    setloading(true);
     const trackingNo = event.target.getAttribute("aria-current");
     update_order_to_receive({variables:{
       "orderstatusParameter": {
@@ -123,7 +127,8 @@ export default function NewOrder() {
                     </span>
                     <span></span>
                     <span>
-                      <button aria-current={item.TrackingNo} onClick={(e:any)=>handleRecieve(e)}>Recieve Order</button>
+                      <button aria-current={item.TrackingNo} onClick={(e:any)=>handleRecieve(e)} disabled={isloading?true:false}>
+                      {isloading?(<Icon icon="eos-icons:loading" />):"Recieve Order"}</button>
                     </span>
                   </div>
                   </div>

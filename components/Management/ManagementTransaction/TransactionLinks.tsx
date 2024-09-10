@@ -12,9 +12,7 @@ const TransactionLinks = () => {
   return (
     <div className='OrderStages'>{
       transactionData.map((item:any,idx:any)=>(
-          <span key={idx} onClick={()=>{
-            router.push(path+item.URL)
-            }}>                    
+          <Link key={idx} href={path+item.URL}>                    
               {item.Name === 'New Order'?<span className='OrderStageNotification' style={{'display':updateNewOrder===0?'none':'flex'}}>{updateNewOrder}</span>:null}
               {item.Name === 'Recieve'?<span className='OrderStageNotification' style={{'display':updateRecieved===0?'none':'flex'}}>{updateRecieved}</span>:null}
               {item.Name === 'Packed'?<span className='OrderStageNotification' style={{'display':updatePacked===0?'none':'flex'}}>{updatePacked}</span>:null}
@@ -22,7 +20,7 @@ const TransactionLinks = () => {
               {item.Name === 'Delivery'?<span className='OrderStageNotification' style={{'display':updateDelivery===0?'none':'flex'}}>{updateDelivery}</span>:null}
               {item.Name === 'Delivered'?<span className='OrderStageNotification' style={{'display':updateDelivered===0?'none':'flex'}}>{updateDelivered}</span>:null}
               <Image src={item.Image} height='50' width='50' alt={idx} className='TransactionImage'></Image>
-          </span>
+          </Link>
       ))
       }
   </div>

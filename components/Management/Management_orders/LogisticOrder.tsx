@@ -9,9 +9,11 @@ import { cookies } from "../Management_cookies/Management_cookies";
 import { UPDATE_ORDER_STATUS_DELIVERY} from "graphql/Mutation";
 import DataManager from "utils/DataManager";
 import Loading from "components/LoadingAnimation/Loading";
+import { Icon } from "@iconify/react";
 export default function LogisticOrder() {    
   const [activeIndex, setActiveIndex] = useState(null);
   const [useEmail] = useGlobalState("cookieEmailAddress");
+  const [isloading,setloading] = useState(false)
 
   const toggleAccordion = (index:any) => {
       if (activeIndex === index) {
@@ -30,6 +32,8 @@ export default function LogisticOrder() {
     onCompleted:data => {
       Manager.Success("Delivery Attempted!");
       refetch();
+      setloading(false);
+
     }
   })
   
@@ -37,6 +41,7 @@ export default function LogisticOrder() {
 
 
   const handleDeliver =(event:any) =>{
+    setloading(true);
     const trackingNo = event.target.getAttribute("aria-current");
     update_order_to_delivery({variables:{
       "orderstatusParameter": {
@@ -124,7 +129,8 @@ export default function LogisticOrder() {
                     </span>
                     <span></span>
                     <span>
-                      <button aria-current={item.TrackingNo} onClick={(e:any)=>handleDeliver(e)}>Delivery</button>
+                      <button aria-current={item.TrackingNo} onClick={(e:any)=>handleDeliver(e)}  disabled={isloading?true:false}>
+                      {isloading?(<Icon icon="eos-icons:loading" />):"Delivery"}</button>
                     </span>
                   </div>
                   </div>

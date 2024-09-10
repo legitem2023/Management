@@ -9,9 +9,11 @@ import { cookies } from "../Management_cookies/Management_cookies";
 import { UPDATE_ORDER_STATUS_LOGISTIC} from "graphql/Mutation";
 import DataManager from "utils/DataManager";
 import Loading from "components/LoadingAnimation/Loading";
+import { Icon } from "@iconify/react";
 export default function PackedOrder() {    
   const [activeIndex, setActiveIndex] = useState(null);
   const [useEmail] = useGlobalState("cookieEmailAddress");
+  const [isloading,setloading] = useState(false)
 
   const toggleAccordion = (index:any) => {
       if (activeIndex === index) {
@@ -30,11 +32,13 @@ export default function PackedOrder() {
     onCompleted:data => {
       Manager.Success("Order Delivered to Logistic Partner");
       refetch();
+      setloading(false);
     }
   })
   
 
   const handleLogistic =(event:any) =>{
+    setloading(true);
     const trackingNo = event.target.getAttribute("aria-current");
     update_order_to_logistic({variables:{
       "orderstatusParameter": {
@@ -122,7 +126,8 @@ export default function PackedOrder() {
                     </span>
                     <span></span>
                     <span>
-                      <button aria-current={item.TrackingNo} onClick={(e:any)=>handleLogistic(e)}>To Logistic</button>
+                      <button aria-current={item.TrackingNo} onClick={(e:any)=>handleLogistic(e)} disabled={isloading?true:false}>
+                      {isloading?(<Icon icon="eos-icons:loading" />):"To Logistic"}</button>
                     </span>
                   </div>
                   </div>

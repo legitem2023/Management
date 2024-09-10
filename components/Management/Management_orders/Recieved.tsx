@@ -9,9 +9,11 @@ import { cookies } from "../Management_cookies/Management_cookies";
 import { UPDATE_ORDER_STATUS_PACKED } from "graphql/Mutation";
 import DataManager from "utils/DataManager";
 import Loading from "components/LoadingAnimation/Loading";
+import { Icon } from "@iconify/react";
 export default function Recieved() {    
   const [activeIndex, setActiveIndex] = useState(null);
   const [useEmail] = useGlobalState("cookieEmailAddress");
+  const [isloading,setloading] = useState(false)
   const Manager = new DataManager();
 
   const toggleAccordion = (index:any) => {
@@ -31,6 +33,7 @@ export default function Recieved() {
       { 
         Manager.Success("Your order for packaging")
         refetch();
+        setloading(false);
       }
   })
   
@@ -39,6 +42,7 @@ export default function Recieved() {
 
 
   const handlePacked =(event:any) =>{
+    setloading(true);
     const trackingNo = event.target.getAttribute("aria-current");
     update_order_to_packed({variables:{
       "orderstatusParameter": {
@@ -126,7 +130,9 @@ export default function Recieved() {
                     </span>
                     <span></span>
                     <span>
-                      <button aria-current={item.TrackingNo} onClick={(e:any)=>handlePacked(e)}>Pack Order</button>
+                      <button aria-current={item.TrackingNo} onClick={(e:any)=>handlePacked(e)} disabled={isloading?true:false}>
+                        {isloading?(<Icon icon="eos-icons:loading" />):"Pack Order"}
+                      </button>
                     </span>
                   </div>
                   </div>

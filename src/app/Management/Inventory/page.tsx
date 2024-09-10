@@ -69,7 +69,7 @@ const Inventory = () => {
         <div className='ManagementMainMenu'>
           <div className='Menu_label_management'><Icon icon='material-symbols:inventory-sharp' /> Inventory</div>
           <ManagementSearch />
-          <button className='addNewItemButton' onClick={()=>setToggleInsert(1)}>
+          <button className='addNewItemButton' onClick={()=>setToggleInsert(1)} aria-label="Name">
             <Icon icon="ic:round-add-box" className="addNewItem"/>
           </button>
 
