@@ -37,3 +37,13 @@ export const status = (defaultval: any, index: any,event:any) => {
       ))}
     </select>)
   }
+  export const fallbackImage = () =>{
+    const path = process.env.NEXT_PUBLIC_PATH || '';
+    return `${path}/Thumbnail.png`;
+  }
+  
+  export const imageSource = (item:any) =>{
+    const imgPath = process.env.NEXT_PUBLIC_PATH || '';
+    return item?.thumbnail ? `${imgPath}${item.thumbnail}` : fallbackImage()
+  }
+  

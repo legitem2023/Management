@@ -34,6 +34,19 @@ body {
   align-items: center;
   grid-template-columns: auto 95%;
 }
+
+.ck-toolbar{
+  background-color: red;
+  width: 100%!important;
+  padding:0px!important;
+}
+.ck-editor{
+  background-color: rgb(139, 75, 182)!important;
+  padding:5px!important;
+}
+.ck-editor__main{
+  height:200px!important;
+}
 .UniversalFormFrame {
   width:40vw;
   height:auto;
@@ -60,6 +73,35 @@ body {
   max-width: 100%; /* ensures the element does not exceed its parent's width */
 }
 
+.CKeditorContent{
+  padding:0px!important;
+}
+.UniversalFormFrame_B {
+  width:70vw;
+  /* min-height: 70vw; */
+  height:auto;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 5px;
+  background-color: #f1f1f1;
+  position: relative;
+}
+.UniversalFormFrame_B div{
+  padding:10px;
+}
+.UniversalFormFrame_B select,
+.UniversalFormFrame_B input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box; /* ensures padding is included within 100% width */
+  max-width: 100%; /* ensures the element does not exceed its parent's width */
+}
+.UniversalFormFrame_B select option{
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box; /* ensures padding is included within 100% width */
+  max-width: 100%; /* ensures the element does not exceed its parent's width */
+}
 /* .AccountInsertForm,
 .AccountEditForm{
   width: 100vw;
@@ -2105,7 +2147,7 @@ body {
 
 .InventoryHead_child {
   display: grid;
-  grid-template-columns: 6vw 6vw 6vw 5vw 5vw 5vw 5vw 6vw 7vw 8vw 7vw 7vw 7vw;
+  grid-template-columns: 6vw 8vw 8vw 8vw 8vw 8vw 7vw 6vw 7vw 8vw 7vw;
   grid-gap: 2px;
   background-color: #320041;
 }
@@ -2159,7 +2201,7 @@ body {
 
 .InventoryBody_child {
   display: grid;
-  grid-template-columns: 6vw 6vw 6vw 5vw 5vw 5vw 5vw 6vw 7vw 8vw 7vw 7vw 7vw;
+  grid-template-columns: 6vw 8vw 8vw 8vw 8vw 8vw 7vw 6vw 7vw 8vw 7vw;
   grid-gap: 2px;
   background-color: #f1f1f1;
 }

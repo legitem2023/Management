@@ -15,12 +15,16 @@ import { setGlobalState, useGlobalState } from 'state'
 import { Gallery } from 'components/Gallery/Gallery';
 import { Token } from 'utils/cookie';
 import ReactCrop, { centerCrop, makeAspectCrop, Crop, PixelCrop } from 'react-image-crop'
-import { canvasPreview } from './canvasPreview'
+import { canvasPreview } from './Upload/canvasPreview'
 import { useDebounceEffect } from './useDebounceEffect'
 import 'react-image-crop/dist/ReactCrop.css'
 import Image from 'next/image'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Management_inventory from 'components/Management/Management_inventory/Management_inventory'
+import Manament_inventory_detail from 'components/Management/Management_inventory/Manament_inventory_detail/Manament_inventory_detail'
+import Loading from 'components/LoadingAnimation/Loading'
+import InsertForm from './InsertForm'
 function centerAspectCrop(
   mediaWidth: number,
   mediaHeight: number,
@@ -43,6 +47,8 @@ function centerAspectCrop(
 
 
 const Inventory = () => {
+  const [useToggle,setToggle] = useState(0);
+  const [useToggleInsert,setToggleInsert] = useState(0)
 
   const [imgSrc, setImgSrc] = useState('')
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
@@ -55,8 +61,6 @@ const Inventory = () => {
 
 
   const [message] = useGlobalState("message");
-
-
   const [aspect, setAspect] = useState<number | undefined>(16 / 12)
   const [useItemId] = useGlobalState("setItemID");
   const [managementUrlData] = useGlobalState("managementUrlData");
@@ -103,12 +107,12 @@ const Inventory = () => {
     const code: any = urlParams.get('style');
     setGlobalState("managementUrlData", code);
   }, [])
-  const { data, loading, error } = useQuery(GET_CHILD_INVENTORY_DETAIL, {
+  const { data, loading, error,refetch:childinventory } = useQuery(GET_CHILD_INVENTORY_DETAIL, {
     variables: { styleCode: managementUrlData },
   });
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading data</p>;
-  if (!data) return null;
+  if (loading) return <Loading/>;
+  if (error) return <p>Connection Error</p>;
+
   const activateEdit = (e: any) => {
     let checkbox: any = e.target.getAttribute("aria-current");
     setID(checkbox)
@@ -123,53 +127,8 @@ const Inventory = () => {
     }
   }
 
-  const limitText = (text: any) => {
-    return text.slice(0, 10) + (text.length > 10 ? "..." : "");
-  }
 
-  const status = (defaultval: any, index: any) => {
-    return (
-      <select defaultValue={defaultval} id={"DetproductStatus" + index} aria-current={index} onChange={(e) => handleEdit(e)}>
-        <option value='Select Status'>Select Status</option>
-        <option value="Active">Active</option>
-        <option value="Inactive">Inactive</option>
-      </select>
-    )
-  }
 
-  const handleEdit = (e: any) => {
-
-    const id = e.target.getAttribute("aria-current");
-    const productCode = (document.getElementById("DetproductCode" + id) as HTMLInputElement).value
-    const productName = (document.getElementById("DetproductName" + id) as HTMLInputElement).value
-    const productColor = (document.getElementById("DetproductColor" + id) as HTMLInputElement).value
-    const productSize = (document.getElementById("DetproductSize" + id) as HTMLInputElement).value
-    const productPrice = (document.getElementById("DetproductPrice" + id) as HTMLInputElement).value
-    const productStock = (document.getElementById("DetproductStock" + id) as HTMLInputElement).value
-    const productStatus = (document.getElementById("DetproductStatus" + id) as HTMLInputElement).value
-    const JSON = {
-      "productId": parseInt(id),
-      "productCode": productCode,
-      "productName": productName,
-      "productColor": productColor,
-      "productSize": productSize,
-      "productPrice": productPrice,
-      "productStatus": productStatus,
-      "productStock": productStock,
-      "email": useEmail
-    }
-
-    UpdateChildInventory({
-      variables: JSON,
-      refetchQueries: [{
-        query: GET_CHILD_INVENTORY_DETAIL,
-        variables: {
-          styleCode: managementUrlData
-        }
-      }]
-    })
-    console.log(JSON);
-  }
   //##############################################################################################################
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -208,7 +167,6 @@ const Inventory = () => {
   const saveBase64 = () => {
     var canvas = (document.getElementById('myCanvas') as HTMLCanvasElement);
     var dataURL = canvas.toDataURL('image/webp');
-    console.log(typeof useItemId);
     const JSON = {
       "saveCropImageId": useItemId,
       "file": dataURL,
@@ -220,6 +178,7 @@ const Inventory = () => {
     //return setGlobalState("message","Image successfully Uploaded!");
 
   }
+
   //##############################################################################################################
   return (
     <div className='Main'>
@@ -227,12 +186,29 @@ const Inventory = () => {
         <ManagementHeader />
         <ManagementDrawer />
         <ManagementNavigation />
+
+        <div className='Universal_cover' style={{'transform':`scale(${useToggle})`}}>
+          <Icon icon="eva:close-square-fill" 
+                style={{color: '#ff0000',fontSize:'40px',cursor:'pointer',position:'absolute',top:'10px',right:'10px'}} 
+                onClick={() => setToggle(0)}/>
+            {/* <EditForm InventoryRefetch={InventoryRefetch}/> */}
+        </div>
+        <div className='Universal_cover' style={{'transform':`scale(${useToggleInsert})`}}>
+          <Icon icon="eva:close-square-fill" 
+                style={{color: '#ff0000',fontSize:'40px',cursor:'pointer',position:'absolute',top:'10px',right:'10px'}} 
+                onClick={() => setToggleInsert(0)}/>
+            <InsertForm  InventoryRefetch={childinventory}/>
+        </div>
+
         <div className='ManagementMainMenu'>
           <ToastContainer />
           <div className='Menu_label_management'><Icon icon='material-symbols:inventory-sharp' /> Inventory</div>
-          {/* <ManagementSearch /> */}
           <div className='InventoryTable_child'>
             <Link href={path + "Management/Inventory"} className='Management_icon'><Icon icon="ic:sharp-double-arrow" rotate={2} /> Back</Link>
+            <button className='addNewItemButton' onClick={()=>setToggleInsert(1)} aria-label="Name">
+              <Icon icon="ic:round-add-box" className="addNewItem"/>
+            </button>
+            
             <div className='InventoryHead_child'>
               <div>Image</div>
               <div>Product Code</div>
@@ -242,45 +218,11 @@ const Inventory = () => {
               <div>Price</div>
               <div>Stock</div>
               <div>Status</div>
-              <div>Date Created</div>
-              <div>Date Edited</div>
-              <div>Creator</div>
+              <div>Date</div>
               <div>Editor</div>
               <div>Action</div>
             </div>
-            {data.getChildInventory_details.map((item: any, idx: any) => (
-              <div key={idx} className='InventoryBody_child'>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>
-                  <label>
-                    <input type="checkbox" id={"edit" + item.id} className='hidden' aria-current={item.id} aria-label={idx + 1} onChange={activateEdit}></input>
-                    <Icon icon="bxs:edit" className='management_edit' />
-                  </label>
-                  <label>
-                    <Image src={item.thumbnail === '' || item.thumbnail === null ? path + 'image/Legitem-svg.svg' : imgPath + item.thumbnail} alt={item.id} height='60' width='80' aria-current={item.id} onClick={(e: any) => ShowUpload(e)} />
-                  </label>
-                </div>
-                <div className='InventoryBodyCell '>{activate === true ? "DetproductCode" + useID === "DetproductCode" + item.id ? <input type='text' aria-current={item.id} onChange={(e) => handleEdit(e)} defaultValue={item.productCode} placeholder="Code..." id={'DetproductCode' + item.id}></input> : item.productCode === null || item.productCode === "" ? "Code..." : item.productCode : item.productCode === null || item.productCode === "" ? "Code..." : item.productCode}</div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "DetproductName" + useID === "DetproductName" + item.id ? <input type='text' aria-current={item.id} onChange={(e) => handleEdit(e)} defaultValue={item.name} placeholder="Name..." id={'DetproductName' + item.id}></input> : item.name === null || item.name === "" ? "Name..." : item.name : item.name === null || item.name === "" ? "Name..." : item.name}</div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "DetproductColor" + useID === "DetproductColor" + item.id ? <input type='text' aria-current={item.id} onChange={(e) => handleEdit(e)} defaultValue={item.color} placeholder="Color..." id={'DetproductColor' + item.id}></input> : item.color === null || item.color === "" ? "Color..." : item.color : item.color === null || item.color === "" ? "Color..." : item.color}</div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "DetproductSize" + useID === "DetproductSize" + item.id ? <input type='text' aria-current={item.id} onChange={(e) => handleEdit(e)} defaultValue={item.size} placeholder="Size..." id={'DetproductSize' + item.id}></input> : item.size === null || item.size === "" ? "Size..." : item.size : item.size === null || item.size === "" ? "Size..." : item.size}</div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "DetproductPrice" + useID === "DetproductPrice" + item.id ? <input type='number' aria-current={item.id} onChange={(e) => handleEdit(e)} defaultValue={item.price} placeholder="Price..." id={'DetproductPrice' + item.id}></input> : item.price === null || item.price === "" ? "Price..." : item.price : item.price === null || item.price === "" ? "Price..." : item.price}</div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "DetproductStock" + useID === "DetproductStock" + item.id ? <input type='number' aria-current={item.id} onChange={(e) => handleEdit(e)} defaultValue={item.stock} placeholder="Stock..." id={'DetproductStock' + item.id}></input> : item.stock === null || item.stock === "" ? "Stock..." : item.stock : item.stock === null || item.stock === "" ? "Stock..." : item.stock}</div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{activate === true ? "DetproductStatus" + useID === "DetproductStatus" + item.id ? status(item.status, item.id) : item.status === null || item.status === "" ? "Select Status..." : item.status : item.status === null || item.status === "" ? "Select Status..." : item.status}</div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>
-                  <p><TimestampConverter timestamp={item.dateCreated} /></p>
-                  <br></br>
-                  <p><TimestampConverter timestamp={item.dateUpdated} /></p>
-                  
-                </div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}></div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{limitText(item.creator)}<br></br>{limitText(item.editor)}</div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}></div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>
-                  <Icon icon="material-symbols:delete-sharp" className='management_delete' />
-                  <Icon icon="carbon:view-filled" />
-                </div>
-              </div>
-            ))}
+            <Manament_inventory_detail data={data.getChildInventory_details} setToggle={setToggle}/>
             <div className='POPImageUpload_cover' id="POPImageUpload_cover">
               <Icon icon="zondicons:close-solid" className='ClosePOPImageUpload_cover' onClick={(e: any) => HideUpload(e)} />
               <div className='POPImageUpload'>

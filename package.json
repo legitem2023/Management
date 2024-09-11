@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.10.3",
+    "@ckeditor/ckeditor5-build-classic": "^43.1.0",
+    "@ckeditor/ckeditor5-react": "^9.1.0",
     "@coreui/react": "^4.11.1",
     "@emotion/styled": "^11.11.5",
     "@fingerprintjs/fingerprintjs": "^4.4.1",
@@ -25,6 +27,8 @@
     "@vitejs/plugin-react": "^4.3.1",
     "apollo-upload-client": "^18.0.1",
     "bcrypt": "^5.1.1",
+    "ckeditor5": "^43.1.0",
+    "ckeditor5-premium-features": "^43.1.0",
     "framer-motion": "^10.16.15",
     "graphql": "^15.8.0",
     "iconify": "^1.4.0",
