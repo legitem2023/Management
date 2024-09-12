@@ -227,6 +227,7 @@ query GetChildInventory_details($styleCode: String) {
     stock
     style_Code
     thumbnail
+    productDescription
     subImageFieldOut {
       ImagePath
       id
@@ -313,6 +314,8 @@ query GetParentInventory($emailAddress: String) {
     childInventory {
       agentEmail
       category
+      productType
+      brandname
       color
       creator
       dateCreated
@@ -320,6 +323,7 @@ query GetParentInventory($emailAddress: String) {
       editor
       id
       name
+      productDescription
     }
   }
 }`
@@ -483,22 +487,7 @@ mutation Mutation($emailAddress: String, $ipAddress: String, $country: String) {
 }
 `
 
-export const UPDATE_CHILD_INVENTORY = gql`
-mutation Mutation($productId: Int, $productCode: String, $productName: String, $productColor: String, $productSize: String, $productPrice: String, $productStatus: String, $productStock: String, $email: String) {
-  updateChildInventory(productID: $productId, 
-                       productCode: $productCode, 
-                       productName: $productName, 
-                       productColor: $productColor, 
-                       productSize: $productSize, 
-                       productPrice: $productPrice, 
-                       productStatus: $productStatus, 
-                       productStock: $productStock, 
-                       Email: $email) {
-    jsonToken
-    statusText
-  }
-}
-`
+
 export const UPDATE_PARENT_INVENTORY = gql`
 mutation Mutation($productId: Int, $category: String, $productType: String, $brandname: String, $productName: String, $status: String) {
   updateParentInventory(productID: $productId, category: $category, productType: $productType, brandname: $brandname, productName: $productName, status: $status) {

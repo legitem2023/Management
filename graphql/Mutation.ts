@@ -66,3 +66,25 @@ mutation InsertInventory($emailAddress: String, $category: String, $productType:
   }
 }
 `
+
+export const UPDATE_CHILD_INVENTORY = gql`
+mutation UpdateChildInventory($productColor: String, 
+                              $productSize: String, 
+                              $productPrice: String, 
+                              $productStatus: String, 
+                              $productStock: String, 
+                              $productDescription: String, 
+                              $updateChildInventoryId: Int, 
+                              $email: String) {
+  updateChildInventory(productColor: $productColor, 
+                       productSize: $productSize, 
+                       productPrice: $productPrice, 
+                       productStatus: $productStatus, 
+                       productStock: $productStock, 
+                       productDescription: $productDescription, 
+                       id: $updateChildInventoryId, 
+                       Email: $email) {
+    statusText
+  }
+}
+`

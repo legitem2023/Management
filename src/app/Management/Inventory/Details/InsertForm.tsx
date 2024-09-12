@@ -86,15 +86,15 @@ const InsertForm = ({InventoryRefetch}) => {
 
 const HandleSubmit = (e:any) =>{
     e.preventDefault();
-    insertInventory({
-        variables:{
-            "emailAddress": useEmail,
-            "category": formData.Category,
-            "productType": formData.ProductType,
-            "brandname": formData.Brandname,
-            "productName": formData.Name
-          }
-    })
+    // insertInventory({
+    //     variables:{
+    //         "emailAddress": useEmail,
+    //         "category": formData.Category,
+    //         "productType": formData.ProductType,
+    //         "brandname": formData.Brandname,
+    //         "productName": formData.Name
+    //       }
+    // })
 }
 
 const HandleInputChange = (e:any) =>{

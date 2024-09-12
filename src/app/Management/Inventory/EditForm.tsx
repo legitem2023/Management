@@ -18,6 +18,7 @@ const EditForm = ({InventoryRefetch}) => {
 
   const [UpdateParentInventory] = useMutation(UPDATE_PARENT_INVENTORY, {
     onCompleted: data => {
+        console.log(data.updateParentInventory.statusText);
         if(data.updateParentInventory.statusText==='Success!'){
             Manager.Success(data.updateParentInventory.statusText);
             InventoryRefetch();

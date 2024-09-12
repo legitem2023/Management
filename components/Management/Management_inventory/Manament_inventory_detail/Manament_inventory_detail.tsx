@@ -2,14 +2,26 @@ import { Icon } from '@iconify/react'
 import TimestampConverter from 'components/timestamp/TimestampConverter'
 import Image from 'next/image'
 import React from 'react'
+import { setGlobalState, useGlobalState } from 'state'
 import { imageSource } from 'utils/extraFetch'
 
 const Manament_inventory_detail = ({data,setToggle}) => {
     const limitText = (text: any) => {
         return text.slice(0, 10) + (text.length > 10 ? "..." : "");
       }    
-    const SetScale = () =>{
-        setToggle(1)
+    const SetScale = (item:any) =>{
+     const invFormDetailDataEdit = {
+        styleCode:item.style_Code===null?'':item.style_Code,
+        Color:item.color===null?'':item.color,
+        Size:item.size===null?'':item.size,
+        Price:item.price===null?'':item.price,
+        Status:item.status===null?'':item.status,
+        Stock:item.stock===null?'':item.stock,
+        Description:item.productDescription===null?'':item.productDescription,
+        Id:item.id
+    }
+    setGlobalState("invFormDetailDataEdit",invFormDetailDataEdit)
+        setToggle(1);
     }
   return (
     <div>
@@ -36,7 +48,7 @@ const Manament_inventory_detail = ({data,setToggle}) => {
                 <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>
                     <label>
                         <input type="checkbox" id={"edit" + item.id} className='hidden' aria-current={item.id} aria-label={idx + 1}></input>
-                        <Icon icon="bxs:edit" className='management_edit' onClick={SetScale}/>
+                        <Icon icon="bxs:edit" className='management_edit' onClick={()=>SetScale(item)}/>
                     </label>
                   <Icon icon="material-symbols:delete-sharp" className='management_delete' />
                   <Icon icon="carbon:view-filled" />

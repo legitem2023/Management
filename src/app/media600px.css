@@ -34,6 +34,9 @@
     .UniversalFormFrame{
         width:95%;
     }
+    .UniversalFormFrame_B{
+        width:95%;
+    }
     .InventoryHead_child{
         display: none;
     }

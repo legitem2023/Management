@@ -13,6 +13,7 @@ import Management_inventory from 'components/Management/Management_inventory/Man
 import EditForm from './EditForm'
 import InsertForm from './InsertForm'
 import Loading from 'components/LoadingAnimation/Loading'
+import { ToastContainer } from 'react-toastify'
 const Inventory = () => {
 
   const [useInitSlice] = useGlobalState("setInitSlice");
@@ -24,10 +25,10 @@ const Inventory = () => {
   const [productBrand] = useGlobalState("productBrand");
   const [ItemPerpage] = useGlobalState("ItemPerpage");
 
-  const { data:Inventory, loading: inventoryLoading,refetch:InventoryRefetch } = useQuery(MANAGEMENT_INVENTORY);
+  const { data:Inventory, loading: inventoryLoading,error:InventoryError,refetch:InventoryRefetch } = useQuery(MANAGEMENT_INVENTORY);
 
   if (inventoryLoading) return <Loading/>
-
+  if(InventoryError) return "Error:"+InventoryError;
   const searchInventory =  Inventory?.getParentInventory?.filter((item: any) =>item.name.includes(productSearch));
   const sortProductType = productType==="Select Product Type"?searchInventory:searchInventory.filter((item:any) => item.productType.includes(productType));
   const sortProductCategory = productCategory==="Select Category"?sortProductType:sortProductType.filter((item:any) => item.category.includes(productCategory));
@@ -62,6 +63,7 @@ const Inventory = () => {
 
   return (
     <div className='Main'>
+          <ToastContainer></ToastContainer>
       <div className='ManagementBody'>
         <ManagementHeader />
         <ManagementDrawer />

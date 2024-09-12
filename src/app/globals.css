@@ -43,6 +43,7 @@ body {
 .ck-editor{
   background-color: rgb(139, 75, 182)!important;
   padding:5px!important;
+  overflow: auto;
 }
 .ck-editor__main{
   height:200px!important;
@@ -72,7 +73,19 @@ body {
   box-sizing: border-box; /* ensures padding is included within 100% width */
   max-width: 100%; /* ensures the element does not exceed its parent's width */
 }
-
+.link{
+  background-color: #008793;
+  color:#ffffff;
+  padding:10px;
+  text-decoration: none;
+  border-radius: 5px;
+  width: 100px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .CKeditorContent{
   padding:0px!important;
 }

@@ -58,6 +58,25 @@ const { setGlobalState, useGlobalState } = createGlobalState({
         ProductType:'Select Product Type',
         Brandname:'Select Product Brand',
         Status:'Select Status'
+    },
+    invFormDetailDataAdd:{
+        styleCode:"",
+        Color:"",
+        Size:"",
+        Price:"",
+        Status:"Active",
+        Stock:"",
+        Description:""
+    },
+    invFormDetailDataEdit:{
+        styleCode:"",
+        Color:"",
+        Size:"",
+        Price:"",
+        Status:"Active",
+        Stock:"",
+        Description:"",
+        Id:0
     }
 });
 export { useGlobalState, setGlobalState };

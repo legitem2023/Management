@@ -6,7 +6,10 @@ import ManagementDrawer from 'components/Management/ManagementDrawer.tsx/Managem
 import ManagementNavigation from 'components/Management/ManagementNavigation/ManagementNavigation'
 import { Icon } from '@iconify/react'
 import ManagementSearch from 'components/Management/ManagementSearch/ManagementSearch'
-import { GET_CHILD_INVENTORY_DETAIL, SAVE_CROP_IMAGE, UPDATE_CHILD_INVENTORY } from 'graphql/queries'
+import { GET_CHILD_INVENTORY_DETAIL, SAVE_CROP_IMAGE } from 'graphql/queries'
+
+import { UPDATE_CHILD_INVENTORY } from 'graphql/Mutation'
+
 import { useMutation, useQuery } from '@apollo/client'
 import TimestampConverter from 'components/timestamp/TimestampConverter'
 import Link from 'next/link'
@@ -25,6 +28,7 @@ import Management_inventory from 'components/Management/Management_inventory/Man
 import Manament_inventory_detail from 'components/Management/Management_inventory/Manament_inventory_detail/Manament_inventory_detail'
 import Loading from 'components/LoadingAnimation/Loading'
 import InsertForm from './InsertForm'
+import EditForm from './EditForm'
 function centerAspectCrop(
   mediaWidth: number,
   mediaHeight: number,
@@ -111,7 +115,7 @@ const Inventory = () => {
     variables: { styleCode: managementUrlData },
   });
   if (loading) return <Loading/>;
-  if (error) return <p>Connection Error</p>;
+  if (error) return <p>{error.toString()}</p>;
 
   const activateEdit = (e: any) => {
     let checkbox: any = e.target.getAttribute("aria-current");
@@ -191,7 +195,7 @@ const Inventory = () => {
           <Icon icon="eva:close-square-fill" 
                 style={{color: '#ff0000',fontSize:'40px',cursor:'pointer',position:'absolute',top:'10px',right:'10px'}} 
                 onClick={() => setToggle(0)}/>
-            {/* <EditForm InventoryRefetch={InventoryRefetch}/> */}
+            <EditForm InventoryRefetch={childinventory}/>
         </div>
         <div className='Universal_cover' style={{'transform':`scale(${useToggleInsert})`}}>
           <Icon icon="eva:close-square-fill" 
