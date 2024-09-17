@@ -4,6 +4,11 @@
     }.OrderStages {
         grid-gap:0px;
     }
+    .ClosePOPImageUpload_cover{
+        top:5px;
+        right:5px;
+        z-index:999;
+    }
     .NewOrderTable {
         width: 100%;
         display: grid;
@@ -44,9 +49,36 @@
         display: flex;
         flex-direction: column;
     }
+    .Universal_cover{
+        overflow:auto;
+    }
+    .Universal_cover svg{
+        z-index:99999;
+    }
     .InventoryBodyCell{
-        padding:10px;
+        padding:auto;
+        margin:0px;
     } 
+    .InventoryBodyCell img{
+        width:36vw;
+        padding: 10px;
+        height:auto;
+        background-color: #511660;
+    }
+    p .InventoryBodyCell{
+        margin:5px;
+        background-color: #ffffff;
+    }
+    .InventoryBody .InventoryBodyCell{
+        height: auto;
+    }
+    .hideInDesktop{
+        display: block;
+        background-color: #511660;
+        width:36vw;
+        padding: 10px;
+        color:#ffffff;
+    }
     .ManagementMainMenu {
         position: relative;
         display: flex;
@@ -69,6 +101,18 @@
         z-index:999;
         transition: ease 0.5s;
         top:8vh;
+    }
+    .link{
+        left:0px;
+        right:0px;
+        margin:auto;
+    }
+    .POPImageUpload{
+        grid-template-columns: 100%;
+        grid-template-rows: 50% 50%;
+        height: auto !important;
+        width:auto !important;
+        border:solid 4px transparent;
     }
     .drawer{
         display: flex;
@@ -129,7 +173,7 @@
 
     .InventoryBody .InventoryBodyCell {
         background-color: rgba(255, 255, 255, 0.5);
-        padding: 5px;
+        padding:0px;
         align-items: left;
         justify-content: left;
     }

@@ -7,6 +7,7 @@ import Loading from 'components/LoadingAnimation/Loading';
 import { setGlobalState, useGlobalState } from 'state';
 import TextBox from 'components/Management/Management_ui/TextBox';
 import DataManager from 'utils/DataManager';
+import { ToastContainer } from 'react-toastify';
 const EditForm = ({InventoryRefetch}) => {
   const [categoryFilter] = useGlobalState("categoryFilter");
   const [productTypeFilter] = useGlobalState("productTypeFilter"); 
@@ -126,7 +127,8 @@ const EditForm = ({InventoryRefetch}) => {
         </div>     
         <div>
             <input type='submit' value="Save"/>
-        </div>   
+        </div>  
+        {/* <ToastContainer></ToastContainer>   */}
     </form>
   )
 }

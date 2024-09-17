@@ -40,8 +40,13 @@
         "URL": "Settings"
     },
     {
-        "Name": "Messages",
+        "Name": "Crowd Messages",
         "Icon": "typcn:messages",
         "URL": "Messages"
+    },
+    {
+        "Name": "Personal Messages",
+        "Icon": "typcn:messages",
+        "URL": "PMessages"
     }
 ]

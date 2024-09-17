@@ -8,6 +8,10 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     editingMode: false,
     urlData: 0,
     managementUrlData: "",
+    managementUrlDataName:"",
+    managementUrlDataProductType:"",
+    managementUrlDataProductBrand:"",
+    managementUrlDataCategory:"",
     rowNumber: 0,
     setInitSlice: 1,
     fromDate: null,
@@ -57,18 +61,17 @@ const { setGlobalState, useGlobalState } = createGlobalState({
         Category:'Select Category',
         ProductType:'Select Product Type',
         Brandname:'Select Product Brand',
-        Status:'Select Status'
+        Status:'Select Status',
     },
     invFormDetailDataAdd:{
-        styleCode:"",
         Color:"",
         Size:"",
         Price:"",
-        Status:"Active",
         Stock:"",
         Description:""
     },
     invFormDetailDataEdit:{
+        productCode:"",
         styleCode:"",
         Color:"",
         Size:"",

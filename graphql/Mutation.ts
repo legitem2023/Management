@@ -88,3 +88,30 @@ mutation UpdateChildInventory($productColor: String,
   }
 }
 `
+
+export const POSTPERSONAL_MESSAGES = gql`
+mutation PostPersonalMessage($message: String, $sender: String, $reciever: String) {
+  postPersonalMessage(Message: $message, Sender: $sender, Reciever: $reciever) {
+    id
+    Messages
+    Sender
+    Reciever
+    dateSent
+  }
+}
+`
+
+export const DELETE_CHILD_INVENTORY = gql`
+mutation DeleteChildInventory($deleteChildInventoryId: Int) {
+  deleteChildInventory(id: $deleteChildInventoryId) {
+    statusText
+  }
+}`
+
+export const INSERT_CHILD_INVENTORY = gql`
+mutation InsertChildInventory($emailAddress: String, $category: String, $productType: String, $brandname: String, $productName: String, $styleCode: String, $productStock: String, $productPrice: String, $productColor: String, $productSize: String, $productDescription: String) {
+  insertChildInventory(emailAddress: $emailAddress, category: $category, productType: $productType, brandname: $brandname, productName: $productName, styleCode: $styleCode, productStock: $productStock, productPrice: $productPrice, productColor: $productColor, productSize: $productSize, productDescription: $productDescription) {
+    statusText
+  }
+}
+`

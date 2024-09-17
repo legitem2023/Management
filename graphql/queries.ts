@@ -175,6 +175,31 @@ query ReadGroupedOrderHistoryDelivered($emailAddress: String) {
   }
 }`
 
+export const READ_PERSONAL_MESSAGES = gql`
+query PersonalMessages($emailAddress: String) {
+  personalMessages(emailAddress: $emailAddress) {
+    id
+    Messages
+    Sender
+    Reciever
+    dateSent
+  }
+}
+`
+export const GROUP_SENDER = gql`
+query ReadGroupSender($emailAddress: String) {
+  readGroupSender(emailAddress: $emailAddress) {
+    id
+    Messages
+    Sender
+    Reciever
+    dateSent
+  }
+}
+`
+
+
+
 export const GET_MESSAGES = gql`
 query Messages {
   messages {
@@ -462,14 +487,7 @@ query GetInv_subImage {
 //*************** QUERIES ***************/
 
 //*************** MUTATION ***************/
-export const INSERT_CHILD_INVENTORY = gql`
-mutation Mutation($emailAddress: String, $styleCode: String) {
-  insertChildInventory(emailAddress: $emailAddress, styleCode: $styleCode) {
-    jsonToken
-    statusText
-  }
-}
-`
+
 export const INSERT_VIEWS_COUNT = gql`
 mutation Mutation($count: String, $productCode: String, $emailAddress: String, $ipAddress: String, $country: String) {
   insertNumberOfViews(count: $count, productCode: $productCode, emailAddress: $emailAddress, IpAddress: $ipAddress, Country: $country) {

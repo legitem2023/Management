@@ -5,30 +5,23 @@ import ManagementHeader from 'components/Management/ManagementHeader/ManagementH
 import ManagementDrawer from 'components/Management/ManagementDrawer.tsx/ManagementDrawer'
 import ManagementNavigation from 'components/Management/ManagementNavigation/ManagementNavigation'
 import { Icon } from '@iconify/react'
-import ManagementSearch from 'components/Management/ManagementSearch/ManagementSearch'
 import { GET_CHILD_INVENTORY_DETAIL, SAVE_CROP_IMAGE } from 'graphql/queries'
-
-import { UPDATE_CHILD_INVENTORY } from 'graphql/Mutation'
-
+import { UPDATE_CHILD_INVENTORY,DELETE_CHILD_INVENTORY } from 'graphql/Mutation'
 import { useMutation, useQuery } from '@apollo/client'
-import TimestampConverter from 'components/timestamp/TimestampConverter'
 import Link from 'next/link'
 import { setGlobalState, useGlobalState } from 'state'
-
 import { Gallery } from 'components/Gallery/Gallery';
-import { Token } from 'utils/cookie';
 import ReactCrop, { centerCrop, makeAspectCrop, Crop, PixelCrop } from 'react-image-crop'
 import { canvasPreview } from './Upload/canvasPreview'
 import { useDebounceEffect } from './useDebounceEffect'
 import 'react-image-crop/dist/ReactCrop.css'
-import Image from 'next/image'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Management_inventory from 'components/Management/Management_inventory/Management_inventory'
 import Manament_inventory_detail from 'components/Management/Management_inventory/Manament_inventory_detail/Manament_inventory_detail'
 import Loading from 'components/LoadingAnimation/Loading'
 import InsertForm from './InsertForm'
 import EditForm from './EditForm'
+import CropperForm from './Upload/CropperForm'
 function centerAspectCrop(
   mediaWidth: number,
   mediaHeight: number,
@@ -53,7 +46,7 @@ function centerAspectCrop(
 const Inventory = () => {
   const [useToggle,setToggle] = useState(0);
   const [useToggleInsert,setToggleInsert] = useState(0)
-
+  const [useToggle_image_upload,setToggle_image_upload] = useState(0)
   const [imgSrc, setImgSrc] = useState('')
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
@@ -68,6 +61,12 @@ const Inventory = () => {
   const [aspect, setAspect] = useState<number | undefined>(16 / 12)
   const [useItemId] = useGlobalState("setItemID");
   const [managementUrlData] = useGlobalState("managementUrlData");
+  const [managementUrlDataName] = useGlobalState("managementUrlDataName");
+
+  const [managementUrlDataCategory] = useGlobalState("managementUrlDataCategory");
+  const [managementUrlDataProductType] = useGlobalState("managementUrlDataProductType");
+  const [managementUrlDataProductBrand] = useGlobalState("managementUrlDataProductBrand");
+
   const path = process.env.NEXT_PUBLIC_PATH
   const Manager = new DataManager();
   const [activate, setActivation] = React.useState(false)
@@ -75,6 +74,14 @@ const Inventory = () => {
   
   const [UpdateChildInventory] = useMutation(UPDATE_CHILD_INVENTORY, {
     onCompleted: data => console.log(data)
+  })
+
+  const [DeleteChildInventory] = useMutation(DELETE_CHILD_INVENTORY, {
+    onCompleted: data => {
+      childinventory();
+      Manager.Success(data.deleteChildInventory.statusText);
+      console.log(data);
+    }
   })
 
   var [saveCropBlob] = useMutation(SAVE_CROP_IMAGE, {
@@ -104,34 +111,25 @@ const Inventory = () => {
   )
 
   useEffect(() => {
-    // const token:any = cookies();
-    // setEmail(token.email);
     const windata = typeof window !== undefined ? window.location.search : "";
     const urlParams = new URLSearchParams(windata);
     const code: any = urlParams.get('style');
+    const URLName: any = urlParams.get('Name');
+    const URLProductType:any = urlParams.get('ProductType');
+    const URLCategory:any = urlParams.get('Category');
+    const URLBrand:any = urlParams.get('Brand');
+    setGlobalState("managementUrlDataName", URLName);
     setGlobalState("managementUrlData", code);
+    setGlobalState("managementUrlDataCategory", URLCategory);
+    setGlobalState("managementUrlDataProductType", URLProductType);
+    setGlobalState("managementUrlDataProductBrand", URLBrand);
+
   }, [])
   const { data, loading, error,refetch:childinventory } = useQuery(GET_CHILD_INVENTORY_DETAIL, {
     variables: { styleCode: managementUrlData },
   });
   if (loading) return <Loading/>;
   if (error) return <p>{error.toString()}</p>;
-
-  const activateEdit = (e: any) => {
-    let checkbox: any = e.target.getAttribute("aria-current");
-    setID(checkbox)
-    setActivation(e.target.checked)
-    if (e.target.checked) {
-      setGlobalState("editingMode", true)
-      setGlobalState("rowNumber", e.target.getAttribute("aria-label"));
-    } else {
-      setGlobalState("editingMode", false)
-      setGlobalState("rowNumber", 0);
-
-    }
-  }
-
-
 
   //##############################################################################################################
 
@@ -155,16 +153,11 @@ const Inventory = () => {
 
 
   function ShowUpload(e: any) {
-    const id = parseInt(e.target.getAttribute("aria-current"));
-    setGlobalState("setItemID", id);
-    setGlobalState("urlData", id);
-    (document.getElementById("POPImageUpload_cover") as HTMLDivElement).style.transform = 'scale(1)';
+    setToggle_image_upload(1);
   }
 
   function HideUpload(e: any) {
-    const id = parseInt(e.target.getAttribute("aria-current"));
-    setGlobalState("setItemID", 0);
-    (document.getElementById("POPImageUpload_cover") as HTMLDivElement).style.transform = 'scale(0)';
+    setToggle_image_upload(0);
   }
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
 
@@ -179,10 +172,26 @@ const Inventory = () => {
       variables: JSON
     })
     Manager.Promise("Image successfully Uploaded!")
-    //return setGlobalState("message","Image successfully Uploaded!");
-
   }
 
+ const HandleDelete = (id:number) =>{
+  const conf = confirm("Are you sure you want to delete this item?");
+  if(!conf) return
+  DeleteChildInventory({
+    variables: { deleteChildInventoryId: id },
+  })
+ }
+
+ const setFormClear = () =>{
+  const setForm = {
+    Color:"",
+    Size:"",
+    Price:"",
+    Stock:"",
+    Description:""
+  };
+  setGlobalState("invFormDetailDataAdd", setForm);
+ }
   //##############################################################################################################
   return (
     <div className='Main'>
@@ -190,18 +199,24 @@ const Inventory = () => {
         <ManagementHeader />
         <ManagementDrawer />
         <ManagementNavigation />
-
         <div className='Universal_cover' style={{'transform':`scale(${useToggle})`}}>
           <Icon icon="eva:close-square-fill" 
                 style={{color: '#ff0000',fontSize:'40px',cursor:'pointer',position:'absolute',top:'10px',right:'10px'}} 
                 onClick={() => setToggle(0)}/>
-            <EditForm InventoryRefetch={childinventory}/>
+            <EditForm InventoryRefetch={childinventory} setToggle={setToggle}/>
         </div>
         <div className='Universal_cover' style={{'transform':`scale(${useToggleInsert})`}}>
           <Icon icon="eva:close-square-fill" 
                 style={{color: '#ff0000',fontSize:'40px',cursor:'pointer',position:'absolute',top:'10px',right:'10px'}} 
                 onClick={() => setToggleInsert(0)}/>
-            <InsertForm  InventoryRefetch={childinventory}/>
+            <InsertForm  InventoryRefetch={childinventory}
+                         setToggleInsert={setToggleInsert} 
+                         managementUrlData={managementUrlData} 
+                         managementUrlDataName={managementUrlDataName}
+                         managementUrlDataCategory={managementUrlDataCategory}
+                         managementUrlDataProductType={managementUrlDataProductType}
+                         managementUrlDataProductBrand={managementUrlDataProductBrand}
+                         />
         </div>
 
         <div className='ManagementMainMenu'>
@@ -209,7 +224,7 @@ const Inventory = () => {
           <div className='Menu_label_management'><Icon icon='material-symbols:inventory-sharp' /> Inventory</div>
           <div className='InventoryTable_child'>
             <Link href={path + "Management/Inventory"} className='Management_icon'><Icon icon="ic:sharp-double-arrow" rotate={2} /> Back</Link>
-            <button className='addNewItemButton' onClick={()=>setToggleInsert(1)} aria-label="Name">
+            <button className='addNewItemButton' onClick={()=>{setToggleInsert(1);setFormClear();}} aria-label="Name">
               <Icon icon="ic:round-add-box" className="addNewItem"/>
             </button>
             
@@ -226,8 +241,9 @@ const Inventory = () => {
               <div>Editor</div>
               <div>Action</div>
             </div>
-            <Manament_inventory_detail data={data.getChildInventory_details} setToggle={setToggle}/>
-            <div className='POPImageUpload_cover' id="POPImageUpload_cover">
+            <Manament_inventory_detail data={data.getChildInventory_details} setToggle={setToggle} ShowUpload={ShowUpload} HandleDelete={HandleDelete}/>
+            <CropperForm useToggle_image_upload={useToggle_image_upload} previewCanvasRef ={previewCanvasRef} data = {data} HideUpload = {HideUpload} onImageLoad = {onImageLoad} imgRef= {imgRef}  aspect = {aspect} crop = {crop} setCrop = {setCrop} imgSrc = {imgSrc} onSelectFile = {onSelectFile} scale = {scale} setScale = {setScale} rotate = {rotate} setRotate = {setRotate} completedCrop = {completedCrop} setCompletedCrop = {setCompletedCrop} saveBase64 = {saveBase64}/>
+            {/* <div className='POPImageUpload_cover' id="POPImageUpload_cover" style={{'transform':`scale(${useToggle_image_upload})`}}>
               <Icon icon="zondicons:close-solid" className='ClosePOPImageUpload_cover' onClick={(e: any) => HideUpload(e)} />
               <div className='POPImageUpload'>
                 <div className='cropperControlsContainer'>
@@ -302,16 +318,14 @@ const Inventory = () => {
                     )}
                   </div>
                 </div>
-
                 <div className='cropperControlsContainer_gallery'>
-                  <Gallery />
+                  <Gallery data={data}/>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
-      {/* <div className='popNotification' id="popNotification">Image Successfuly Uploaded!</div> */}
     </div>
   )
 }

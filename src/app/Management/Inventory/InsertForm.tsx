@@ -7,8 +7,9 @@ import React from 'react'
 import { setGlobalState, useGlobalState } from 'state';
 import { INSERT_INVENTORY } from 'graphql/Mutation';
 import DataManager from 'utils/DataManager';
+import { ToastContainer } from 'react-toastify';
 const InsertForm = ({InventoryRefetch}) => {
-    const [useEmail] = useGlobalState("cookieEmailAddress");
+  const [useEmail] = useGlobalState("cookieEmailAddress");
 
   const [categoryFilter] = useGlobalState("categoryFilter");
   const [productTypeFilter] = useGlobalState("productTypeFilter"); 
@@ -130,6 +131,7 @@ const HandleInputChange = (e:any) =>{
         <div>
             <input type='submit' value="Add"/>
         </div>   
+        {/* <ToastContainer></ToastContainer>   */}
     </form>
   )
 }

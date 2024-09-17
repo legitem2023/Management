@@ -1,5 +1,5 @@
 import { PixelCrop } from 'react-image-crop'
-import { canvasPreview } from './Upload/canvasPreview'
+import { canvasPreview } from './canvasPreview'
 
 let previewUrl = ''
 

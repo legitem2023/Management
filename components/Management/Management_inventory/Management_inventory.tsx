@@ -13,7 +13,7 @@ const Management_inventory = ({ setToggle, data }) => {
 
   if (ChildInventoryLoading) return <Loading />;
   if(error) return error.toString();
-  console.log(ChildInventory)
+
   const handleLinkClick = (itemId) => {
     setLoadingState((prevState) => ({
       ...prevState,
@@ -37,23 +37,22 @@ const Management_inventory = ({ setToggle, data }) => {
   const path = process.env.NEXT_PUBLIC_PATH;
 
   return data.length > 0 ? (
-    data.map((item, idx) => (
+    data.map((item:any, idx:any) => (
       <div key={idx} className="InventoryBody">
-        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{item.id}</div>
-        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{item.name}</div>
-        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{item.category}</div>
-        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{item.productType}</div>
-        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{item.brandname}</div>
-        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>{item.status}</div>
+        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}><span className='hideInDesktop'>ID </span>{item.id}</div>
+        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}><span className='hideInDesktop'>Product Name : </span>{item.name}</div>
+        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}><span className='hideInDesktop'>Product Category : </span>{item.category}</div>
+        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}><span className='hideInDesktop'>Product Product Type : </span>{item.productType}</div>
+        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}><span className='hideInDesktop'>Product Brandname : </span>{item.brandname}</div>
+        <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}><span className='hideInDesktop'>Product Status : </span>{item.status}</div>
         <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>
-          <TimestampConverter timestamp={item.dateCreated} />
+          <span className='hideInDesktop'>Created At : </span><TimestampConverter timestamp={item.dateCreated} />
         </div>
         <div className={'InventoryBodyCell InventoryBodyCell_det' + ' InventoryBodyCell' + item.id}>
-        <Link
-            href={`${path}Management/Inventory/Details/?style=${item.styleCode}`}
+        <span className='hideInDesktop'>Details </span><Link
+            href={`${path}Management/Inventory/Details/?style=${item.styleCode}&Name=${item.name}&ProductType=${item.productType}&Category=${item.category}&Brand=${item.brandname}`}
             className="link"
-            onClick={() => handleLinkClick(item.id)}
-          >
+            onClick={() => handleLinkClick(item.id)}>
             {loadingState[item.id] ? (
               <>
                 Loading <Icon icon="eos-icons:loading" />
@@ -67,6 +66,7 @@ const Management_inventory = ({ setToggle, data }) => {
 
         </div>
         <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>
+        <span className='hideInDesktop'>Action </span>
           <Icon icon="bxs:edit" className="management_edit" onClick={() => ShowEdit(item)} />
           <Icon icon="material-symbols:delete-sharp" className="management_delete" />
           <Icon icon="carbon:view-filled" className="management_item" />

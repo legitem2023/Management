@@ -58,6 +58,8 @@ const Messages = () => {
 
     return (
         <div className='messagesContainer'>
+            <div></div>
+            <div>
             <ul className='messagesUL'>
                 <li className='messagesLI_1'>
                     <div>
@@ -88,6 +90,7 @@ const Messages = () => {
                         </li>
                     ))}
             </ul>
+            </div>
         </div>
     )
 }

@@ -63,7 +63,6 @@ const Inventory = () => {
 
   return (
     <div className='Main'>
-          <ToastContainer></ToastContainer>
       <div className='ManagementBody'>
         <ManagementHeader />
         <ManagementDrawer />
@@ -98,6 +97,7 @@ const Inventory = () => {
             </div>
           </div>
         </div>
+              <ToastContainer></ToastContainer>
         <div className='Universal_cover' style={{'transform':`scale(${useToggle})`}}>
           <Icon icon="eva:close-square-fill" 
                 style={{color: '#ff0000',fontSize:'40px',cursor:'pointer',position:'absolute',top:'10px',right:'10px'}} 
@@ -111,6 +111,7 @@ const Inventory = () => {
             <InsertForm  InventoryRefetch={InventoryRefetch}/>
         </div>
       </div>
+
     </div>
   )
 }

@@ -29,3 +29,15 @@ subscription MessageToOrder {
   }
 }
 `;
+
+export const PERSONAL_MESSAGES_ADDED = gql`
+subscription MessagesPersonal {
+  messagesPersonal {
+    id
+    Messages
+    Sender
+    Reciever
+    dateSent
+  }
+}
+`

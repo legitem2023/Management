@@ -328,10 +328,19 @@ body {
   margin-bottom:10px;
 }
 .messagesContainer{
+  display: grid;
+  grid-template-columns: 30% 70%;
   width: 100%;
   left:0px;
   right:0px;
   margin:auto;
+}
+.messagesContainer div ul{
+  padding-left: 0px;
+  list-style-type: none;
+}
+.messagesContainer div ul li{
+  padding:10px;
 }
 .messagesLI:hover {
   /* background: linear-gradient(to bottom, #cedbe9 0%, #8a3ec9 0%, #a34cef 58%, #743ac1 84%, #59278c 100%); */
@@ -1279,6 +1288,11 @@ body {
   grid-template-columns: auto 95%;
 }
 
+.messagesContainer div ul li{
+  cursor: pointer;
+}
+
+
 .Search_container {
   padding: 5px;
   background-color: #ffffff;
@@ -2206,17 +2220,26 @@ body {
   height: 40px;
   align-items: center;
   justify-content: center;
+
+  white-space: nowrap;       /* Prevents the text from wrapping to the next line */
+  overflow: hidden;          /* Ensures any overflow content is hidden */
+  text-overflow: ellipsis!important;   /* Adds the ellipsis (...) when the text overflows */
+  max-width: 100%;
+
 }
 
 .InventoryBody .InventoryBodyCell label {
   width: 100%;
 }
-
+.hideInDesktop{
+  display: none;
+}
 .InventoryBody_child {
   display: grid;
   grid-template-columns: 6vw 8vw 8vw 8vw 8vw 8vw 7vw 6vw 7vw 8vw 7vw;
   grid-gap: 2px;
   background-color: #f1f1f1;
+  cursor: pointer;
 }
 
 .InventoryBody_child:hover {
@@ -2232,6 +2255,10 @@ body {
   display: flex;
   align-items: center;
   position: relative;
+  white-space: nowrap;       /* Prevents the text from wrapping to the next line */
+  overflow: hidden;          /* Ensures any overflow content is hidden */
+  text-overflow: ellipsis!important;   /* Adds the ellipsis (...) when the text overflows */
+  max-width: 100%;
 }
 
 .InventoryBody .InventoryBodyCell input,
@@ -2291,7 +2318,7 @@ body {
   /* font-size: 20px; */
   font-weight: bold;
   transition: ease 0.5s;
-  width: 100px;
+  width: 40px;
   margin: 2px;
   height: 40px;
 }
@@ -2305,7 +2332,11 @@ body {
   background-color: #ffffff;
   margin-bottom: 2px;
 }
-
+/* .PaginationContainer div{
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+} */
 .AccountTableCell {
   display: flex;
   align-items: center;
