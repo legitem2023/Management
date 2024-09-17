@@ -24,6 +24,7 @@
     "@react-navigation/native-stack": "^7.0.0-alpha.7",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
+    "@tinymce/tinymce-react": "^5.1.1",
     "@vitejs/plugin-react": "^4.3.1",
     "apollo-upload-client": "^18.0.1",
     "bcrypt": "^5.1.1",
