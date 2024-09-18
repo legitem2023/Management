@@ -51,9 +51,9 @@ body {
 .UniversalFormFrame {
   width:40vw;
   height:auto;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  grid-gap: 5px;
+  grid-gap: 5px; */
   background-color: #f1f1f1;
   position: relative;
 }
@@ -93,9 +93,9 @@ body {
   width:70vw;
   /* min-height: 70vw; */
   height:auto;
-  display: flex;
-  flex-direction: column;
-  grid-gap: 5px;
+  /* display: flex; */
+  /* flex-direction: column;
+  grid-gap: 5px; */
   background-color: #f1f1f1;
   position: relative;
 }
