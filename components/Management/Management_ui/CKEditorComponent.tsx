@@ -37,7 +37,6 @@ const CKEditorComponent = ({ data, onChange }) => {
       apiKey='cwn0oh6tsk3swlt9qm1xpofcybpgg65bban9nsl3tdavcr12'
       init={{
         plugins: [
-          // Core editing features
           'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
           // Your account includes a free trial of TinyMCE premium features
           // Try the most popular premium features until Oct 2, 2024:
