@@ -14,7 +14,7 @@ export const Gallery = (selected_style:any) => {
 
   const imagepath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
 
-  const position = 'right';
+  const position = 'bottom';
 
   const filteredImageData = useMemo(() => {
       return selected_style.data.getChildInventory_details;
