@@ -543,3 +543,34 @@ subscription Subscription {
     dateSent
   }
 }`
+
+export const NEWS_MANAGEMENT = gql`
+query ReadNewsManagement($emailAddress: String) {
+  readNewsManagement(emailAddress: $emailAddress) {
+    id
+    title
+    thumbnail
+    summary
+    postedBy
+    dateCreated
+  }
+}
+`
+
+export const READ_PRIVACY = gql`
+query ReadPrivacy {
+  readPrivacy {
+    id
+    content
+  }
+}
+`
+
+export const READ_DISCLAIMER = gql`
+query ReadDisclaimer {
+  readDisclaimer {
+    id
+    content
+  }
+}
+`

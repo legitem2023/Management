@@ -99,7 +99,6 @@ const HandleSubmit = (e:any) =>{
 
 const HandleInputChange = (e:any) =>{
     const { name, value } = e.target;
-    console.log(formData)
     setGlobalState("invFormDataAdd", (prevData) => ({
         ...prevData,
         [name]: value,

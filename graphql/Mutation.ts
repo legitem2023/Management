@@ -115,3 +115,59 @@ mutation InsertChildInventory($emailAddress: String, $category: String, $product
   }
 }
 `
+
+export const INSERT_NEWS = gql`
+mutation InsertNews($newsInput: NewsInput) {
+  insertNews(NewsInput: $newsInput) {
+    statusText
+  }
+}
+`
+
+export const UPDATE_NEWS = gql`
+mutation UpdateNews($newsInput: NewsInput) {
+  updateNews(NewsInput: $newsInput) {
+    statusText
+  }
+}
+`
+
+export const DELETE_NEWS = gql`
+mutation DeleteNews($param: String) {
+  deleteNews(param: $param) {
+    statusText
+  }
+}
+`
+
+export const INSERT_PRIVACY = gql`
+mutation InsertPrivacy($content: String) {
+  insertPrivacy(content: $content) {
+    statusText
+  }
+}
+`
+
+export const DELETE_PRIVACY = gql`
+mutation DeletePrivacy($deletePrivacyId: String) {
+  deletePrivacy(id: $deletePrivacyId) {
+    statusText
+  }
+}
+`
+
+export const DELETE_DISCLAIMER = gql`
+mutation DeleteDisclaimer($deleteDisclaimerId: String) {
+  deleteDisclaimer(id: $deleteDisclaimerId) {
+    statusText
+  }
+}
+`
+
+export const INSERT_DISCLAIMER = gql`
+mutation InsertDisclaimer($content: String) {
+  insertDisclaimer(content: $content) {
+    statusText
+  }
+}
+`

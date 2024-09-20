@@ -7,6 +7,51 @@ body {
   max-width: 100vw;
   overflow-y: auto;
 }
+.newsTableHead{
+  display:grid;
+  grid-template-columns: 200px 200px auto;
+  background-color: purple;
+  color:#ffffff;
+  margin: 5px;
+  padding:10px;
+}
+.newsTableBody{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 255, 255);
+  margin: 5px;
+  padding:10px;
+}
+.NewsInput{
+  display: flex;
+  flex-direction: column;
+}
+.NewsInput > div{
+  display: flex;
+  flex-direction: column;
+  margin:10px;
+  overflow-x: hidden;
+}
+.NewsTHUMBNAIL{
+  width:200px;
+  height: auto;
+}
+.NewsInput div input{
+  margin:10px;
+  padding:10px;
+  width: 400px;
+}
+.ck{
+  background-color: #c0c0c0;
+  display: flex;
+}
+.PrivacyContainer{
+  display: flex;
+}
+.PrivacyContainer > div{
+  flex:1;
+}
 .OrderStages img:hover{
   background-color: #7a4b96;
   transition: ease 0.5s;
@@ -2793,4 +2838,30 @@ body {
   border-radius: 100%;
   font-size: 16px!important;
 }
+
+
+.tabs {
+  display: flex;
+  margin-bottom: 5px;
+}
+.tab {
+  flex:1;
+  padding: 10px;
+  margin:5px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: none;
+  border-bottom: 2px solid transparent;
+}
+.tab.active {
+  flex:1;
+  border-bottom: 2px solid #0070f3;
+  font-weight: bold;
+}
+.tab-content {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #eaeaea;
+}
+
 /*************************** Management *****************************/

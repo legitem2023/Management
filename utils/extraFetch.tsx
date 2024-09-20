@@ -1,3 +1,5 @@
+import { setGlobalState } from "state"
+
 export const category = (defaultval: any, index: any,Category:any,event:any) => {
     // if (!Category) return
     return (
@@ -47,3 +49,30 @@ export const status = (defaultval: any, index: any,event:any) => {
     return item?.thumbnail ? `${imgPath}${item.thumbnail}` : fallbackImage()
   }
   
+  export const replaceOembedWithIframe = (htmlContent) =>{
+    if (!htmlContent) return '';
+  
+    // Regular expression to detect <oembed> tags with YouTube URLs
+    const oembedRegex = /<oembed url="https:\/\/youtu\.be\/(.*)"><\/oembed>/g;
+  
+    // Replace <oembed> with corresponding <iframe>
+    const updatedContent = htmlContent.replace(
+      oembedRegex,
+      (match, videoId) => {
+        // Return the iframe for YouTube videos
+        return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      }
+    );
+  
+    return updatedContent;
+  }
+
+  export const ClearState = () =>{
+    setGlobalState("ItemPerpage",10);
+    setGlobalState("CurrentPage",1);
+    setGlobalState("setInitSlice",1);
+    setGlobalState("productCategory","Select Category");
+    setGlobalState("productType","Select Product Type");
+    setGlobalState("productBrand","Select Product Brand");
+
+  }

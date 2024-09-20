@@ -48,5 +48,10 @@
         "Name": "Personal Messages",
         "Icon": "typcn:messages",
         "URL": "PMessages"
+    },
+    {
+        "Name": "News",
+        "Icon": "fa6-solid:newspaper",
+        "URL": "News"
     }
 ]

@@ -7,7 +7,10 @@ import ManagementDrawer from 'components/Management/ManagementDrawer.tsx/Managem
 import ManagementNavigation from 'components/Management/ManagementNavigation/ManagementNavigation'
 import { Icon } from '@iconify/react'
 import ManagementSearch from 'components/Management/ManagementSearch/ManagementSearch'
-import ManagementSettings from 'components/Management/ManagmentSettings/ManagementSettings'
+import ManagementSettings from 'components/Management/ManagmentSettings/CPBSettings'
+import Tabs from 'components/Management/Management_ui/Tabs'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Settings = () => {
   return (
     <div className='Main'>
@@ -17,9 +20,9 @@ const Settings = () => {
           <ManagementNavigation/>
           <div className='ManagementMainMenu'>
           <div className='Menu_label_management'><Icon icon='material-symbols:settings-outline' /> Settings</div>
-              <ManagementSearch/>
-              <ManagementSettings/>
+              <Tabs/>
           </div>
+          <ToastContainer></ToastContainer>
         </div>
     </div>
   )

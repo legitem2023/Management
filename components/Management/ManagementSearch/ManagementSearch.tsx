@@ -5,6 +5,7 @@ import { setGlobalState, useGlobalState } from 'state';
 import { useQuery } from '@apollo/client';
 import Select from '../Management_ui/Select';
 import Loading from 'components/LoadingAnimation/Loading';
+import { ClearState } from 'utils/extraFetch';
 const ManagementSearch = () => {
 
   const [productCategory] = useGlobalState("productCategory");
@@ -60,20 +61,20 @@ const ManagementSearch = () => {
     <div className='Search_container'>
       <div className='Search_container_grid'>
         <div className='SortColumn'>
-          <input type='text' placeholder='Search By Name' onChange={(e:any)=>setGlobalState("productSearch",e.target.value)}></input>
+          <input type='text' placeholder='Search By Name' onChange={(e:any)=>{setGlobalState("productSearch",e.target.value);ClearState();}}></input>
         </div>
         <div className='SortColumn'>
-          <Select Selected={productCategory} InitialText="Select Category" Name="Category" Data={CollapsibleCategory()} function_event={(e:any)=>{setGlobalState("productCategory",e.target.value)}}/>
+          <Select Selected={productCategory} InitialText="Select Category" Name="Category" Data={CollapsibleCategory()} function_event={(e:any)=>{setGlobalState("productCategory",e.target.value);}}/>
         </div>
         <div className='SortColumn'>
-          <Select Selected={productType} InitialText="Select Product Type" Name="ProductType" Data={CollapsibleProductType()} function_event={(e:any)=>{setGlobalState("productType",e.target.value)}}/>
+          <Select Selected={productType} InitialText="Select Product Type" Name="ProductType" Data={CollapsibleProductType()} function_event={(e:any)=>{setGlobalState("productType",e.target.value);}}/>
         </div>
         <div className='SortColumn'>
-          <Select Selected={productBrand} InitialText="Select Product Brand" Name="Brandname" Data={CollapsibleBrandName()} function_event={(e:any)=>{setGlobalState("productBrand",e.target.value)}}/>
+          <Select Selected={productBrand} InitialText="Select Product Brand" Name="Brandname" Data={CollapsibleBrandName()} function_event={(e:any)=>{setGlobalState("productBrand",e.target.value);}}/>
         </div>
 
         <div className='SortColumn'>
-          <Select Selected={ItemPerpage} InitialText="10" Name="Pages" Data={CollapsiblePages()} function_event={(e:any)=>{setGlobalState("ItemPerpage",e.target.value)}}/>
+          <Select Selected={ItemPerpage} InitialText="10" Name="Pages" Data={CollapsiblePages()} function_event={(e:any)=>{setGlobalState("ItemPerpage",e.target.value);}}/>
         </div>
       </div>
     </div>

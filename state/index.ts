@@ -17,8 +17,14 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     fromDate: null,
     toDate: null,
     ItemPerpage: 10,
+    CurrentPage:1,
+    NewsItemPerpage: 5,
+    NewsSetInitSlice:1,
     AgentPerpage: "Select Email Address",
     // setInitSlice:"0",
+    setNewsData:"News From Your Store Products",
+    setPrivacyData:"",
+    setDisclaimerData:"",
     setItemID: 0,
     message: "",
     useEmail: "",
@@ -80,25 +86,11 @@ const { setGlobalState, useGlobalState } = createGlobalState({
         Stock:"",
         Description:"",
         Id:0
+    },
+    newsForm:{
+        Title:"",
+        Image:"",
+        Summary:""
     }
 });
 export { useGlobalState, setGlobalState };
-
-// const [formDataEdit, setFormDataEdit] = useState([{
-//     accountCode:'',
-//     accountDetails:[{
-//       Address:'',
-//       accountEmail:'',
-//       contactNo:'',
-//       defaultAddress:'',
-//       fullname:'',
-//       storeName:'',
-//       userId:'',
-//     }],
-//     accountLevel:'',
-//     agentIdentity:'',
-//     email:'',
-//     loginAttemp:'',
-//     macAddress:'',
-//     nameOfStore:'',
-//   }]);

@@ -1,4 +1,7 @@
 @media (orientation: portrait) {
+    .PrivacyContainer{
+        flex-direction: column;
+    }
     .Main {
         overflow-x: hidden !important;
     }.OrderStages {
@@ -303,5 +306,8 @@
     }
     .image-gallery-image{
         width:90%!important;
+    }
+    .NewsInput{
+       flex-direction: column;
     }
 }

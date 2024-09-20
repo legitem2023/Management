@@ -3,9 +3,17 @@ import { Icon } from '@iconify/react';
 import Loading from 'components/LoadingAnimation/Loading';
 import { GET_BRANDS, GET_CATEGORY, GET_PRODUCT_TYPES } from 'graphql/queries';
 import React from 'react'
+import { setGlobalState, useGlobalState } from 'state';
 import DataManager from 'utils/DataManager';
-const ManagementSettings = () => {
+import Pagination from '../Management_universal_pagination/Pagination';
+import Tabs from '../Management_ui/Tabs';
+const CPBSettings = () => {
     const Manager = new DataManager();
+
+    const [useInitSlice] = useGlobalState("CurrentPage");
+    const [ItemPerpage] = useGlobalState("ItemPerpage");
+
+
     const { data:Category, loading:Category_loading } = useQuery(GET_CATEGORY);
     const { data:Product_Type, loading:Product_Type_loading } = useQuery(GET_PRODUCT_TYPES);
     const { data:Brands, loading:Brands_loading } = useQuery(GET_BRANDS);
@@ -38,17 +46,28 @@ const ManagementSettings = () => {
         }
     };
 
+    let itemsPerPage:any = ItemPerpage;
+    let currentPage = useInitSlice;
+  
+    const totalItems = Category.getCategory.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    const paginatedProducts =  Category.getCategory.slice((currentPage - 1) * itemsPerPage,currentPage * itemsPerPage);
+    const handlePageChange = (page: number) => {
+        setGlobalState('CurrentPage', page);
+      };
+    
     return (
         <div className='SettingsContainer'>
             <div className='SettingsContainer_1'>
-                <button>Category</button>
-
+                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
                 <div className='SettingsCategory'>
                     <div className='SettingsCategoryDiv'>Category</div>
                     <div className='SettingsCategoryDiv'>Status</div>
                     <div className='SettingsCategoryDiv'>Product Type</div>
-                </div>{
-                    Category.getCategory.map((item: any) => (
+                </div>
+                {
+                    paginatedProducts.map((item: any) => (
                         <div key={item.id} className='SettingsCategory_grid'>
                             <div><input type='text' defaultValue={item.Name} /></div>
                             <div>
@@ -96,4 +115,4 @@ const ManagementSettings = () => {
     )
 }
 
-export default ManagementSettings
+export default CPBSettings
