@@ -48,7 +48,8 @@
     "react-toastify": "^10.0.4",
     "reactstrap": "^9.2.2",
     "sharp": "^0.33.0",
-    "subscriptions-transport-ws": "^0.11.0"
+    "subscriptions-transport-ws": "^0.11.0",
+    "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
     "@iconify/react": "^4.1.1",

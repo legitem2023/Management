@@ -1,6 +1,5 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
-import useCurrentPage from 'store/useCurrentPage';
 import { setGlobalState } from 'state';
 
 
