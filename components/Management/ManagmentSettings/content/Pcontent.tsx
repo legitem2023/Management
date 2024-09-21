@@ -10,18 +10,15 @@ import Pagination from '../../Management_universal_pagination/Pagination'
 import { fallbackImage } from 'utils/extraFetch'
 import Image from 'next/image'
 
-const Pcontent = () => {
-  const { data, loading, error,refetch } = useQuery(READ_PRIVACY);
+const Pcontent = ({ data, Privacyrefetch }: { data: any; Privacyrefetch: () => void }) => {
+  const content = data?.readPrivacy || [];
   const path = process.env.NEXT_PUBLIC_PATH || '';
 
   const [deletePrivacy] = useMutation(DELETE_PRIVACY,{
     onCompleted:(e)=>{
-      refetch();
+      Privacyrefetch();
     }
   })
-
-  if (loading) return <Loading />;
-  if (error) return error.message;
 
 
   const handleDelete = (e:any) =>{
@@ -34,7 +31,8 @@ const Pcontent = () => {
   return (
     <div className='newsTable'>
       {
-        data?.readPrivacy.map((item: any, idx: number) => (
+        content.length > 0?
+        content.map((item: any, idx: number) => (
           <div key={idx} className='newsTableBody'>
             <div className='ck'><Icon icon="eva:close-square-fill" 
               style={{color: '#ff0000',fontSize:'40px',cursor:'pointer'}} 
@@ -46,7 +44,7 @@ const Pcontent = () => {
             </div>
             <div><HtmlRenderer htmlContent={item.content} /></div>
           </div>
-        ))
+        )):"No Data Found"
       }
     </div>
   );

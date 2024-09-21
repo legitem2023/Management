@@ -565,12 +565,29 @@ query ReadPrivacy {
   }
 }
 `
-
 export const READ_DISCLAIMER = gql`
 query ReadDisclaimer {
   readDisclaimer {
     id
     content
+  }
+}
+`
+
+export const READ_ABOUT_US = gql`
+query ReadAbout {
+  readAbout {
+    content
+    id
+  }
+}
+`
+export const READ_FAQ = gql`
+query ReadFAQ {
+  readFAQ {
+    id
+    question
+    answer
   }
 }
 `

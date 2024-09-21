@@ -16,13 +16,13 @@ import Loading from 'components/LoadingAnimation/Loading'
 import { ToastContainer } from 'react-toastify'
 const Inventory = () => {
 
-  const [useInitSlice] = useGlobalState("setInitSlice");
   const [useToggle,setToggle] = useState(0);
   const [useToggleInsert,setToggleInsert] = useState(0)
   const [productSearch] = useGlobalState("productSearch");
   const [productType] = useGlobalState("productType");
   const [productCategory] = useGlobalState("productCategory");
   const [productBrand] = useGlobalState("productBrand");
+  const [useInitSlice] = useGlobalState("setInitSlice");
   const [ItemPerpage] = useGlobalState("ItemPerpage");
 
   const { data:Inventory, loading: inventoryLoading,error:InventoryError,refetch:InventoryRefetch } = useQuery(MANAGEMENT_INVENTORY);

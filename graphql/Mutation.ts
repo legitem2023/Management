@@ -171,3 +171,19 @@ mutation InsertDisclaimer($content: String) {
   }
 }
 `
+
+export const INSERT_ABOUT = gql`
+mutation InsertAbout($content: String) {
+  insertAbout(content: $content) {
+    statusText
+  }
+}
+` 
+
+export const  DELETE_ABOUT_US = gql`
+mutation DeleteAbout($deleteAboutId: String) {
+  deleteAbout(id: $deleteAboutId) {
+    statusText
+  }
+}
+`

@@ -10,19 +10,15 @@ import Pagination from '../../Management_universal_pagination/Pagination'
 import { fallbackImage } from 'utils/extraFetch'
 import Image from 'next/image'
 
-const Dcontent = () => {
-  const { data, loading, error,refetch } = useQuery(READ_DISCLAIMER);
+const Dcontent = ({ data, DisclaimerRefetch }: { data: any; DisclaimerRefetch: () => void }) => {
+  const content = data?.readDisclaimer || [];
   const path = process.env.NEXT_PUBLIC_PATH || '';
 
   const [deleteDisclaimer] = useMutation(DELETE_DISCLAIMER,{
     onCompleted:(e)=>{
-      refetch();
+      DisclaimerRefetch();
     }
   })
-
-  if (loading) return <Loading />;
-  if (error) return error.message;
-
 
   const handleDelete = (e:any) =>{
     const conf = confirm("Are you sure you want to delete this item?");
@@ -34,7 +30,8 @@ const Dcontent = () => {
   return (
     <div className='newsTable'>
       {
-        data?.readDisclaimer.map((item: any, idx: number) => (
+        content.length > 0?
+        content.map((item: any, idx: number) => (
           <div key={idx} className='newsTableBody'>
             <div className='ck'><Icon icon="eva:close-square-fill" 
               style={{color: '#ff0000',fontSize:'40px',cursor:'pointer'}} 
@@ -46,7 +43,7 @@ const Dcontent = () => {
             </div>
             <div><HtmlRenderer htmlContent={item.content} /></div>
           </div>
-        ))
+        )):"No data found"
       }
     </div>
   );
