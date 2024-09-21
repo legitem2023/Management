@@ -640,6 +640,13 @@ body {
   padding:10px;
   background-color: #f1f1f1!important;
   transition: ease 0.5s;
+  /* justify-content: center; */
+  align-items: center;
+}
+.faq-question textarea{
+  background-color: transparent;
+  outline: 0;
+  border:0;
 }
 .faq-item{
   background-color: #f1f1f1!important;
@@ -654,6 +661,11 @@ body {
   padding:5px;
   line-height: 25px;
   transition: ease 0.5s;
+}
+.faq-answer textarea{
+  background-color: transparent;
+  outline: 0;
+  border:0;
 }
 .faq-answer_close{
     background-color: #dadada!important;
