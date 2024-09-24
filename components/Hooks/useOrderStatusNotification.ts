@@ -51,7 +51,7 @@ const OrderStatusNotification = () => {
     onSubscriptionData: ({ subscriptionData }) => {
 
       if (subscriptionData.data?.messageToOrder) {
-        subscriptionData.data.messageToOrder.filter((item:any)=>item.OrderHistory.agentEmail===userEmail).forEach((data: any) => {
+        subscriptionData.data.messageToOrder.forEach((data: any) => {
           console.log(data.OrderHistory)
           switch (data.OrderStatus) {
             case 'New Order':
