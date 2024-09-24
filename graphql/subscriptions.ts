@@ -3,29 +3,23 @@ import { gql } from "@apollo/client"
 export const ORDER_STATUS_SUBSCRIPTION = gql`
 subscription MessageToOrder {
   messageToOrder {
+    id
+    Image
+    Size
+    Color
+    productCode
+    emailAddress
     TrackingNo
+    OrderNo
+    Quantity
+    Price
     Address
     Contact
+    StoreEmail
+    dateCreated
+    agentEmail
     StatusText
     OrderStatus
-    OrderHistory {
-      id
-      Image
-      Size
-      Color
-      productCode
-      emailAddress
-      TrackingNo
-      OrderNo
-      Quantity
-      Price
-      Address
-      Contact
-      StoreEmail
-      dateCreated
-      agentEmail
-      StatusText
-    }
   }
 }
 `;
