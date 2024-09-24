@@ -80,7 +80,7 @@ const Inventory = () => {
     onCompleted: data => {
       childinventory();
       Manager.Success(data.deleteChildInventory.statusText);
-      console.log(data);
+      return;
     },
   });
 
@@ -119,13 +119,13 @@ const Inventory = () => {
       const URLProductType = params.get('ProductType');
       const URLCategory = params.get('Category');
       const URLBrand = params.get('Brand');
-
       setGlobalState('managementUrlDataName', URLName);
       setGlobalState('managementUrlData', code);
       setGlobalState('managementUrlDataCategory', URLCategory);
       setGlobalState('managementUrlDataProductType', URLProductType);
       setGlobalState('managementUrlDataProductBrand', URLBrand);
     }
+    return () => {};
   }, []);
 
   const { data, loading, error, refetch: childinventory } = useQuery(GET_CHILD_INVENTORY_DETAIL, {
@@ -182,6 +182,7 @@ const Inventory = () => {
     DeleteChildInventory({
       variables: { deleteChildInventoryId: id },
     });
+    return;
   };
 
   const setFormClear = () => {

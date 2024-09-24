@@ -15,7 +15,7 @@ import InsertForm from './InsertForm'
 import Loading from 'components/LoadingAnimation/Loading'
 import { ToastContainer } from 'react-toastify'
 const Inventory = () => {
-
+  const [useEmail] = useGlobalState("cookieEmailAddress");
   const [useToggle,setToggle] = useState(0);
   const [useToggleInsert,setToggleInsert] = useState(0)
   const [productSearch] = useGlobalState("productSearch");
@@ -25,7 +25,11 @@ const Inventory = () => {
   const [useInitSlice] = useGlobalState("setInitSlice");
   const [ItemPerpage] = useGlobalState("ItemPerpage");
 
-  const { data:Inventory, loading: inventoryLoading,error:InventoryError,refetch:InventoryRefetch } = useQuery(MANAGEMENT_INVENTORY);
+  const { data:Inventory, loading: inventoryLoading,error:InventoryError,refetch:InventoryRefetch } = useQuery(MANAGEMENT_INVENTORY,{
+    variables:{
+      emailAddress:useEmail
+    }
+  });
 
   if (inventoryLoading) return <Loading/>
   if(InventoryError) return "Error:"+InventoryError;
@@ -39,7 +43,7 @@ const Inventory = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = currentPage * itemsPerPage;
 
-  const totalItems = sortProductBrand.length;
+  const totalItems = sortProductBrand?.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const jump_to_page = (e: any) => {
@@ -68,6 +72,7 @@ const Inventory = () => {
         <ManagementDrawer />
         <ManagementNavigation />
         <div className='ManagementMainMenu'>
+        <ToastContainer></ToastContainer>
           <div className='Menu_label_management'><Icon icon='material-symbols:inventory-sharp' /> Inventory</div>
           <ManagementSearch />
           <button className='addNewItemButton' onClick={()=>setToggleInsert(1)} aria-label="Name">
@@ -86,7 +91,7 @@ const Inventory = () => {
               <div>Details</div>
               <div>Action</div>
             </div>
-            <Management_inventory setToggle={setToggle} data={sortProductBrand.slice(startIndex, endIndex)}/>
+            <Management_inventory setToggle={setToggle} data={sortProductBrand?.slice(startIndex, endIndex)}/>
           </div>
           <div className='PaginationContainer'>
             <div>
@@ -97,7 +102,6 @@ const Inventory = () => {
             </div>
           </div>
         </div>
-              <ToastContainer></ToastContainer>
         <div className='Universal_cover' style={{'transform':`scale(${useToggle})`}}>
           <Icon icon="eva:close-square-fill" 
                 style={{color: '#ff0000',fontSize:'40px',cursor:'pointer',position:'absolute',top:'10px',right:'10px'}} 

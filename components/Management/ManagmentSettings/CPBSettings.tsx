@@ -49,10 +49,10 @@ const CPBSettings = () => {
     let itemsPerPage:any = ItemPerpage;
     let currentPage = useInitSlice;
   
-    const totalItems = Category.getCategory.length;
+    const totalItems = Category?.getCategory?.length;
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-    const paginatedProducts =  Category.getCategory.slice((currentPage - 1) * itemsPerPage,currentPage * itemsPerPage);
+    const paginatedProducts =  Category?.getCategory?.slice((currentPage - 1) * itemsPerPage,currentPage * itemsPerPage);
     const handlePageChange = (page: number) => {
         setGlobalState('CurrentPage', page);
       };

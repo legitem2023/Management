@@ -23,6 +23,7 @@ const EditForm = ({InventoryRefetch}) => {
         if(data.updateParentInventory.statusText==='Success!'){
             Manager.Success(data.updateParentInventory.statusText);
             InventoryRefetch();
+            return;
         }
     }
 })
@@ -36,7 +37,7 @@ const EditForm = ({InventoryRefetch}) => {
   const formData = invFormDataEdit;
 
  const CollapsibleCategory = () =>{
-    return Category.getCategory.map((item: any) => {
+    return Category?.getCategory?.map((item: any) => {
         return {
             "Value": item.Name,
             "Text": item.Name
@@ -46,11 +47,11 @@ const EditForm = ({InventoryRefetch}) => {
 
  const CollapsibleProductType = () => {
     return categoryFilter === "Select Category"
-      ? Product_Type.getProductTypes.map((item: any) => ({
+      ? Product_Type?.getProductTypes?.map((item: any) => ({
           Value: item.Name,
           Text: item.Name
         }))
-      : Product_Type.getProductTypes
+      : Product_Type?.getProductTypes
           .filter((item: any) => item.Category === categoryFilter)
           .map((item: any) => ({
             Value: item.Name,
@@ -61,7 +62,7 @@ const EditForm = ({InventoryRefetch}) => {
 
 
  const CollapsibleBrandName = () =>{
-    return Brands.getBrand.map((item: any) => {
+    return Brands?.getBrand?.map((item: any) => {
         return {
             "Value": item.Name,
             "Text": item.Name
@@ -81,28 +82,28 @@ const EditForm = ({InventoryRefetch}) => {
 
  const HandleInputChange = (e:any) =>{
     const { name, value } = e.target;
-
     setGlobalState("invFormDataEdit", (prevData) => ({
         ...prevData,
         [name]: value,
       }));
+      return;
  }
 
  const handleSubmit = (e) =>{
     e.preventDefault();
     UpdateParentInventory({
         variables:{
-            "productId": formData.Id,
-            "category": formData.Category,
-            "productType": formData.ProductType,
-            "brandname": formData.Brandname,
-            "productName": formData.Name,
-            "status": formData.Status
+            "productId": invFormDataEdit.Id,
+            "category": invFormDataEdit.Category,
+            "productType": invFormDataEdit.ProductType,
+            "brandname": invFormDataEdit.Brandname,
+            "productName": invFormDataEdit.Name,
+            "status": invFormDataEdit.Status
           }
     })
 
     InventoryRefetch();
-
+    return;
  }
 
   return (
@@ -111,19 +112,19 @@ const EditForm = ({InventoryRefetch}) => {
         <Icon icon="mdi:account" /> Modify
         </div>        
         <div>
-            <TextBox Placeholder={"Name"} InitialText={formData.Name} Name={"Name"} function_event={HandleInputChange} Type={"text"}/>
+            <TextBox Placeholder={"Name"} InitialText={invFormDataEdit.Name} Name={"Name"} function_event={HandleInputChange} Type={"text"}/>
         </div>
         <div>
-            <Select Selected={formData.Category} InitialText="Select Category" Name="Category" Data={CollapsibleCategory()} function_event={HandleInputChange}/>
+            <Select Selected={invFormDataEdit.Category} InitialText="Select Category" Name="Category" Data={CollapsibleCategory()} function_event={HandleInputChange}/>
         </div>
         <div>
-            <Select Selected={formData.ProductType} InitialText="Select Product Type" Name="ProductType" Data={CollapsibleProductType()} function_event={HandleInputChange}/>
+            <Select Selected={invFormDataEdit.ProductType} InitialText="Select Product Type" Name="ProductType" Data={CollapsibleProductType()} function_event={HandleInputChange}/>
         </div>
         <div>
-            <Select Selected={formData.Brandname} InitialText="Select Product Brand" Name="Brandname" Data={CollapsibleBrandName()} function_event={HandleInputChange}/>
+            <Select Selected={invFormDataEdit.Brandname} InitialText="Select Product Brand" Name="Brandname" Data={CollapsibleBrandName()} function_event={HandleInputChange}/>
         </div>
         <div>
-            <Select Selected={formData.Status} InitialText="Select Status" Name="Status" Data={CollapsibleStatus()} function_event={HandleInputChange}/>
+            <Select Selected={invFormDataEdit.Status} InitialText="Select Status" Name="Status" Data={CollapsibleStatus()} function_event={HandleInputChange}/>
         </div>     
         <div>
             <input type='submit' value="Save"/>

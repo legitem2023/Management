@@ -24,13 +24,13 @@ const Dashboard = () => {
   if (LoadingNumberOFViews) return <Loading/>
   if (LoadingNumberOFVisits) return <Loading/>
 
-  const todaysVisits = NumberOFVisits.getWebsitVisits.filter((item: any) => {
+  const todaysVisits = NumberOFVisits?.getWebsitVisits.filter((item: any) => {
     const visited = new Date(item.dateVisited).getTime();
     const out = timestamp - visited;
     return out < 24 * 60 * 60 * 1000 && out >= 0 ? 1 : 0;
   }).length;
 
-  const todaysViews = NumberOFViews.getNumberOfViews.filter((item: any) => {
+  const todaysViews = NumberOFViews?.getNumberOfViews.filter((item: any) => {
     const visited = new Date(item.dateVisited).getTime();
     const out = timestamp - visited;
     return out < 24 * 60 * 60 * 1000 && out >= 0 ? 1 : 0;

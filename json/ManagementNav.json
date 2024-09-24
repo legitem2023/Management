@@ -46,7 +46,7 @@
     },
     {
         "Name": "Personal Messages",
-        "Icon": "typcn:messages",
+        "Icon": "mdi:message-outline",
         "URL": "PMessages"
     },
     {

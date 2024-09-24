@@ -17,7 +17,6 @@ export default function Index() {
 
   let [Login] = useMutation(READLOGIN, {
     onCompleted: data => {
-      console.log(data);
       if(data.ReadLogin.statusText==='Welcome!'){
             setSharedCookie("token", data.ReadLogin.jsonToken, 1);
             Manager.Success(data.ReadLogin.statusText);

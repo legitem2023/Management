@@ -4,10 +4,11 @@ import { useSubscription } from '@apollo/client';
 import { ORDER_STATUS_SUBSCRIPTION } from 'graphql/subscriptions';
 import { useState, useEffect } from 'react';
 import { useNotification } from 'components/Management/ManagementContext/NotificationContext';
+import { useGlobalState } from 'state';
 
 const OrderStatusNotification = () => {
   const { showNotification } = useNotification();
-  
+  const [userEmail] = useGlobalState("cookieEmailAddress");
   const [updateNewOrder, setUpdateNewOrder] = useState<number>(0);
   const [updateRecieved, setUpdateRecieved] = useState<number>(0);
   const [updatePacked, setUpdatePacked] = useState<number>(0);
@@ -48,8 +49,10 @@ const OrderStatusNotification = () => {
 
   const { data, error } = useSubscription(ORDER_STATUS_SUBSCRIPTION, {
     onSubscriptionData: ({ subscriptionData }) => {
+
       if (subscriptionData.data?.messageToOrder) {
-        subscriptionData.data.messageToOrder.forEach((data: any) => {
+        subscriptionData.data.messageToOrder.filter((item:any)=>item.OrderHistory.agentEmail===userEmail).forEach((data: any) => {
+          console.log(data.OrderHistory)
           switch (data.OrderStatus) {
             case 'New Order':
               setUpdateNewOrder(prevCount => {

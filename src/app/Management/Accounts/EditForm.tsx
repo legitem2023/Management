@@ -11,7 +11,7 @@ const EditForm: React.FC = () => {
   const [updateAccountDetails] = useMutation(UPDATE_ACCOUNT_DETAILS, {
     onCompleted: (data) => {
       console.log(data);
-      if (data.updateAccountDetails.statusText === 'Successful!') {
+      if (data.updateAccountDetails.statusText === 'Success') {
         Manager.Success(data.updateAccountDetails.statusText);
       }else{
         Manager.Error(data.updateAccountDetails.statusText);
@@ -73,10 +73,10 @@ const EditForm: React.FC = () => {
         <Icon icon="mdi:account" /> Modify
       </div>
       <div >
-        {data.accountEmail}
+        {formDataEdit.accountEmail}
       </div>
       <div >
-        <select name="accountLevel" value={data.accountLevel} onChange={handleInputChange}>
+        <select name="accountLevel" value={formDataEdit.accountLevel} onChange={handleInputChange}>
           <option value="">Select Level</option>
           <option value="Merchant">Merchant</option>
           <option value="Sales">Sales</option>
@@ -88,7 +88,7 @@ const EditForm: React.FC = () => {
           type="text"
           placeholder="Fullname"
           name="fullname"
-          defaultValue={data.fullname || ''}
+          defaultValue={formDataEdit.fullname || ''}
           onChange={handleInputChange}
           autoComplete="new-password"
           required
@@ -99,7 +99,7 @@ const EditForm: React.FC = () => {
           type="text"
           placeholder="Address"
           name="Address"
-          defaultValue={data.Address}
+          defaultValue={formDataEdit.Address}
           onChange={handleInputChange}
           autoComplete="new-password"
           required
@@ -110,7 +110,7 @@ const EditForm: React.FC = () => {
           type="number"
           placeholder="Contact Number"
           name="contactNo"
-          defaultValue={data.contactNo || ''}
+          defaultValue={formDataEdit.contactNo || ''}
           onChange={handleInputChange}
           autoComplete="new-password"
           required
@@ -121,7 +121,7 @@ const EditForm: React.FC = () => {
           type="text"
           placeholder="Name of Store"
           name="nameOfStore"
-          defaultValue={data.nameOfStore}
+          defaultValue={formDataEdit.nameOfStore}
           onChange={handleInputChange}
           autoComplete="new-password"
           required
@@ -132,7 +132,7 @@ const EditForm: React.FC = () => {
           type="text"
           placeholder="Mac Address"
           name="macAddress"
-          defaultValue={data.macAddress}
+          defaultValue={formDataEdit.macAddress}
           onChange={handleInputChange}
           autoComplete="new-password"
           required
@@ -143,7 +143,7 @@ const EditForm: React.FC = () => {
           type="text"
           placeholder="Agent"
           name="agentIdentity"
-          defaultValue={data.agentIdentity}
+          defaultValue={formDataEdit.agentIdentity}
           onChange={handleInputChange}
           autoComplete="new-password"
           required
@@ -154,7 +154,7 @@ const EditForm: React.FC = () => {
           type="number"
           placeholder="Login Attempt"
           name="loginAttemp"
-          defaultValue={data.loginAttemp || ''}
+          defaultValue={formDataEdit.loginAttemp || ''}
           onChange={handleInputChange}
           autoComplete="new-password"
           required

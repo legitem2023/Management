@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react'
 // import { GET_BRANDS, GET_CATEGORY, GET_PRODUCT_TYPES, UPDATE_PARENT_INVENTORY } from 'graphql/queries';
 import { UPDATE_CHILD_INVENTORY } from 'graphql/Mutation';
-import React from 'react'
+import React, { useState } from 'react'
 import Select from 'components/Management/Management_ui/Select'
 // import Loading from 'components/LoadingAnimation/Loading';
 import { setGlobalState, useGlobalState } from 'state';
@@ -15,13 +15,15 @@ const EditForm = ({InventoryRefetch,setToggle}) => {
   const [useEmail] = useGlobalState("cookieEmailAddress"); 
   const [invFormDetailDataEdit] = useGlobalState("invFormDetailDataEdit");
   const Manager = new DataManager();
-// 
+const [editingRowId, setEditingRowId] = useState(null); // Track which row is being edited
+
   const [UpdateChildInventory] = useMutation(UPDATE_CHILD_INVENTORY, {
     onCompleted: data => {
         if(data.updateChildInventory.statusText==='Successfuly Save!'){
             Manager.Success(data.updateChildInventory.statusText);
             InventoryRefetch();
             setToggle(0);
+            return;
         }
     }
 })
@@ -47,6 +49,7 @@ const EditForm = ({InventoryRefetch,setToggle}) => {
         ...prevData,
         [name]: value,
       }));
+      return;
  }
  const ckEditorInputChange = (data) =>{
     const value = data;
@@ -54,6 +57,7 @@ const EditForm = ({InventoryRefetch,setToggle}) => {
         ...prevData,
         ["Description"]: value,
       }));
+      return;
  }
  const handleSubmit = (e) =>{
     e.preventDefault();
@@ -70,7 +74,12 @@ const EditForm = ({InventoryRefetch,setToggle}) => {
           }
     })
     InventoryRefetch();
+    return;
  }
+
+
+
+
 
   return (
     <form onSubmit={handleSubmit} className='UniversalFormFrame'>
@@ -78,43 +87,22 @@ const EditForm = ({InventoryRefetch,setToggle}) => {
         <Icon icon="mdi:account" /> Modify
         </div>
         <div>
-            <TextBox Placeholder="Product Color" 
-                     InitialText={formData.Color} 
-                     Name="Color" 
-                     function_event={HandleInputChange} 
-                     Type="text"/>
-
-            {/* <input type="text" value={formData.Color} placeholder="Color" name="Color" autoComplete="new-password" onChange={HandleInputChange}required/> */}
+            <input type='text' placeholder='Product Color' name='Color' value={invFormDetailDataEdit.Color} onChange={HandleInputChange}/>
         </div>  
         <div>
-        <TextBox Placeholder="Product Size" 
-                     InitialText={formData.Size} 
-                     Name="Size" 
-                     function_event={HandleInputChange} 
-                     Type="text"/>
-            {/* <input type="text" value={formData.Size} placeholder="Size" name="Size" autoComplete="new-password" onChange={HandleInputChange}required/> */}
+            <input type='text' placeholder='Product Size' name='Size' value={invFormDetailDataEdit.Size} onChange={HandleInputChange}/>
         </div> 
         <div>
-        <TextBox Placeholder="Product Price" 
-                     InitialText={formData.Price} 
-                     Name="Price" 
-                     function_event={HandleInputChange} 
-                     Type="number"/>
-            {/* <input type="number" value={formData.Price} placeholder="Price" name="Price" autoComplete="new-password" onChange={HandleInputChange}required/> */}
+            <input type="number" placeholder='Product Price' name='Price' value={invFormDetailDataEdit.Price} onChange={HandleInputChange}/>
         </div> 
         <div>
-        <TextBox Placeholder="Product Stock" 
-                     InitialText={formData.Stock} 
-                     Name="Stock" 
-                     function_event={HandleInputChange} 
-                     Type="number"/>
-            {/* <input type="number" value={formData.Stock} placeholder="Stock" name="Stock" autoComplete="new-password" onChange={HandleInputChange}required/> */}
+            <input type="number" placeholder='Product Stock' name='Stock' value={invFormDetailDataEdit.Stock} onChange={HandleInputChange}/>
         </div> 
         <div>
-            <Select Selected={formData.Status} InitialText="Select Status" Name="Status" Data={CollapsibleStatus()} function_event={HandleInputChange}/>
+            <Select Selected={invFormDetailDataEdit.Status} InitialText="Select Status" Name="Status" Data={CollapsibleStatus()} function_event={HandleInputChange}/>
         </div> 
         <div className='CKeditorContent'>
-            <CKEditorComponent data={formData.Description===null?"Product Description":formData.Description} onChange={ckEditorInputChange}/>
+            <CKEditorComponent data={invFormDetailDataEdit.Description===null?"Product Description":invFormDetailDataEdit.Description} onChange={ckEditorInputChange}/>
         </div>
         <div>
             <input type='submit' value="Save"/>

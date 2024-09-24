@@ -14,6 +14,7 @@ import { GET_FILTERED_USERS } from 'graphql/queries'
 import Loading from 'components/LoadingAnimation/Loading'
 import InsertForm from './InsertForm'
 import EditForm from './EditForm'
+import { ToastContainer } from 'react-toastify'
 const Accounts = () => {
   const Manager = new DataManager();
   const [useEmail] = useGlobalState("cookieEmailAddress");
@@ -43,6 +44,7 @@ if(AccountLoading) return <Loading/>;
           <ManagementDrawer/>
           <ManagementNavigation/>
           <div className='ManagementMainMenu'>
+          <ToastContainer />
           <div className='Menu_label_management'><Icon icon='mdi:accounts' /> Accounts</div>
               {/* <ManagementSearch/> */}
               <button className='addNewItemButton' onClick={ShowForm}>

@@ -1,5 +1,5 @@
 import { createGlobalState } from "react-hooks-global-state";
-import { productType } from "utils/extraFetch";
+
 const { setGlobalState, useGlobalState } = createGlobalState({
     thumbtake: 10,
     thumbskip: 0,

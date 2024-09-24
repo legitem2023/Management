@@ -23,6 +23,7 @@ const InsertForm = ({InventoryRefetch}) => {
         if(data.insertInventory.statusText==='Successfully!'){
             Manager.Success(data.insertInventory.statusText);
             InventoryRefetch();
+            return;
         }
     }
   })
@@ -35,7 +36,7 @@ const InsertForm = ({InventoryRefetch}) => {
   const formData = invFormDataAdd;
 
   const CollapsibleCategory = () =>{
-    return Category.getCategory.map((item: any) => {
+    return Category?.getCategory?.map((item: any) => {
         return {
             "Value": item.Name,
             "Text": item.Name
@@ -45,11 +46,11 @@ const InsertForm = ({InventoryRefetch}) => {
 
  const CollapsibleProductType = () => {
     return categoryFilter === "Select Category"
-      ? Product_Type.getProductTypes.map((item: any) => ({
+      ? Product_Type?.getProductTypes?.map((item: any) => ({
           Value: item.Name,
           Text: item.Name
         }))
-      : Product_Type.getProductTypes
+      : Product_Type?.getProductTypes
           .filter((item: any) => item.Category === categoryFilter)
           .map((item: any) => ({
             Value: item.Name,
@@ -60,7 +61,7 @@ const InsertForm = ({InventoryRefetch}) => {
 
 
  const CollapsibleBrandName = () =>{
-    return Brands.getBrand.map((item: any) => {
+    return Brands?.getBrand?.map((item: any) => {
         return {
             "Value": item.Name,
             "Text": item.Name
@@ -95,6 +96,7 @@ const HandleSubmit = (e:any) =>{
             "productName": formData.Name
           }
     })
+    return;
 }
 
 const HandleInputChange = (e:any) =>{
@@ -103,6 +105,7 @@ const HandleInputChange = (e:any) =>{
         ...prevData,
         [name]: value,
       }));
+      return;
  }
 
 

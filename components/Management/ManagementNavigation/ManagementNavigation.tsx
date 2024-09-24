@@ -21,8 +21,8 @@ const ManagementNavigation = () => {
   useEffect(() => {
     cookies();
     setColor(currentLocation === 'Details' ? "Inventory" :
-      currentLocation === "webvisit" || currentLocation === "views" ? "Statistics" :
-        currentLocation === 'New' ||
+          currentLocation === "webvisit" || currentLocation === "views" ? "Statistics" :
+          currentLocation === 'New' ||
           currentLocation === 'Recieve' ||
           currentLocation === 'Packed' ||
           currentLocation === 'Logistic' ||

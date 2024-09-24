@@ -36,8 +36,8 @@ const Management_inventory = ({ setToggle, data }) => {
 
   const path = process.env.NEXT_PUBLIC_PATH;
 
-  return data.length > 0 ? (
-    data.map((item:any, idx:any) => (
+  return data?.length > 0 ? (
+    data?.map((item:any, idx:any) => (
       <div key={idx} className="InventoryBody">
         <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}><span className='hideInDesktop'>ID </span>{item.id}</div>
         <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}><span className='hideInDesktop'>Product Name : </span>{item.name}</div>
@@ -58,7 +58,7 @@ const Management_inventory = ({ setToggle, data }) => {
                 Loading <Icon icon="eos-icons:loading" />
               </>
             ) : (
-              `Details ${ChildInventory.getChildInventory.filter(
+              `Details ${ChildInventory?.getChildInventory.filter(
                 (filtered:any) => filtered.style_Code === item.styleCode
               ).length}`
             )}

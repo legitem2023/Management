@@ -29,7 +29,7 @@ const Manament_inventory_detail = ({data,setToggle,ShowUpload,HandleDelete}) => 
 
   return (
     <div>
-        {data.map((item: any, idx: any) => (
+        {data?.map((item: any, idx: any) => (
               <div key={idx} className='InventoryBody_child'>
                 <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>
                     <Image src={imageSource(item)} 

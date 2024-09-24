@@ -16,6 +16,7 @@ const InsertForm = ({InventoryRefetch,setToggleInsert,managementUrlData,manageme
             Manager.Success(data.insertChildInventory.statusText);
             InventoryRefetch();
             setToggleInsert(0);
+            return;
         }
     }
   })
@@ -50,6 +51,7 @@ const HandleSubmit = (e:any) =>{
             "productDescription":formData.Description,        
           }
     })
+    return;
 }
 
 const HandleInputChange = (e:any) =>{
@@ -60,6 +62,7 @@ const HandleInputChange = (e:any) =>{
         ...prevData,
         [name]: value,
       }));
+      return;
  }
 
  const ckEditorInputChange = (data) =>{
@@ -68,6 +71,7 @@ const HandleInputChange = (e:any) =>{
         ...prevData,
         ["Description"]: value,
       }));
+      return;
  }
 
 

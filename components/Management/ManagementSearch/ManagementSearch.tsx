@@ -21,7 +21,7 @@ const ManagementSearch = () => {
   if(Brand_loading) return <Loading/>;
   
  const CollapsibleCategory = () =>{
-    return Category.getCategory.map((item: any) => {
+    return Category?.getCategory?.map((item: any) => {
         return {
             "Value": item.Name,
             "Text": item.Name
@@ -30,7 +30,7 @@ const ManagementSearch = () => {
  }
 
  const CollapsibleProductType = () =>{
-    return Product_Type.getProductTypes.map((item: any) => {
+    return Product_Type?.getProductTypes?.map((item: any) => {
         return {
             "Value": item.Name,
             "Text": item.Name
@@ -39,7 +39,7 @@ const ManagementSearch = () => {
  }
 
  const CollapsibleBrandName = () =>{
-    return Brands.getBrand.map((item: any) => {
+    return Brands?.getBrand?.map((item: any) => {
         return {
             "Value": item.Name,
             "Text": item.Name
