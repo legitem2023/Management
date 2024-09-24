@@ -49,10 +49,8 @@ const OrderStatusNotification = () => {
 
   const { data, error } = useSubscription(ORDER_STATUS_SUBSCRIPTION, {
     onSubscriptionData: ({ subscriptionData }) => {
-
       if (subscriptionData.data?.messageToOrder) {
         subscriptionData.data.messageToOrder.filter((data: any) => data.agentEmail === userEmail).forEach((data: any) => {
-          console.log(data.OrderHistory)
           switch (data.OrderStatus) {
             case 'New Order':
               setUpdateNewOrder(prevCount => {
