@@ -60,7 +60,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('NewOrder', newValue.toString());
                 }
-                // playSound('/newNot.mp3');
+                // playSound('/newNot.mp3'); 
                 // showNotification('New Order', 'A new order has arrived.');
                 return newValue;
               });
