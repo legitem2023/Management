@@ -49,83 +49,80 @@ const OrderStatusNotification = () => {
 
   const { data, error } = useSubscription(ORDER_STATUS_SUBSCRIPTION, {
     onSubscriptionData: ({ subscriptionData }) => {
-
       if (subscriptionData.data?.messageToOrder) {
-        subscriptionData.data.messageToOrder.forEach((data: any) => {
-          console.log(data.OrderHistory)
-          switch (data.OrderStatus) {
-            case 'New Order':
-              setUpdateNewOrder(prevCount => {
-                const newValue = prevCount + 1;
-                if (typeof window !== 'undefined') {
-                  localStorage.setItem('NewOrder', newValue.toString());
-                }
-                // playSound('/newNot.mp3'); 
-                // showNotification('New Order', 'A new order has arrived.');
-                return newValue;
-              });
-              break;
-            case 'Recieved':
-              setUpdateRecieved(prevCount => {
-                const newValue = prevCount + 1;
-                if (typeof window !== 'undefined') {
-                  localStorage.setItem('Recieved', newValue.toString());
-                }
-                // playSound('/newNot.mp3');
-                // showNotification('Order Received', 'An order has been received.');
-                return newValue;
-              });
-              break;
-            case 'Packed':
-              setUpdatePacked(prevCount => {
-                const newValue = prevCount + 1;
-                if (typeof window !== 'undefined') {
-                  localStorage.setItem('Packed', newValue.toString());
-                }
-                // playSound('/newNot.mp3');
-                // showNotification('Order Packed', 'An order has been packed.');
-                return newValue;
-              });
-              break;
-            case 'Logistic':
-              setUpdateLogistic(prevCount => {
-                const newValue = prevCount + 1;
-                if (typeof window !== 'undefined') {
-                  localStorage.setItem('Logistic', newValue.toString());
-                }
-                // playSound('/newNot.mp3');
-                // showNotification('Order in Transit', 'An order is in logistic.');
-                return newValue;
-              });
-              break;
-            case 'Delivery':
-              setUpdateDelivery(prevCount => {
-                const newValue = prevCount + 1;
-                if (typeof window !== 'undefined') {
-                  localStorage.setItem('Delivery', newValue.toString());
-                }
-                // playSound('/newNot.mp3');
-                // showNotification('Out for Delivery', 'An order is out for delivery.');
-                return newValue;
-              });
-              break;
-            case 'Delivered':
-              setUpdateDelivered(prevCount => {
-                const newValue = prevCount + 1;
-                if (typeof window !== 'undefined') {
-                  localStorage.setItem('Delivered', newValue.toString());
-                }
-                // playSound('/newNot.mp3');
-                // showNotification('Order Delivered', 'An order has been delivered.');
-                return newValue;
-              });
-              break;
-            default:
-              break;
-          }
+        // Filter based on agentEmail
+        subscriptionData.data.messageToOrder.forEach((order: any) => {
+          const filteredOrderHistory = order.OrderHistory.filter(
+            (history: any) => history.agentEmail === 'userEmail' // Replace with the email you want to filter by
+          );
+  
+          // Process the filtered orders
+          filteredOrderHistory.forEach((data: any) => {
+            console.log(data);
+  
+            switch (data.OrderStatus) {
+              case 'New Order':
+                setUpdateNewOrder(prevCount => {
+                  const newValue = prevCount + 1;
+                  if (typeof window !== 'undefined') {
+                    localStorage.setItem('NewOrder', newValue.toString());
+                  }
+                  return newValue;
+                });
+                break;
+              case 'Recieved':
+                setUpdateRecieved(prevCount => {
+                  const newValue = prevCount + 1;
+                  if (typeof window !== 'undefined') {
+                    localStorage.setItem('Recieved', newValue.toString());
+                  }
+                  return newValue;
+                });
+                break;
+              case 'Packed':
+                setUpdatePacked(prevCount => {
+                  const newValue = prevCount + 1;
+                  if (typeof window !== 'undefined') {
+                    localStorage.setItem('Packed', newValue.toString());
+                  }
+                  return newValue;
+                });
+                break;
+              case 'Logistic':
+                setUpdateLogistic(prevCount => {
+                  const newValue = prevCount + 1;
+                  if (typeof window !== 'undefined') {
+                    localStorage.setItem('Logistic', newValue.toString());
+                  }
+                  return newValue;
+                });
+                break;
+              case 'Delivery':
+                setUpdateDelivery(prevCount => {
+                  const newValue = prevCount + 1;
+                  if (typeof window !== 'undefined') {
+                    localStorage.setItem('Delivery', newValue.toString());
+                  }
+                  return newValue;
+                });
+                break;
+              case 'Delivered':
+                setUpdateDelivered(prevCount => {
+                  const newValue = prevCount + 1;
+                  if (typeof window !== 'undefined') {
+                    localStorage.setItem('Delivered', newValue.toString());
+                  }
+                  return newValue;
+                });
+                break;
+              default:
+                break;
+            }
+          });
         });
       }
     },
+
   });
 
   if (error) {
