@@ -129,7 +129,7 @@ export default function LogisticOrder() {
                     </span>
                     <span></span>
                     <span>
-                      <button aria-current={item.TrackingNo} onClick={(e:any)=>handleDeliver(e)}  disabled={isloading?true:false}>
+                      <button className="universalbutton" aria-current={item.TrackingNo} onClick={(e:any)=>handleDeliver(e)}  disabled={isloading?true:false}>
                       {isloading?(<Icon icon="eos-icons:loading" />):"Delivery"}</button>
                     </span>
                   </div>

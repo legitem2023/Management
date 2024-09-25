@@ -127,7 +127,7 @@ export default function NewOrder() {
                     </span>
                     <span></span>
                     <span>
-                      <button aria-current={item.TrackingNo} onClick={(e:any)=>handleRecieve(e)} disabled={isloading?true:false}>
+                      <button className="universalbutton" aria-current={item.TrackingNo} onClick={(e:any)=>handleRecieve(e)} disabled={isloading?true:false}>
                       {isloading?(<Icon icon="eos-icons:loading" />):"Recieve Order"}</button>
                     </span>
                   </div>

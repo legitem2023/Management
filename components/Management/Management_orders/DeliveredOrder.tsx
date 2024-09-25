@@ -128,7 +128,7 @@ export default function DeliveredOrder() {
                     </span>
                     <span></span>
                     <span>
-                      <button aria-current={item.TrackingNo} onClick={(e:any)=>handleDelivered(e)} disabled={isloading?true:false}>
+                      <button className="universalbutton" aria-current={item.TrackingNo} onClick={(e:any)=>handleDelivered(e)} disabled={isloading?true:false}>
                       {isloading?(<Icon icon="eos-icons:loading" />):"FeedBack"}</button>
                     </span>
                   </div>

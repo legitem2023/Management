@@ -130,7 +130,7 @@ export default function Recieved() {
                     </span>
                     <span></span>
                     <span>
-                      <button aria-current={item.TrackingNo} onClick={(e:any)=>handlePacked(e)} disabled={isloading?true:false}>
+                      <button className="universalbutton" aria-current={item.TrackingNo} onClick={(e:any)=>handlePacked(e)} disabled={isloading?true:false}>
                         {isloading?(<Icon icon="eos-icons:loading" />):"Pack Order"}
                       </button>
                     </span>
