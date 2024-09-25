@@ -1,4 +1,33 @@
 @media (orientation: portrait) {
+    .drawerFmsg{
+        right:0px;
+        font-size: 40px;
+        position: absolute;
+        display: block;
+        top:0px;
+        margin: 5px;
+        color:#ffffff;
+    }
+    #textarea{
+        width: auto!important;
+    }
+    .messagesContainer{
+        display: flex;
+        flex-direction: column;
+    }
+    .activelist{
+        position: absolute;
+        width: 100%;
+        margin: 0px !important;;
+        height: auto;
+        min-height: 80vh;
+        top:0vh;
+        right:0px;
+        z-index: 9999999;
+    }
+    .messagesUL{
+        margin:5px;
+    }
     .PrivacyContainer{
         flex-direction: column;
     }

@@ -8,7 +8,7 @@ import PersonalMSGNotification from './PersonalMSGNotification';
 
 const ActiveList = () => {
     const [useEmail] = useGlobalState('cookieEmailAddress');
-
+    const [useDrawer] = useGlobalState("useDrawer")
     const { loading:senderLoading, error:senderError, data:senderData } = useQuery(GROUP_SENDER, {
         variables: {
             emailAddress: useEmail
@@ -20,13 +20,14 @@ const ActiveList = () => {
     if(senderError) return <p>{senderError.message}</p>
 
     const deletePersonalMSGCount = (Reciever:any) => {
+        setGlobalState("useDrawer","-100%");
         setGlobalState("messageCount",[]);
         localStorage.removeItem(`personalMSGCount_${Reciever}`);
-        setGlobalState("setReciever",Reciever)
+        setGlobalState("setReciever",Reciever);
       };
 
   return (
-    <ul className='messagesUL'>
+    <ul className='messagesUL activelist' style={{right:useDrawer}}>
     <li className='Menu_label_management'>Conversations</li>
     {
         senderData.readGroupSender.map((item: any, id: any) => (

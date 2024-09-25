@@ -7,6 +7,23 @@ body {
   max-width: 100vw;
   overflow-y: auto;
 }
+.drawerFmsg{
+  display: none;
+}
+.messages_pagination{
+  display: flex;
+}
+.universalbutton{
+  flex:1;
+  padding:10px;
+  background-color: rgb(132, 87, 255);
+  color:#ffffff;
+  border:none;
+  margin:5px;
+}
+.universalbutton:hover{
+  box-shadow: 0.5px 0.5px 3px #000;
+}
 .newsTableHead{
   display:grid;
   grid-template-columns: 200px 200px auto;
@@ -337,10 +354,19 @@ body {
   margin: 10px;
   list-style-type: none;
 }
-
+.activelist{
+  background-color: #b597bd;
+  transition:ease 0.5s;
+}
 .message_li{
   padding:10px;
   cursor:pointer;
+  display: block!important;
+  white-space: nowrap;       /* Prevents the text from wrapping to the next line */
+  overflow: hidden;          /* Ensures any overflow content is hidden */
+  text-overflow: ellipsis!important;   /* Adds the ellipsis (...) when the text overflows */
+  max-width: 100%;
+
 }
 .message_li:hover{
   background-color: rgb(113, 2, 156);

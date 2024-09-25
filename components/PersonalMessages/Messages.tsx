@@ -10,7 +10,7 @@ import Image from 'next/image'
 import { setTime } from 'utils/cookie'
 import Loading from 'components/LoadingAnimation/Loading'
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import { useGlobalState } from 'state'
+import { setGlobalState, useGlobalState } from 'state'
 import { PERSONAL_MESSAGES_ADDED } from 'graphql/subscriptions'
 import ActiveList from './ActiveList'
 const Messages = ({reciever}) => {
@@ -114,13 +114,13 @@ const Messages = ({reciever}) => {
     return (
             <div>
                 <ul className='messagesUL'>
-                    <li className='Menu_label_management'>{reciever}</li>
                     <li className='messagesLI_1'>
+                        <Icon icon="mingcute:drawer-line" className='drawerFmsg' onClick={()=> setGlobalState("useDrawer","-0")}/>
                         <div>
                             <textarea id='textarea' placeholder="Message"></textarea>
                             <button type='submit' 
                                     onClick={handleSubmit} 
-                                    className='submit' 
+                                    className='submit universalbutton' 
                                     disabled={isLoading}>
                                     {isLoading ? (
                                         <Icon icon="eos-icons:loading" />
@@ -146,8 +146,8 @@ const Messages = ({reciever}) => {
                             </li>))
                     }
                             <li className='messages_pagination'>
-                            <button className='universalButtonStyle' onClick={goToPreviousDay}>Previous Day</button>
-                            <button className='universalButtonStyle' onClick={goToNextDay}>Next Day</button>
+                            <button className='universalbutton' onClick={goToPreviousDay}>Previous Day</button>
+                            <button className='universalbutton' onClick={goToNextDay}>Next Day</button>
                             </li>
                 </ul>
             </div>
