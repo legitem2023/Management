@@ -10,7 +10,7 @@ const CrowdMessages = () => {
             </div>
             <div className='middlecontainer_messages'>
                 <div className='messages_container'>
-                    <Messages />
+                    {/* <Messages /> */}
                 </div>
             </div>
             <div className='RightWing'>
