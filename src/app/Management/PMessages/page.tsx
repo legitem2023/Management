@@ -1,10 +1,10 @@
 "use client"
 import { Icon } from '@iconify/react'
 
-import Messages from 'components/PersonalMessages/Messages' 
 import ManagementDrawer from 'components/Management/ManagementDrawer.tsx/ManagementDrawer'
 import ManagementHeader from 'components/Management/ManagementHeader/ManagementHeader'
 import ManagementNavigation from 'components/Management/ManagementNavigation/ManagementNavigation'
+import PersonalMessages from 'components/PersonalMessages/PersonalMessages'
 import React from 'react'
 
 const page = () => {
@@ -16,7 +16,7 @@ const page = () => {
                 <ManagementNavigation />
                 <div className='ManagementMainMenu'>
                     <div className='Menu_label_management'><Icon icon='typcn:messages' /> Messages</div>
-                    <Messages />
+                    <PersonalMessages />
                     <div className='InventoryTable'>
                     </div>
                 </div>

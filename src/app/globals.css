@@ -338,6 +338,14 @@ body {
   list-style-type: none;
 }
 
+.message_li{
+  padding:10px;
+  cursor:pointer;
+}
+.message_li:hover{
+  background-color: rgb(113, 2, 156);
+  color:#f1f1f1;
+}
 /* .messagesUL_fixed {
   padding-left: 0px;
   margin: 10px;

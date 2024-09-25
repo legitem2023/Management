@@ -176,8 +176,8 @@ query ReadGroupedOrderHistoryDelivered($emailAddress: String) {
 }`
 
 export const READ_PERSONAL_MESSAGES = gql`
-query PersonalMessages($emailAddress: String) {
-  personalMessages(emailAddress: $emailAddress) {
+query PersonalMessages($emailAddress: String, $reciever: String) {
+  personalMessages(emailAddress: $emailAddress, reciever: $reciever) {
     id
     Messages
     Sender

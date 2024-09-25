@@ -20,6 +20,8 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     CurrentPage:1,
     NewsItemPerpage: 5,
     NewsSetInitSlice:1,
+    setReciever:"",
+    messageCount:[],
     AgentPerpage: "Select Email Address",
     // setInitSlice:"0",
     setNewsData:"",
