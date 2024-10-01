@@ -43,11 +43,11 @@ export default function Recieved() {
 
   const handlePacked =(event:any) =>{
     setloading(true);
-    const trackingNo = event.target.getAttribute("aria-current");
+    const OrderNo = event.target.getAttribute("aria-current");
     update_order_to_packed({variables:{
       "orderstatusParameter": {
         "agentEmail": useEmail,
-        "TrackingNo": trackingNo
+        "OrderNo": OrderNo
       }
     }})
     localStorage.removeItem('Recieved');
@@ -65,8 +65,8 @@ export default function Recieved() {
     {orders.readGroupedOrderHistoryRecieved.length > 0?orders.readGroupedOrderHistoryRecieved.map((item:any, index:number) => (
         <div className="faq-item" key={index}>
             <div className="faq-question" onClick={() => toggleAccordion(index)}>
-                Tracking Number: {item.TrackingNo}
-                <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>
+            Order Number: {item.OrderNo}
+            <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>
             </div>
             {activeIndex === index && (
                 <div className="faq-answer">
@@ -130,7 +130,7 @@ export default function Recieved() {
                     </span>
                     <span></span>
                     <span>
-                      <button className="universalbutton" aria-current={item.TrackingNo} onClick={(e:any)=>handlePacked(e)} disabled={isloading?true:false}>
+                      <button className="universalbutton" aria-current={item.OrderNo} onClick={(e:any)=>handlePacked(e)} disabled={isloading?true:false}>
                         {isloading?(<Icon icon="eos-icons:loading" />):"Pack Order"}
                       </button>
                     </span>

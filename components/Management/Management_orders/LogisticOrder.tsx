@@ -42,11 +42,11 @@ export default function LogisticOrder() {
 
   const handleDeliver =(event:any) =>{
     setloading(true);
-    const trackingNo = event.target.getAttribute("aria-current");
+    const OrderNo = event.target.getAttribute("aria-current");
     update_order_to_delivery({variables:{
       "orderstatusParameter": {
         "agentEmail": useEmail,
-        "TrackingNo": trackingNo
+        "OrderNo": OrderNo
       }
     }})
     localStorage.removeItem('Logistic');
@@ -64,8 +64,8 @@ export default function LogisticOrder() {
     {orders.readGroupedOrderHistoryLogistic.length > 0?orders.readGroupedOrderHistoryLogistic.map((item:any, index:number) => (
         <div className="faq-item" key={index}>
             <div className="faq-question" onClick={() => toggleAccordion(index)}>
-                Tracking Number: {item.TrackingNo}
-                <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>
+            Order Number: {item.OrderNo}
+            <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>
             </div>
             {activeIndex === index && (
                 <div className="faq-answer">
@@ -129,7 +129,7 @@ export default function LogisticOrder() {
                     </span>
                     <span></span>
                     <span>
-                      <button className="universalbutton" aria-current={item.TrackingNo} onClick={(e:any)=>handleDeliver(e)}  disabled={isloading?true:false}>
+                      <button className="universalbutton" aria-current={item.OrderNo} onClick={(e:any)=>handleDeliver(e)}  disabled={isloading?true:false}>
                       {isloading?(<Icon icon="eos-icons:loading" />):"Delivery"}</button>
                     </span>
                   </div>

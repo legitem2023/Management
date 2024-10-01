@@ -4,7 +4,7 @@ import { gql } from "@apollo/client"
 export const READ_ORDERS = gql`
 query ReadGroupedOrderHistory($emailAddress: String) {
   readGroupedOrderHistory(emailAddress: $emailAddress) {
-    TrackingNo
+    OrderNo
     Address
     Contact
     StatusText
@@ -33,7 +33,7 @@ query ReadGroupedOrderHistory($emailAddress: String) {
 export const READ_ORDERS_RECIEVED = gql`
 query ReadGroupedOrderHistoryRecieved($emailAddress: String) {
   readGroupedOrderHistoryRecieved(emailAddress: $emailAddress) {
-    TrackingNo
+    OrderNo
     Address
     Contact
     StatusText
@@ -62,7 +62,7 @@ query ReadGroupedOrderHistoryRecieved($emailAddress: String) {
 export const READ_ORDERS_PACKED = gql`
 query ReadGroupedOrderHistoryPacked($emailAddress: String) {
   readGroupedOrderHistoryPacked(emailAddress: $emailAddress) {
-    TrackingNo
+    OrderNo
     Address
     Contact
     StatusText
@@ -91,7 +91,7 @@ query ReadGroupedOrderHistoryPacked($emailAddress: String) {
 export const READ_ORDERS_LOGISTIC = gql`
 query ReadGroupedOrderHistoryLogistic($emailAddress: String) {
   readGroupedOrderHistoryLogistic(emailAddress: $emailAddress) {
-    TrackingNo
+    OrderNo
     Address
     Contact
     StatusText
@@ -120,7 +120,7 @@ query ReadGroupedOrderHistoryLogistic($emailAddress: String) {
 export const READ_ORDERS_DELIVERY = gql`
 query ReadGroupedOrderHistoryDelivery($emailAddress: String) {
   readGroupedOrderHistoryDelivery(emailAddress: $emailAddress) {
-    TrackingNo
+    OrderNo
     Address
     Contact
     StatusText
@@ -149,7 +149,7 @@ query ReadGroupedOrderHistoryDelivery($emailAddress: String) {
 export const READ_ORDERS_DELIVERED = gql`
 query ReadGroupedOrderHistoryDelivered($emailAddress: String) {
   readGroupedOrderHistoryDelivered(emailAddress: $emailAddress) {
-    TrackingNo
+    OrderNo
     Address
     Contact
     StatusText

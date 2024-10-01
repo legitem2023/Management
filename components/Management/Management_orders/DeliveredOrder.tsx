@@ -41,11 +41,11 @@ export default function DeliveredOrder() {
   const handleDelivered =(event:any) =>{
     setloading(true);
 
-    const trackingNo = event.target.getAttribute("aria-current");
+    const OrderNo = event.target.getAttribute("aria-current");
     update_order_to_delivered({variables:{
       "orderstatusParameter": {
         "agentEmail": useEmail,
-        "TrackingNo": trackingNo
+        "OrderNo": OrderNo
       }
     }})
     localStorage.removeItem('Delivered');
@@ -63,7 +63,7 @@ export default function DeliveredOrder() {
     {orders.readGroupedOrderHistoryDelivered.length > 0?orders.readGroupedOrderHistoryDelivered.map((item:any, index:number) => (
         <div className="faq-item" key={index}>
             <div className="faq-question" onClick={() => toggleAccordion(index)}>
-                Tracking Number: {item.TrackingNo}
+                Order Number: {item.OrderNo}
                 <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>
             </div>
             {activeIndex === index && (
@@ -128,7 +128,7 @@ export default function DeliveredOrder() {
                     </span>
                     <span></span>
                     <span>
-                      <button className="universalbutton" aria-current={item.TrackingNo} onClick={(e:any)=>handleDelivered(e)} disabled={isloading?true:false}>
+                      <button className="universalbutton" aria-current={item.OrderNo} onClick={(e:any)=>handleDelivered(e)} disabled={isloading?true:false}>
                       {isloading?(<Icon icon="eos-icons:loading" />):"FeedBack"}</button>
                     </span>
                   </div>
