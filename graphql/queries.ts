@@ -591,3 +591,11 @@ query ReadFAQ {
   }
 }
 `
+export const READ_CHART_SALES = gql`
+query ReadSales($period: String) {
+  readSales(period: $period) {
+    Interval
+    totalSales
+  }
+}
+`

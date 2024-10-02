@@ -198,7 +198,7 @@
     .StatisticsStat {
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 25% 25% 25% 25%;
+        /* grid-template-rows: 25% 25% 25% 25%; */
         grid-gap: 5px;
         position: relative;
         height: 60vh;
