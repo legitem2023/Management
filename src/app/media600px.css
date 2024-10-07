@@ -1,4 +1,14 @@
 @media (orientation: portrait) {
+    .AccountTable_body{
+        display: flex;
+        flex-direction: column;
+    }
+    .AccountTable_body div{
+        width: 100%;
+    }
+    .AccountTable_head{
+        display: none;
+    }
     .drawerFmsg{
         right:0px;
         font-size: 40px;
@@ -223,7 +233,18 @@
         align-items: left;
         justify-content: left;
     }
-
+    .ProductVisitsTableTH{
+        display: none!important;
+    }
+    .ProductVisitsTable{
+        display: flex;
+        flex-direction: column;
+    }
+    .ProductVisitsTableTB div{
+        display: flex;
+        align-items: center;
+        padding:0px;
+    }
     .PaginationContainer {
         display: flex;
         flex-direction: column;

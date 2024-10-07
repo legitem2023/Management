@@ -1,4 +1,4 @@
-.lds-ripple {
+/* .lds-ripple {
     display: inline-block;
     position: relative;
     width: 80px;
@@ -13,7 +13,7 @@
   }
   .lds-ripple div:nth-child(2) {
     animation-delay: -0.5s;
-  }
+  } */
   .LOADINGCOVER{
     width:100vw;
     height:100vh;
@@ -21,14 +21,14 @@
     justify-content: center;
     align-items: center;
     position: fixed;
-    background-color: rgba(0, 114, 66,0.5);
+    background-color: transparent;
     left:0px;
     right:0px;
     top:0px;
     bottom:0px;
     margin:auto;
   }
-  @keyframes lds-ripple {
+  /* @keyframes lds-ripple {
     0% {
       top: 36px;
       left: 36px;
@@ -57,4 +57,4 @@
       height: 72px;
       opacity: 0;
     }
-  }
+  } */

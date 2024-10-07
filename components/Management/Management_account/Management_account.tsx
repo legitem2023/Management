@@ -69,21 +69,22 @@ const Management_account: React.FC<AccountListType> = ({ accountList,EditForm })
         <div key={idx} className='AccountTable_body'>
           <div className='AccountTableCell'></div>
           <div className='AccountTableCell'>
-            {item.email}
+          <span className="hideInDesktop">Email Address </span>{item.email}
           </div>
           <div className='AccountTableCell'>
-            {item.nameOfStore}
+          <span className="hideInDesktop">Name of Store </span>{item.nameOfStore}
           </div>
           <div className='AccountTableCell'>
-            {activate && useID === idx ? AccountLevel(item.accountLevel, idx) : item.accountLevel || "Select Level..."}
+          <span className="hideInDesktop">User Level </span>{activate && useID === idx ? AccountLevel(item.accountLevel, idx) : item.accountLevel || "Select Level..."}
           </div>
           <div className='AccountTableCell'>
-            <TimestampConverter timestamp={item.dateCreated} />
+          <span className="hideInDesktop">Date Created </span><TimestampConverter timestamp={item.dateCreated} />
           </div>
           <div className='AccountTableCell'>
-            <TimestampConverter timestamp={item.dateUpdated} />
+          <span className="hideInDesktop">Date Updated </span><TimestampConverter timestamp={item.dateUpdated} />
           </div>
           <div className='AccountTableCell'>
+          <span className="hideInDesktop">Mac Address </span>
             {activate && useID === idx ? (
               <input type='text' defaultValue={item.macAddress} placeholder="Mac Address..." id={'AccMacAdd' + idx} />
             ) : (

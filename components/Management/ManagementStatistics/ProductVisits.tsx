@@ -36,11 +36,11 @@ const ProductVisits = () => {
   const VisitsData = (item:any,idx:any)=>(
     
       <div key={idx} className='ProductVisitsTable ProductVisitsTableTB'>
-        <div className='ProductVisitsTableTB_div'>{item.productCode}</div>
-        <div className='ProductVisitsTableTB_div'>{item.emailAddress}</div>
-        <div className='ProductVisitsTableTB_div'>{item.IpAddress}</div>
-        <div className='ProductVisitsTableTB_div'>{item.Country}</div>
-        <div className='ProductVisitsTableTB_div'>{item.dateVisited}</div>
+        <div className='ProductVisitsTableTB_div'><span className="hideInDesktop">Product Code </span>{item.productCode}</div>
+        <div className='ProductVisitsTableTB_div'><span className="hideInDesktop">Email Address </span>{item.emailAddress}</div>
+        <div className='ProductVisitsTableTB_div'><span className="hideInDesktop">IP Address</span>{item.IpAddress}</div>
+        <div className='ProductVisitsTableTB_div'><span className="hideInDesktop">Country</span>{item.Country}</div>
+        <div className='ProductVisitsTableTB_div'><span className="hideInDesktop">Date Visited</span>{item.dateVisited}</div>
       </div>
     )
 

@@ -24,7 +24,7 @@ export default function StatisticsTab() {
         <div className="TabsParent">
           {StatisticsTabs.map((item:any,idx:any)=>(
             <div key={idx}>
-            <Link href={path+item.href}  className="Tabs"><Icon icon={item.icon}></Icon> {item.Name}</Link>
+            <Link href={path+item.href}  className="Tabs"><Icon icon={item.icon}></Icon></Link>
             </div>
           ))}
         </div>

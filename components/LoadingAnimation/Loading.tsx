@@ -4,7 +4,7 @@ const Loading = () => {
   return (
     <div className='LOADINGCOVER'>
       <div className="Loading" id="Loading">
-        <div id="progress"></div>
+        {/* <div id="progress"></div> */}
         <div className="loader"></div>
       </div>
       {/* <div className="loader"></div> */}
