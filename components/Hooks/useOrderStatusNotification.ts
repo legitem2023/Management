@@ -130,7 +130,20 @@ const OrderStatusNotification = () => {
     console.error('Subscription error:', error);
   }
 
-  return { updateNewOrder, updateRecieved, updatePacked, updateLogistic, updateDelivery, updateDelivered };
+  // return { updateNewOrder, updateRecieved, updatePacked, updateLogistic, updateDelivery, updateDelivered };
+  return { updateNewOrder, 
+          updateRecieved, 
+          updatePacked, 
+          updateLogistic, 
+          updateDelivery, 
+          updateDelivered,
+          setUpdateNewOrder,
+          setUpdateRecieved,
+          setUpdatePacked,
+          setUpdateLogistic,
+          setUpdateDelivery,
+          setUpdateDelivered
+        };
 };
 
 export default OrderStatusNotification;

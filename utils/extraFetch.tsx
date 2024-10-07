@@ -76,3 +76,9 @@ import { setGlobalState } from "state"
     setGlobalState("productBrand","Select Product Brand");
 
   }
+
+  export const ClearStorage = (DeleteState:any,name:string) =>{
+    localStorage.removeItem(name);
+    DeleteState(0);
+  }
+  

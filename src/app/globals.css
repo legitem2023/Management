@@ -239,7 +239,7 @@ body {
   z-index: 99999999;
   background-color: rgba(64, 13, 122, 0.315);
   background-image: url("./../../public/Loading.webp");
-  background-size: 20% auto;
+  background-size: 75px auto;
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -1377,7 +1377,18 @@ body {
   display: flex;
   border:solid 4px #ffffff;
 }
-
+.OrderStageNotification{
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: red!important;
+  color: white;
+  position: absolute;
+  width:25px;
+  height: 25px;
+  border-radius: 100%;
+  font-size: 16px!important;
+}
 .statistics_Search_container div div input,
 .statistics_Search_container div div select {
   padding: 5px;
