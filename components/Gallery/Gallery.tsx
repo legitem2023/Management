@@ -20,17 +20,24 @@ export const Gallery = (selected_style:any) => {
       return selected_style.data.getChildInventory_details;
   }, [selected_style, urlData]);
 
+
+  const imagesSub = useMemo(() =>{
+    return filteredImageData[0].subImageFieldOut
+  },[])
+
+console.log(imagesSub)
+
   const images = useMemo(() => {
-    return filteredImageData?.map((item, idx) => ({
-      original: imageSource(item),
-      thumbnail:imageSource(item),
+    return imagesSub?.map((item, idx) => ({
+      original: item.ImagePath,
+      thumbnail: item.ImagePath,
       description: <Link href={`${path}Products/?Store=${item.id}`}>{item.Name}</Link>,
       alt: `Image ${idx + 1}`,
       title: item.Name,
       ariaLabel: `Image ${idx + 1}`,
       isVideo: true
     })) || [];
-  }, [filteredImageData, imagepath, path]);
+  }, [imagesSub, imagepath, path]);
 
   return (
     <ImageGallery

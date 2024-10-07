@@ -25,12 +25,28 @@ const Chart:React.FC<PropsChart> = ({data}) => {
         ],
       };
     
-      const options = {
+      const options:any = {
         scales: {
-          y: {
-            beginAtZero: true,
-          },
+          xAxes: [
+            {
+              stacked: true
+            }
+          ],
+          yAxes: [
+            {
+              stacked: true
+            }
+          ]
         },
+        pan: {
+          enabled: true,
+          mode: "x"
+        },
+        zoom: {
+          enabled: true,
+          mode: "x",
+          sensitivity: 0.5
+        }
       };
     
       return <Line data={chartData} options={options} />;

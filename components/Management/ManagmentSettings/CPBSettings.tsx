@@ -61,6 +61,9 @@ const CPBSettings = () => {
         <div className='SettingsContainer'>
             <div className='SettingsContainer_1'>
                 <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
+                
+                <Icon icon="icon-park-solid:add" className='addPtype'/>
+
                 <div className='SettingsCategory'>
                     <div className='SettingsCategoryDiv'>Category</div>
                     <div className='SettingsCategoryDiv'>Status</div>

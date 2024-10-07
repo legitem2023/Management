@@ -39,9 +39,6 @@ const Dashboard = () => {
     "values":ChartData.readSales.map((data: any) => data.totalSales)
   }
   
-  console.log(SaleData)
-
-
 
   const todaysVisits = NumberOFVisits?.getWebsitVisits.filter((item: any) => {
     const visited = new Date(item.dateVisited).getTime();

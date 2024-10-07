@@ -515,7 +515,7 @@ mutation Mutation($productId: Int, $category: String, $productType: String, $bra
 }
 `
 export const SAVE_CROP_IMAGE = gql`
-mutation Mutation($saveCropImageId: Int, $file: Upload) {
+mutation Mutation($saveCropImageId: String, $file: Upload) {
   saveCropImage(id: $saveCropImageId, file: $file) {
     jsonToken
     statusText

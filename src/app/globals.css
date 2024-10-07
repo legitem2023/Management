@@ -1086,13 +1086,13 @@ body {
   cursor: pointer;
 }
 
-.image-gallery {
+/* .image-gallery {
   background-color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 95%;
-  height: 23vw;
+  height: 30vw;
   overflow: hidden;
 }
 
@@ -1102,7 +1102,7 @@ body {
 
 .image-gallery-content {
   background-color: rgb(2, 31, 2);
-}
+} */
 
 .MainView_LchildGalleryDetails {
   display: flex;
@@ -2500,7 +2500,7 @@ body {
 }
 
 .SettingsContainer_1 {
-  background-color: #000;
+  background-color: #45006d;
   width: 100%;
 }
 

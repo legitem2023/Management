@@ -24,7 +24,7 @@ const Accounts = () => {
     variables: { emailAddress: useEmail, userLevel: useLevel }
   });
   
-
+console.log(useEmail,useLevel)
 const [useToggle,setToggle] = useState(0);
 const [useToggle_edit,setToggle_edit] = useState(0);
 

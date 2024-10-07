@@ -46,7 +46,7 @@ import { setGlobalState } from "state"
   
   export const imageSource = (item:any) =>{
     const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-    return item?.thumbnail ? `${imgPath}${item.thumbnail}` : fallbackImage()
+    return item?.thumbnail ? `${item.thumbnail}` : fallbackImage()
   }
   
   export const replaceOembedWithIframe = (htmlContent) =>{

@@ -85,7 +85,11 @@ const Inventory = () => {
   });
 
   var [saveCropBlob] = useMutation(SAVE_CROP_IMAGE, {
-    onCompleted: data => console.log(data),
+    onCompleted: data => {
+      if(data.saveCropImage.statusText ==="Image saved successfully"){
+        Manager.Success(data.saveCropImage.statusText);
+      }
+    }
   });
 
   useDebounceEffect(
@@ -154,6 +158,8 @@ const Inventory = () => {
   }
 
   function ShowUpload(e: any) {
+    // console.log(e);
+    setGlobalState('setItemID',e);
     setToggle_image_upload(1);
   }
 
@@ -166,6 +172,9 @@ const Inventory = () => {
   const saveBase64 = () => {
     var canvas = (document.getElementById('myCanvas') as HTMLCanvasElement);
     var dataURL = canvas.toDataURL('image/webp');
+
+    console.log(useItemId)
+
     const JSON = {
       'saveCropImageId': useItemId,
       'file': dataURL,
@@ -173,7 +182,6 @@ const Inventory = () => {
     saveCropBlob({
       variables: JSON,
     });
-    Manager.Promise('Image successfully Uploaded!');
   };
 
   const HandleDelete = (id: number) => {

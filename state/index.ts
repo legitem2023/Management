@@ -29,7 +29,7 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     setPrivacyData:"",
     setDisclaimerData:"",
     setAbout:"",
-    setItemID: 0,
+    setItemID: "",
     message: "",
     useEmail: "",
     useLevel: "",
@@ -89,7 +89,7 @@ const { setGlobalState, useGlobalState } = createGlobalState({
         Status:"Active",
         Stock:"",
         Description:"",
-        Id:0
+        Id:""
     },
     newsForm:{
         Title:"",

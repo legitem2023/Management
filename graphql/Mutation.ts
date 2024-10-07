@@ -74,7 +74,7 @@ mutation UpdateChildInventory($productColor: String,
                               $productStatus: String, 
                               $productStock: String, 
                               $productDescription: String, 
-                              $updateChildInventoryId: Int, 
+                              $updateChildInventoryId: String, 
                               $email: String) {
   updateChildInventory(productColor: $productColor, 
                        productSize: $productSize, 

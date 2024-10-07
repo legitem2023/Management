@@ -10,12 +10,8 @@ export default function StatisticsTab() {
       "Checked":true,
       "href":"/",
       "icon":"mdi:graph-bar"
-    },    {
-      "Name":"Website Visits",
-      "Checked":false,
-      "href":"/webvisit/",
-      "icon":"material-symbols:nest-doorbell-visitor-outline"
-    },    {
+    },
+    {
       "Name":"Product Views",
       "Checked":false,
       "href":"/views/",
