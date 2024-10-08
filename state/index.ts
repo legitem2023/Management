@@ -95,6 +95,21 @@ const { setGlobalState, useGlobalState } = createGlobalState({
         Title:"",
         Image:"",
         Summary:""
-    }
+    },
+    categoryFormInsert:{
+        Name: "",
+        icon: "",
+        image: [{}],
+        status: "Active"
+    },
+    productTypeFormInsert:{
+        Category:"",
+        Name:""
+    },
+    brandFormInsert:{
+        Name: "",
+        ProductType:""
+    },
+
 });
 export { useGlobalState, setGlobalState };

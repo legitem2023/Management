@@ -2,21 +2,26 @@ import { useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
 import Loading from 'components/LoadingAnimation/Loading';
 import { GET_BRANDS, GET_CATEGORY, GET_PRODUCT_TYPES } from 'graphql/queries';
-import React from 'react'
+import React, { useState } from 'react'
 import { setGlobalState, useGlobalState } from 'state';
 import DataManager from 'utils/DataManager';
-import Pagination from '../Management_universal_pagination/Pagination';
-import Tabs from '../Management_ui/Tabs';
+import Pagination from '../../Management_universal_pagination/Pagination';
+import Tabs from '../../Management_ui/Tabs';
+import InsertFormCategory from '@/app/Management/Settings/CCommands/InsertFormCategory';
+import InsertFormProductType from '@/app/Management/Settings/PCommands/InsertFormProductType';
+import InsertFormBrand from '@/app/Management/Settings/BCommands/InsertFormBrand';
 const CPBSettings = () => {
     const Manager = new DataManager();
 
     const [useInitSlice] = useGlobalState("CurrentPage");
     const [ItemPerpage] = useGlobalState("ItemPerpage");
+    const [useToggle,setToggle] = useState(0);
+    const [useRender,setToRender] = useState("");
 
 
-    const { data:Category, loading:Category_loading } = useQuery(GET_CATEGORY);
-    const { data:Product_Type, loading:Product_Type_loading } = useQuery(GET_PRODUCT_TYPES);
-    const { data:Brands, loading:Brands_loading } = useQuery(GET_BRANDS);
+    const { data:Category, loading:Category_loading,refetch:CategoryRefetch } = useQuery(GET_CATEGORY);
+    const { data:Product_Type, loading:Product_Type_loading,refetch:Product_TypeRefetch } = useQuery(GET_PRODUCT_TYPES);
+    const { data:Brands, loading:Brands_loading,refetch:BrandRefetch } = useQuery(GET_BRANDS);
 
     if (Category_loading) return <Loading/>;
     if (Product_Type_loading) return <Loading/>;
@@ -57,13 +62,30 @@ const CPBSettings = () => {
         setGlobalState('CurrentPage', page);
       };
     
+      const handleShow = (e:any) =>{
+        setToRender(e.currentTarget.getAttribute("aria-label"));
+        setToggle(1);
+
+        setGlobalState("brandFormInsert", (prevData) => ({...prevData,"ProductType": e.currentTarget.getAttribute("aria-current")}))
+        setGlobalState("productTypeFormInsert", (prevData) => ({...prevData,"Category": e.currentTarget.getAttribute("aria-current")}))
+
+      }
+
+
     return (
         <div className='SettingsContainer'>
             <div className='SettingsContainer_1'>
                 <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
-                
-                <Icon icon="icon-park-solid:add" className='addPtype'/>
-
+                <div className='Universal_cover' style={{'transform':`scale(${useToggle})`}}>
+                <Icon icon="eva:close-square-fill" 
+                        style={{color: '#ff0000',fontSize:'40px',cursor:'pointer',position:'absolute',top:'10px',right:'10px'}} 
+                        onClick={() => setToggle(0)}/>
+                        {useRender==='Category'?(<InsertFormCategory CategoryRefetch={CategoryRefetch}/>):
+                         useRender==='ProductType'?<InsertFormProductType Product_TypeRefetch={Product_TypeRefetch}/>:
+                         useRender==='Brandname'?<InsertFormBrand BrandRefetch={BrandRefetch}/>:""
+                         }
+                </div>
+                <Icon icon="icon-park-solid:add" className='addPtype' aria-label='Category' onClick={(e:any) => handleShow(e)}/>
                 <div className='SettingsCategory'>
                     <div className='SettingsCategoryDiv'>Category</div>
                     <div className='SettingsCategoryDiv'>Status</div>
@@ -86,7 +108,7 @@ const CPBSettings = () => {
                                 </label>
                             </div>
                             <div className='SettingProductType' id={"collapseProdTypeCont" + item.id}>
-                                <Icon icon="icon-park-solid:add" className='addPtype' aria-current={item.Name} />
+                                <Icon icon="icon-park-solid:add" className='addPtype' aria-current={item.Name} aria-label="ProductType" onClick={(e:any) => handleShow(e)}/>
                                 <div className='SettingProductType_grid'>
                                     <div className='SettingProductType_grid_div'>Product Type</div><div className='SettingProductType_grid_div'>Brand</div>
                                 </div>
@@ -103,7 +125,7 @@ const CPBSettings = () => {
                                                 </label>
                                             </div>
                                             <div className='SettingBrandName' id={"collapse_Brand" + Proditem.id}>
-                                                <Icon icon="icon-park-solid:add" className='addBrand' aria-current={Proditem.Name} />
+                                                <Icon icon="icon-park-solid:add" className='addBrand' aria-current={Proditem.Name} aria-label='Brandname' onClick={(e:any) => handleShow(e)}/>
                                                 {Brands.getBrand.filter((bItem: any) => { return bItem.ProductType === Proditem.Name }).map((BrandItem: any) => (
                                                     <div key={BrandItem.id}><input type='text' defaultValue={BrandItem.Name} /></div>
                                                 ))}

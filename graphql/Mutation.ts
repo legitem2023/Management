@@ -187,3 +187,27 @@ mutation DeleteAbout($deleteAboutId: String) {
   }
 }
 `
+
+export const INSERT_CATEGORY = gql`
+mutation InsertCategory($categoryInput: CategoryInput) {
+  insertCategory(CategoryInput: $categoryInput) {
+    statusText
+  }
+}
+`
+
+export const INSERT_PRODUCT_TYPE = gql`
+mutation InsertProductTypes($productTypesInput: ProductTypesInput) {
+  insertProductTypes(ProductTypesInput: $productTypesInput) {
+    statusText
+  }
+}
+`
+
+export const INSERT_BRAND = gql`
+mutation InsertBrand($brandnameInput: BrandnameInput) {
+  insertBrand(BrandnameInput: $brandnameInput) {
+    statusText
+  }
+}
+`
