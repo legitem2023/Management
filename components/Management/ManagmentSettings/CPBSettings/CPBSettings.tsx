@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
 import Loading from 'components/LoadingAnimation/Loading';
 import { GET_BRANDS, GET_CATEGORY, GET_PRODUCT_TYPES } from 'graphql/queries';
@@ -10,6 +10,7 @@ import Tabs from '../../Management_ui/Tabs';
 import InsertFormCategory from '@/app/Management/Settings/CCommands/InsertFormCategory';
 import InsertFormProductType from '@/app/Management/Settings/PCommands/InsertFormProductType';
 import InsertFormBrand from '@/app/Management/Settings/BCommands/InsertFormBrand';
+import {UPDATE_CATEGORY_IMAGE} from 'graphql/Mutation';
 const CPBSettings = () => {
     const Manager = new DataManager();
 
@@ -17,11 +18,21 @@ const CPBSettings = () => {
     const [ItemPerpage] = useGlobalState("ItemPerpage");
     const [useToggle,setToggle] = useState(0);
     const [useRender,setToRender] = useState("");
+    const imgPath = '/Thumnail.png'
+    const [useLoading,setLoading] = useState(false);
 
 
     const { data:Category, loading:Category_loading,refetch:CategoryRefetch } = useQuery(GET_CATEGORY);
     const { data:Product_Type, loading:Product_Type_loading,refetch:Product_TypeRefetch } = useQuery(GET_PRODUCT_TYPES);
     const { data:Brands, loading:Brands_loading,refetch:BrandRefetch } = useQuery(GET_BRANDS);
+
+    const [update_category_image] = useMutation(UPDATE_CATEGORY_IMAGE,{
+        onCompleted: (e) => {
+            console.log(e);
+            CategoryRefetch();
+            setLoading(false);
+        }
+    });
 
     if (Category_loading) return <Loading/>;
     if (Product_Type_loading) return <Loading/>;
@@ -71,7 +82,23 @@ const CPBSettings = () => {
 
       }
 
-
+      const handleImageChange = (e:any) =>{
+        setLoading(true);
+        const file = e.target.files[0];
+        const id = e.target.getAttribute("aria-label");
+        if (file) {
+            const reader:any = new FileReader();
+            reader.onloadend = () => {
+                update_category_image({
+                    variables:{
+                        "uploadCategoryImageId": id,
+                        "image": reader.result
+                    }
+                })
+            };
+            reader.readAsDataURL(file);
+          }
+      }
     return (
         <div className='SettingsContainer'>
             <div className='SettingsContainer_1'>
@@ -87,13 +114,20 @@ const CPBSettings = () => {
                 </div>
                 <Icon icon="icon-park-solid:add" className='addPtype' aria-label='Category' onClick={(e:any) => handleShow(e)}/>
                 <div className='SettingsCategory'>
+                    <div className='SettingsCategoryDiv'>Image</div>
                     <div className='SettingsCategoryDiv'>Category</div>
                     <div className='SettingsCategoryDiv'>Status</div>
                     <div className='SettingsCategoryDiv'>Product Type</div>
                 </div>
                 {
-                    paginatedProducts.map((item: any) => (
+                    paginatedProducts.map((item: any,idx:number) => (
                         <div key={item.id} className='SettingsCategory_grid'>
+                            <div>
+                                <label htmlFor={"img"+idx}>
+                                    {useLoading?(<Icon icon="eos-icons:loading" width={100} height={"auto"}/>):(<img src={item.image===null?imgPath:item.image} width={100} height={"auto"}/>)}
+                                </label>                            
+                                <input type='file' className='hidden' aria-label={item.id} onChange={(e: any) => handleImageChange(e)} name={"img"+idx} id={"img"+idx}/>
+                            </div>
                             <div><input type='text' defaultValue={item.Name} /></div>
                             <div>
                                 <select>

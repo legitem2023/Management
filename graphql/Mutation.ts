@@ -211,3 +211,19 @@ mutation InsertBrand($brandnameInput: BrandnameInput) {
   }
 }
 `
+
+export const UPDATE_CATEGORY_IMAGE = gql`
+mutation UploadCategoryImage($uploadCategoryImageId: String, $image: Upload) {
+  uploadCategoryImage(id: $uploadCategoryImageId, image: $image) {
+    statusText
+  }
+}
+`
+
+export const UPLOAD_GLB_MODEL = gql`
+mutation Upload3DModel($model: Upload, $upload3DModelId: String) {
+  upload3DModel(model: $model, id: $upload3DModelId) {
+    statusText
+  }
+}
+`

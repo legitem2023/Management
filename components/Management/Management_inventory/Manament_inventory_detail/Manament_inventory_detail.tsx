@@ -1,16 +1,33 @@
 import { Icon } from '@iconify/react'
 import TimestampConverter from 'components/timestamp/TimestampConverter'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import { setGlobalState, useGlobalState } from 'state'
 import { imageSource } from 'utils/extraFetch'
 import { fallbackImage,handleError } from 'utils/triggers'
+import { UPLOAD_GLB_MODEL } from 'graphql/Mutation'
+import { useMutation } from '@apollo/client'
+import DataManager from 'utils/DataManager'
 
 const Manament_inventory_detail = ({data,setToggle,ShowUpload,HandleDelete}) => {
+    const Manager = new DataManager();
+    const [useLoading,setLoading] = useState(false);
+
+    const [upload_glb_model] = useMutation(UPLOAD_GLB_MODEL,{
+        onCompleted: (data) => {
+            console.log(data)
+            if(data.upload3DModel.statusText==='Success'){
+              Manager.Success(data.upload3DModel.statusText);
+                setLoading(false);
+            }
+        },
+        onError: (error) => {
+            console.log(error)
+        }
+    })
     const limitText = (text: any) => {
         return text.slice(0, 10) + (text.length > 10 ? "..." : "");
       }
-
     const SetScale = (item:any) =>{
      const invFormDetailDataEdit = {
         productCode:item.product_Code===null?'':item.product_Code,
@@ -27,6 +44,25 @@ const Manament_inventory_detail = ({data,setToggle,ShowUpload,HandleDelete}) => 
         setToggle(1);
     }
 
+
+
+    const handleModelUpload = (e:any) =>{
+        setLoading(true);
+        const file = e.target.files[0];
+        const id = e.target.getAttribute("aria-label");
+        if (file) {
+          const reader:any = new FileReader();
+          reader.onloadend = () => {
+            upload_glb_model({
+              variables:{
+                  "model": reader.result,
+                  "upload3DModelId": id
+              }
+          })
+          };
+          reader.readAsDataURL(file);
+        }
+    }
   return (
     <div>
         {data?.map((item: any, idx: any) => (
@@ -55,14 +91,22 @@ const Manament_inventory_detail = ({data,setToggle,ShowUpload,HandleDelete}) => 
                   <p className='InventoryBodyCell'><span className='hideInDesktop'>Creator: </span>{limitText(item.creator)}</p>
                   <p className='InventoryBodyCell'><span className='hideInDesktop'>Editor: </span>{limitText(item.editor)}</p>
                 </div>
-                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id}>
+                <div className={'InventoryBodyCell' + ' InventoryBodyCell' + item.id + " ActionsGrid"}>
                 <span className='hideInDesktop'>Action </span>  
                     <label>
                         <input type="checkbox" id={"edit" + item.id} className='hidden' aria-current={item.id} aria-label={idx + 1}></input>
                         <Icon icon="bxs:edit" className='management_edit' onClick={()=>SetScale(item)}/>
                     </label>
-                  <Icon icon="material-symbols:delete-sharp" className='management_delete' onClick={()=>HandleDelete(item.id)}/>
-                  <Icon icon="carbon:view-filled" />
+                    <label>
+                      <Icon icon="material-symbols:delete-sharp" className='management_delete' onClick={()=>HandleDelete(item.id)}/>
+                    </label>
+                    <label>
+                      <Icon icon="carbon:view-filled" />
+                    </label>
+                  <label htmlFor={"GLB" + item.id}>
+                    {useLoading?<Icon icon="eos-icons:loading" />:<Icon icon="game-icons:cube" />}
+                  </label>
+                  <input type='file' id={"GLB" + item.id} aria-label={item.id} className='hidden' onChange={(e)=>handleModelUpload(e)}/>
                 </div>
               </div>
             ))}

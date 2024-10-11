@@ -25,7 +25,6 @@ export const Gallery = (selected_style:any) => {
     return filteredImageData[0].subImageFieldOut
   },[])
 
-console.log(imagesSub)
 
   const images = useMemo(() => {
     return imagesSub?.map((item, idx) => ({
