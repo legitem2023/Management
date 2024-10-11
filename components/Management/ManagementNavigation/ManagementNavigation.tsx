@@ -41,7 +41,7 @@ const ManagementNavigation = () => {
       <ul className='managementNavigationmenu'>
         <li className='Menu_label_management'>Menu</li>
         {Navigation.map((item: any, index: any) => (
-          <li key={index} onClick={handleDrawer} style={{position:'relative', backgroundColor: item.URL === useColor ? 'rgb(228 187 255)' : 'rgb(214 153 255)' }}><Link href={"/Management/" + item.URL}><Icon icon={item.Icon} /><span>{item.Name}</span>{item.Name==='Transaction'?<OrderNotification/>:''}</Link></li>
+          <li key={index} onClick={handleDrawer} style={{position:'relative', backgroundColor: item.URL === useColor ? 'lavender' : '#c0c0c0' }}><Link href={"/Management/" + item.URL}><Icon icon={item.Icon} /><span>{item.Name}</span>{item.Name==='Transaction'?<OrderNotification/>:''}</Link></li>
         ))}
       </ul>
     </div>

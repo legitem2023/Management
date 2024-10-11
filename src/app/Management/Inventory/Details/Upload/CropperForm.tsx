@@ -73,7 +73,7 @@ const CropperForm = ({useToggle_image_upload,previewCanvasRef,data,HideUpload,on
                 border: '1px solid black',
                 objectFit: 'contain',
                 width: completedCrop.width,
-                height: completedCrop.height,
+                height: completedCrop.width,
                 display: 'none'
               }}
             />

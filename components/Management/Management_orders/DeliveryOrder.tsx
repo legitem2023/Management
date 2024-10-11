@@ -86,7 +86,7 @@ export default function DeliveryOrder() {
                    {item.OrderHistory.map((child:any,i:number)=>(
                   <div key={i} className="NewOrderTable">
                   <div className="NewOrderTableImgContainer"><Image 
-                            src={child.Image === '' || child.Image === null ? path + 'image/Legitem-svg.svg' : imgPath + child.Image} 
+                            src={child.Image === '' || child.Image === null ? path + 'image/Legitem-svg.svg' : child.Image} 
                             alt={child.id}
                             onError={handleImage} 
                             height='60' 

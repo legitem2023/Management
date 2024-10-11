@@ -259,18 +259,17 @@ body {
   grid-template-columns: 14.28% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28%;
   justify-content: center;
   align-items: center;
-  border-bottom: solid 1px #f1f1f1;
-  grid-gap:1px;
 }
 .NewOrderTableHead div{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90%;
+  height: 100%;
   width:auto;
   background-color: purple;
   color:#ffffff;
   padding:5px;
+  box-sizing: border-box;
 }
 .NewOrderTable{
   width: 100%;
@@ -280,7 +279,6 @@ body {
   align-items: center;
   border-bottom: solid 1px #f1f1f1;
   cursor: pointer;
-  grid-gap:1px;
   background-color:silver;
 
 }
@@ -288,7 +286,7 @@ body {
   grid-column: 6 / span 2;
   display: grid!important;
   grid-template-columns: 50% 50%;
-  border:solid 4px #000000;
+  /* border:solid 4px #000000; */
 }
 .NewOrderTotal span{
   display: flex;
@@ -1170,7 +1168,6 @@ body {
 .Main {
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 8vh auto 30vh;
   min-width: 100vw;
   top: 0px;
   bottom: 0px;
@@ -1178,7 +1175,6 @@ body {
   right: 0px;
   margin: auto;
   position: absolute;
-  background-color: #7d00a3;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -1341,7 +1337,6 @@ body {
 
 .Menu_label {
   background: linear-gradient(to right, rgba(206, 219, 233, 1) 0%, rgba(57, 191, 144, 1) 0%, rgba(97, 198, 154, 1) 30%, rgba(67, 216, 151, 1) 44%, rgba(76, 239, 158, 1) 61%, rgba(58, 196, 148, 1) 84%, rgba(39, 140, 74, 1) 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   padding: 1px;
   border: solid 3px #004127;
 }
@@ -1349,7 +1344,7 @@ body {
 .Menu_label_management {
   background: linear-gradient(to right, #c8a4d1 0%, #e3cfe8 0%, #ae7dbb 21%, #ae7dbb 32%, #965ca4 42%, #7e408d 51%, #672976 65%, #511660 77%, #3c0949 88%, #290133 100%);
   padding: 10px;
-  border: solid 5px #320041;
+  border: solid 4px #320041;
   font-size: 18px;
   color: #000000;
   display: grid;
@@ -1552,7 +1547,7 @@ body {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: auto auto;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 3px;
   box-shadow: 0.5px 0.5px 3px #000;
   background: rgb(211, 210, 210);
@@ -2118,12 +2113,11 @@ body {
 /*************************** Management *****************************/
 .ManagementBody {
   display: grid;
-  grid-template-columns: 15.9vw 94vw;
+  grid-template-columns: 15% 85%;
   grid-template-rows: 8vh 0px auto 10vh;
   background-color: rgb(255, 255, 255);
   width: 100vw;
-  height: 100vh;
-  grid-gap: 0.1vw;
+  grid-gap:1px;
 }
 
 .ManagementDrawer {
@@ -2133,6 +2127,7 @@ body {
 
 .ManagementHeader {
   grid-column: 1 / span 2;
+  height: 100%;
 }
 
 .ManagementHeader {
@@ -2142,15 +2137,19 @@ body {
 
 .ManagementNavigation {
   background-color: rgb(214 153 255);
+  width: 100%;
+  display: flex;
 }
 
 .managementNavigationmenu {
-  background-color: rgb(214 153 255);
+  background-color: #c0c0c0;
   list-style-type: none;
   padding-left: 0px;
   font-size: 18px;
   color: #ffffff;
   margin: 0 !important;
+  width: 100%;
+  box-sizing: border-box;
 }
 .drawer{
   display: none;
@@ -2186,7 +2185,10 @@ body {
 
 .ManagementMainMenu {
   background-color: #ccc;
-  width: 88%;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .ManagementDrawer svg {
@@ -2210,24 +2212,28 @@ body {
 
 .AccountTable_head {
   display: grid;
-  grid-template-columns: 0vw 10% 16.66% 16.66% 16.66% 16.66% 16.66% 16.66% 16.66%;
-  grid-gap: 2px;
+  grid-template-columns: 0% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28%;
+  width:100%;
+  grid-gap: 0px;
   background-color: #320041;
+  box-sizing: border-box;
 }
 
 .AccountTable_head div {
   color: #ffffff;
   background-color: #49005f;
   padding: 10px;
+  margin:1px;
 }
 
 .AccountTable_body {
   display: grid;
-  grid-template-columns: 0vw 10% 16.66% 16.66% 16.66% 16.66% 16.66% 16.66% 16.66%;
-  grid-gap: 2px;
+  grid-template-columns: 0% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28% 14.28%;
+  grid-gap: 0px;
   background-color: #f1f1f1;
   cursor: pointer;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .AccountTable_body div{
@@ -2236,40 +2242,47 @@ body {
   overflow: hidden;          /* Ensures any overflow content is hidden */
   text-overflow: ellipsis!important;   /* Adds the ellipsis (...) when the text overflows */
   max-width: 100%;
+  margin:1px;
 }
 
 
 
 .InventoryHead {
   display: grid;
-  grid-template-columns: 2vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw;
-  grid-gap: 2px;
+  width:100%;
+  grid-template-columns: 4% 12% 12% 12% 12% 12% 12% 12% 12%;
+  grid-gap: 0px;
   background-color: #320041;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .InventoryHead div {
   color: #ffffff;
   background-color: #511660;
   padding: 10px;
+  margin: 1px;
 }
 
 .InventoryHead_child {
   display: grid;
-  grid-template-columns: 6vw 8vw 8vw 8vw 8vw 8vw 7vw 6vw 7vw 8vw 7vw;
-  grid-gap: 2px;
+  grid-template-columns: 9.09% 9.09% 9.09% 9.09% 9.09% 9.09% 9.09% 9.09% 9.09% 9.09% 9.09%;
+  grid-gap: 0px;
   background-color: #320041;
+  box-sizing: border-box;
 }
 
 .InventoryHead_child div {
   color: #ffffff;
   background-color: #59278c;
   padding: 10px;
+  margin: 1px;
 }
 
 .InventoryBody {
   display: grid;
-  grid-template-columns: 2vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw 10vw;
-  grid-gap: 2px;
+  grid-template-columns: 4% 12% 12% 12% 12% 12% 12% 12% 12%;
+  grid-gap: 0px;
   background-color: #f1f1f1;
   cursor: pointer;
 }
@@ -2317,12 +2330,15 @@ body {
 }
 .InventoryBody_child {
   display: grid;
-  grid-template-columns: 6vw 8vw 8vw 8vw 8vw 8vw 7vw 6vw 7vw 8vw 7vw;
-  grid-gap: 2px;
+  grid-template-columns: 9.09% 9.09% 9.09% 9.09% 9.09% 9.09% 9.09% 9.09% 9.09% 9.09% 9.09%;
+  grid-gap: 0px;
   background-color: #f1f1f1;
   cursor: pointer;
 }
-
+.InventoryBody_child div{
+  padding: 10px;
+  margin: 1px;
+}
 .InventoryBody_child:hover {
   background-color: rgb(98, 0, 255);
 }
